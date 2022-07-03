@@ -5,54 +5,64 @@ using Photon.Pun;
 
 public enum EnemyType { A, B, C, D, E }
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviourPun, IPunObservable
 {
-    PhotonView PV;
-    [SerializeField]
-    private List<EnemyData> enemyDatas;
-    [SerializeField]
-    private GameObject enemyPrefab;
+    public GameObject enemyPrefab;
+    public GameObject spawnPointSet;
 
     [SerializeField]
-    private GameObject spawnPositionSet;
+    public List<EnemyData> enemyDatas;
     [SerializeField]
-    private List<Transform> spawnPositionList;
+    private List<Transform> spawnPointList;
+    [SerializeField]
+    private List<Enemy> enemies = new List<Enemy>();
+    private int enemyCount = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        if(!PhotonNetwork.IsMasterClient) return;
-        Debug.Log("Start");
-        PV = PhotonView.Get(this);
-        InitializeSpawnPosition();
-        PV.RPC("SpawnEnemy", RpcTarget.All);
-    }
-
-    [PunRPC]
-    public void SpawnEnemy()
-    {
-        for(int i=0; i<enemyDatas.Count; i++)
-       {
-            Transform spawnPosition = spawnPositionList[i];
-            var newEnemy = PhotonNetwork.Instantiate("Enemy", spawnPosition.position, spawnPosition.rotation).GetComponent<Enemy>();
-            //newEnemy.enemyData = enemyDatas[i];
-            //newEnemy.gameObject.GetComponent<EnemyMovement>().enemyData = enemyDatas[i];
-            SetEnemyData(newEnemy, enemyDatas[i]);
-            newEnemy.PrintEnemyData();
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if(stream.IsWriting) {
+            stream.SendNext(enemies.Count);
+        } else {
+            enemyCount = (int) stream.ReceiveNext();
         }
     }
-    public void SetEnemyData(Enemy enemy, EnemyData _enemyData)
+
+    private void Start()
     {
-        enemy.enemyData = _enemyData;
-        enemy.gameObject.GetComponent<EnemyMovement>().enemyData = _enemyData;
-        enemy.name = enemy.enemyData.EnemyName;
+        if (PhotonNetwork.IsMasterClient) {
+            InitializeSpawnPosition();
+            Invoke("SpawnEnemy", 5);
+        }
+    }
+
+    private void Update() {
+        if(PhotonNetwork.IsMasterClient) {
+            if(GameManager.instance != null && GameManager.instance.isGameover) {
+                return;
+            }
+        }
+    }
+
+    public void SpawnEnemy()
+    {
+        int enemyID = Random.Range(0, spawnPointList.Count);
+        Transform spawnPoint = spawnPointList[enemyID];
+        GameObject createdEnemy = PhotonNetwork.Instantiate(enemyPrefab.gameObject.name, spawnPoint.position, spawnPoint.rotation);
+        Enemy enemy = createdEnemy.GetComponent<Enemy>();
+
+        EnemyData enemyData = enemyDatas[enemyID];
+        // 수정하기!!
+        // 게임이 시작되자마자 몬스터가 생기면 그 다음 들어오는 플레이어에게는 이 함수가 호출되지 않음
+        // 모든 플레이어가 동시에 게임이 시작되도록 수정해야함
+        enemy.photonView.RPC("Setup", RpcTarget.All, enemyData.EnemyName, enemyData.Hp, enemyData.Damage, enemyData.SightRange, enemyData.SightAngle, enemyData.MoveSpeed);
+        //
+        enemy.PrintEnemyData();
+        enemies.Add(enemy);
     }
 
     public void InitializeSpawnPosition()
     {
-        foreach (Transform area in spawnPositionSet.transform)
-        {
-            spawnPositionList.Add(area);
+        for(int i=0; i < spawnPointSet.transform.childCount; i++) {
+            spawnPointList.Add(spawnPointSet.transform.GetChild(i).gameObject.transform);
         }
     }
 }

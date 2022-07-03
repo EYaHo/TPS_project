@@ -8,7 +8,6 @@ public class EnemyMovement : MonoBehaviour
 {
     PhotonView PV;
 
-    public EnemyData enemyData;
     NavMeshAgent agent;
 
     private bool isMove;
@@ -26,20 +25,19 @@ public class EnemyMovement : MonoBehaviour
         if(!PhotonNetwork.IsMasterClient) return;
         PV = PhotonView.Get(this);
     }
+
     private void Start()
     {
         if(!PhotonNetwork.IsMasterClient) return;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
-        Initialize();
     }
     
-    private void Initialize()
+    public void Initialize(float sightRange, float sightAngle, float moveSpeed)
     {
-        //enemyData = gameObject.GetComponent<Enemy>().enemyData;
-        agent.speed = enemyData.MoveSpeed;
-        sightAngle = enemyData.SightAngle;
-        sightRange = enemyData.SightRange;
+        this.sightRange = sightRange;
+        this.sightAngle = sightAngle;
+        agent.speed = moveSpeed;
     }
 
     void Update()

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5352331137499062314}
   - component: {fileID: 5352331137499062325}
   - component: {fileID: 5352331137499062324}
+  - component: {fileID: 1056764865156093252}
+  - component: {fileID: 8905056420176297793}
   - component: {fileID: 3657463055305498326}
   - component: {fileID: 8092846174809040634}
   - component: {fileID: 926294368036530175}
@@ -119,6 +121,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &1056764865156093252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e587112444a882f438c18d3486384629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verticalMoveAxisName: Vertical
+  horizontalMoveAxisName: Horizontal
+  rotateAxisName: Horizontal
+  jumpButtonName: Jump
+  fireButtonName: Fire1
+--- !u!114 &8905056420176297793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa171adcfd928c944a48c02af6a58dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  jumpForce: 100
 --- !u!114 &3657463055305498326
 MonoBehaviour:
   m_ObjectHideFlags: 0
