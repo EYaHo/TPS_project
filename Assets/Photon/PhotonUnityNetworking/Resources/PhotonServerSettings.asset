@@ -39,6 +39,13 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - SpawnEnemy
+  - Intialize
+  - SetDestination
+  - Move
+  - Initialize
+  - Sight
+  - Stare
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
