@@ -24,6 +24,15 @@ public class PlayerInput : MonoBehaviourPun
             return;
         }
 
+        if(GameManager.instance != null && GameManager.instance.isGameover) {
+            verticalMove = 0;
+            horizontalMove = 0;
+            rotate = 0;
+            jump = false;
+            fire = false;
+            return;
+        }
+
         verticalMove = Input.GetAxis(verticalMoveAxisName);
         horizontalMove = Input.GetAxis(horizontalMoveAxisName);
         rotate = Input.GetAxis(rotateAxisName);

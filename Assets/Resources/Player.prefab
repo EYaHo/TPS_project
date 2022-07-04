@@ -13,8 +13,12 @@ GameObject:
   - component: {fileID: 5352331137499062314}
   - component: {fileID: 5352331137499062325}
   - component: {fileID: 5352331137499062324}
-  - component: {fileID: 6540015062749336399}
+  - component: {fileID: 1056764865156093252}
+  - component: {fileID: 8905056420176297793}
   - component: {fileID: 3657463055305498326}
+  - component: {fileID: 8092846174809040634}
+  - component: {fileID: 926294368036530175}
+  - component: {fileID: 6955203693822827252}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -117,7 +121,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &6540015062749336399
+--- !u!114 &1056764865156093252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,11 +130,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 5352331137499062327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c94a48e2ee7fb4c83e65f2c447065c, type: 3}
+  m_Script: {fileID: 11500000, guid: e587112444a882f438c18d3486384629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position:
-    m_InternalValue: {x: 0, y: 0, z: 0}
+  verticalMoveAxisName: Vertical
+  horizontalMoveAxisName: Horizontal
+  rotateAxisName: Horizontal
+  jumpButtonName: Jump
+  fireButtonName: Fire1
+--- !u!114 &8905056420176297793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa171adcfd928c944a48c02af6a58dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  jumpForce: 100
 --- !u!114 &3657463055305498326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,3 +168,54 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &8092846174809040634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18497516548bbaf47b5f199ae5bc52f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &926294368036530175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 2
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 6955203693822827252}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &6955203693822827252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
