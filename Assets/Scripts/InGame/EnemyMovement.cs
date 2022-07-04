@@ -27,14 +27,16 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private void Start()
-    {
+    {/*
         if(!PhotonNetwork.IsMasterClient) return;
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
+        agent.updateRotation = false;*/
     }
     
     public void Initialize(float sightRange, float sightAngle, float moveSpeed)
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
         this.sightRange = sightRange;
         this.sightAngle = sightAngle;
         agent.speed = moveSpeed;
