@@ -5,12 +5,16 @@ using Photon.Pun;
 
 public class PlayerInput : MonoBehaviourPun
 {
+    public string verticalRotateAxisName = "Mouse X";
+    public string horizontalRotateAxisName = "Mouse Y";
     public string verticalMoveAxisName = "Vertical";
     public string horizontalMoveAxisName = "Horizontal";
     public string rotateAxisName = "Horizontal";
     public string jumpButtonName = "Jump";
     public string fireButtonName = "Fire1";
 
+    public float verticalRotate { get; private set; }
+    public float horizontalRotate { get; private set; }
     public float verticalMove { get; private set; }
     public float horizontalMove { get; private set; }
     public float rotate { get; private set; }
@@ -33,10 +37,12 @@ public class PlayerInput : MonoBehaviourPun
             return;
         }
 
+        verticalRotate = Input.GetAxis(verticalRotateAxisName);
+        horizontalRotate = Input.GetAxis(horizontalRotateAxisName);
         verticalMove = Input.GetAxis(verticalMoveAxisName);
         horizontalMove = Input.GetAxis(horizontalMoveAxisName);
         rotate = Input.GetAxis(rotateAxisName);
-        jump = Input.GetButton(jumpButtonName);
+        jump = Input.GetButtonDown(jumpButtonName);
         fire = Input.GetButton(fireButtonName);
     }
 }
