@@ -29,12 +29,13 @@ public class Enemy : MonoBehaviourPun
         this.sightRange = sightRange;
         this.sightAngle = sightAngle;
         this.moveSpeed = moveSpeed;
-        //enemyMovement.Initialize(sightRange, sightAngle, moveSpeed);
+        enemyMovement = GetComponent<EnemyMovement>();
+        enemyMovement.Initialize(sightRange, sightAngle, moveSpeed);
     }
 
     public void PrintEnemyData()
     {
-        Debug.Log("좀비이름 :: " + enemyName);
+        Debug.Log("몬스터이름 :: " + enemyName);
         Debug.Log("체력 :: " + hp);
         Debug.Log("공격력 :: " + damage);
         Debug.Log("시야 :: " + sightRange);
