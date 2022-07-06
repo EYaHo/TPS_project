@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     private void Start() {
+        Cursor.lockState = CursorLockMode.Locked;
+
         Vector3 randomSpawnPos = Random.insideUnitSphere * 5f;
         randomSpawnPos.y = 5f;
 
