@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviourPun
     private float verticalMouseMove = 0f;
 
     [SerializeField]
-    private bool is_jumping = false;
+    private bool on_ground = false;
     [SerializeField]
     private int num_max_jump = 2;
     [SerializeField]
@@ -57,16 +57,19 @@ public class PlayerMovement : MonoBehaviourPun
         if(playerInput.jump && num_remain_jump > 0) {
             playerRigidbody.AddForce(jumpForce * transform.up, ForceMode.Impulse);
             num_remain_jump--;
-            is_jumping = true;
+            on_ground = false;
         }
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.CompareTag("Ground")) {
-            is_jumping = false;
-            num_remain_jump = num_max_jump;
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.CompareTag("Ground")) {
+            RaycastHit hitData;
+            if(Physics.Raycast(transform.position, new Vector3(0f, -1f, 0f), out hitData, 2f)) {
+                if(hitData.transform.gameObject.CompareTag("Ground")) {
+                    on_ground = false;
+                    num_remain_jump = num_max_jump;
+                }
+            }
         }
-        // 땅하고 닿으면 is_jumping = false;
-        // 발에 닿은 경우에만 !!!
     }
 }
