@@ -11,14 +11,20 @@ public class EnemyMovement : MonoBehaviour
     NavMeshAgent agent;
 
     private bool isMove;
+    private bool isAttacking;
+    private bool alreadyAttack;
     private Vector3 destination;
 
     [SerializeField] float sightAngle;
     [SerializeField] float sightRange;
+    [SerializeField] float attackRange;
+    [SerializeField] float attackForeDelay;
+    [SerializeField] float attackBackDelay;
     [SerializeField] LayerMask layerMask;
 
     public GameObject target;
     public Transform eyes;
+    private float delayTimer;
 
     private void Awake()
     {
@@ -39,27 +45,60 @@ public class EnemyMovement : MonoBehaviour
         agent.updateRotation = false;
         this.sightRange = sightRange;
         this.sightAngle = sightAngle;
+        this.attackRange = 2.0f;
+        this.attackForeDelay = 1.0f;
+        this.attackBackDelay = 1.5f;
         agent.speed = moveSpeed;
-    }
+        //agent.stoppingDistance = attackRange;
 
+        delayTimer = 0.0f;
+    }
+/*
     void Update()
     {   
-        if(!PhotonNetwork.IsMasterClient) return;
-        if(target!=null)
-        {
-            SetDestination(target.transform.position);
-        }
+        
     }
-
+*/
     private void FixedUpdate() {
         if(!PhotonNetwork.IsMasterClient) return;
         if(target==null) Sight();
         Stare();
+
+        //if(!PhotonNetwork.IsMasterClient) return;
+        if(isAttacking)
+        {
+            delayTimer += Time.deltaTime;
+            if(!alreadyAttack && delayTimer>=attackForeDelay)
+            {
+                delayTimer = 0.0f;
+                Attack();
+                alreadyAttack = true;
+            }
+            if(alreadyAttack && delayTimer>=attackBackDelay)
+            {
+                delayTimer = 0.0f;
+                isAttacking = false;
+                alreadyAttack = false;
+                Debug.Log("Chase again");
+            }
+        }
+        else
+        {
+            if(target!=null)
+            {
+                //SetDestination(target.transform.position);
+                Chase();
+            }
+            else
+            {
+                Roam();
+            }
+        }
     }
 
     private void Sight()
     {
-        Collider[] targets = Physics.OverlapSphere(transform.position, sightRange, layerMask);
+        Collider[] targets = Physics.OverlapSphere(transform.position, sightRange, layerMask); //layerMask = Player
         if(targets.Length > 0)
         {
             for(int i=0; i<targets.Length; i++)
@@ -105,5 +144,31 @@ public class EnemyMovement : MonoBehaviour
             Quaternion q = Quaternion.LookRotation(dir);
             transform.rotation = q;
         }
+    }
+
+    private void Chase()
+    {
+        Vector3 targetPosition = target.transform.position;
+        Vector3 distance = targetPosition - transform.position;
+
+        if(distance.magnitude-0.1 <= attackRange)
+        {
+            Debug.Log("Start Attack");
+            isAttacking = true;
+            return;
+        }
+
+        Vector3 direction = distance.normalized;
+        Vector3 dest = targetPosition - (direction * attackRange);
+        SetDestination(dest);
+    }
+    private void Attack()
+    {
+        Debug.Log("Attack!");
+    }
+
+    private void Roam()
+    {
+        //일정 범위를 배회하도록.
     }
 }
