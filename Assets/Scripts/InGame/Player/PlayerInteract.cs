@@ -6,11 +6,7 @@ using TMPro;
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI interactText;
-
-    private void Start() {
-        interactText = GameObject.Find("InteractText").GetComponent<TextMeshProUGUI>();
-    }
+    public TextMeshProUGUI interactText;
 
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Item")) {
