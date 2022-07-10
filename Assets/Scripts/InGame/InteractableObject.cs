@@ -9,4 +9,8 @@ public class InteractableObject : MonoBehaviour
     public string GetInteractString() {
         return interactString;
     }
+
+    public virtual void Interact() {
+        
+    }
 }
