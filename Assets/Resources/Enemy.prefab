@@ -322,6 +322,7 @@ MonoBehaviour:
     m_Bits: 64
   targetEntity: {fileID: 0}
   eyes: {fileID: 0}
+  isTargetInAttackRange: 0
 --- !u!114 &3646250638607942395
 MonoBehaviour:
   m_ObjectHideFlags: 0
