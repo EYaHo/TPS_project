@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Enemy : MonoBehaviourPun
+public class Enemy : LivingEntity
 {
-    [SerializeField]
     private EnemyMovement enemyMovement;
 
     public string enemyName;
@@ -30,7 +29,7 @@ public class Enemy : MonoBehaviourPun
         this.sightAngle = sightAngle;
         this.moveSpeed = moveSpeed;
         enemyMovement = GetComponent<EnemyMovement>();
-        enemyMovement.Initialize(sightRange, sightAngle, moveSpeed);
+        enemyMovement.Initialize(damage, sightRange, sightAngle, moveSpeed);
     }
 
     public void PrintEnemyData()
