@@ -5,6 +5,8 @@ using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviourPun
 {
+    public Transform targetOfCam;
+
     public float moveSpeed = 10f;
     public float jumpForce = 100f;
     public float verticalRotateSpeed = 10f;
@@ -13,6 +15,7 @@ public class PlayerMovement : MonoBehaviourPun
     private Rigidbody playerRigidbody;
 
     private float verticalMouseMove = 0f;
+    private float horizontalMouseMove = 0f;
 
     [SerializeField]
     private bool on_ground = false;
@@ -25,6 +28,7 @@ public class PlayerMovement : MonoBehaviourPun
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
+        targetOfCam = transform.GetChild(3);
         num_remain_jump = num_max_jump;
     }
 
@@ -50,7 +54,9 @@ public class PlayerMovement : MonoBehaviourPun
 
     private void Rotate() {
         verticalMouseMove += verticalRotateSpeed * playerInput.verticalRotate;
+        horizontalMouseMove += horizontalRotateSpeed * playerInput.horizontalRotate;
         transform.rotation = Quaternion.Euler(0, verticalMouseMove, 0);
+        targetOfCam.rotation = Quaternion.Euler(-1*horizontalMouseMove,verticalMouseMove,0);
     }
 
     private void Jump() {
