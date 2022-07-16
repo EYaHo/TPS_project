@@ -5,14 +5,18 @@ using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviourPun
 {
+    public Transform targetOfCam;
+
     public float moveSpeed = 10f;
     public float jumpForce = 100f;
     public float verticalRotateSpeed = 10f;
     public float horizontalRotateSpeed = 2f;
     private PlayerInput playerInput;
     private Rigidbody playerRigidbody;
+    private GunController gunController;
 
     private float verticalMouseMove = 0f;
+    private float horizontalMouseMove = 0f;
 
     [SerializeField]
     private bool on_ground = false;
@@ -25,12 +29,22 @@ public class PlayerMovement : MonoBehaviourPun
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
+        gunController = GetComponent<GunController>();
+        //targetOfCam = transform.GetChild(3);
         num_remain_jump = num_max_jump;
     }
 
     void Update()
     {
+        if(!photonView.IsMine)
+        {
+            return;
+        }
+
+        Rotate();
+        gunController.TraceAim();
         Jump();
+        //Fire();
     }
 
     private void FixedUpdate() {
@@ -39,7 +53,6 @@ public class PlayerMovement : MonoBehaviourPun
             return;
         }
 
-        Rotate();
         Move();
     }
 
@@ -50,7 +63,15 @@ public class PlayerMovement : MonoBehaviourPun
 
     private void Rotate() {
         verticalMouseMove += verticalRotateSpeed * playerInput.verticalRotate;
+        horizontalMouseMove += horizontalRotateSpeed * playerInput.horizontalRotate;
+        if(Mathf.Abs(horizontalMouseMove)>=80) {
+            if(horizontalMouseMove<0)
+                horizontalMouseMove = -80;
+            else
+                horizontalMouseMove = 80;
+        }
         transform.rotation = Quaternion.Euler(0, verticalMouseMove, 0);
+        targetOfCam.rotation = Quaternion.Euler(-1*horizontalMouseMove,verticalMouseMove,0);
     }
 
     private void Jump() {
@@ -59,6 +80,11 @@ public class PlayerMovement : MonoBehaviourPun
             num_remain_jump--;
             on_ground = false;
         }
+    }
+
+    private void Fire() {
+        //if(playerInput.fire)
+            //Debug.Log(gunController.GetAimPoint());
     }
 
     private void OnCollisionEnter(Collision other) {
