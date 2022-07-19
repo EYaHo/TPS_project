@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 2129553893955934209}
   m_Layer: 0
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -695,9 +695,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGun: {fileID: 1002404234181138689}
+  bulletPrefab: {fileID: 3122080028253504167, guid: b41ce09d0caa4eb4ab17defa5ca7d323, type: 3}
   layerMask:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 384
   attackRange: 0
 --- !u!114 &926294368036530175
 MonoBehaviour:

@@ -42,9 +42,8 @@ public class PlayerMovement : MonoBehaviourPun
         }
 
         Rotate();
-        gunController.TraceAim();
         Jump();
-        //Fire();
+        Fire();
     }
 
     private void FixedUpdate() {
@@ -83,8 +82,13 @@ public class PlayerMovement : MonoBehaviourPun
     }
 
     private void Fire() {
-        //if(playerInput.fire)
-            //Debug.Log(gunController.GetAimPoint());
+        gunController.GunFireRateCalc();
+        Vector3 aimPoint = gunController.GetAimPoint();
+        gunController.TraceAim(aimPoint);
+        if(playerInput.fire)
+        {
+            gunController.Fire(aimPoint);
+        }
     }
 
     private void OnCollisionEnter(Collision other) {
