@@ -7,7 +7,8 @@ public class GunController : MonoBehaviour
 {
     [SerializeField]
     private GameObject playerGun;
-    Transform muzzle;
+    private Transform muzzle;
+    public GameObject bulletPrefab;
 
     [SerializeField]
     LayerMask layerMask;
@@ -16,6 +17,7 @@ public class GunController : MonoBehaviour
     private Camera cam;
 
     public float attackRange;
+    float currentFireRate;
 
     private void Awake() {
         muzzle = playerGun.transform.GetChild(1);
@@ -23,6 +25,7 @@ public class GunController : MonoBehaviour
         cameraSetup = GetComponent<CameraSetup>();
         cam = cameraSetup.followCam.gameObject.GetComponent<Camera>();
         attackRange = 30f;
+        currentFireRate = 1f;
     }
     private void Start() {
 
@@ -36,19 +39,19 @@ public class GunController : MonoBehaviour
         if(Physics.Raycast(ray, out hitData, attackRange, layerMask))
         {
             aimPoint = hitData.point;
-            Debug.Log(hitData.transform.name+", "+aimPoint);
+            //Debug.Log(hitData.transform.name+", "+aimPoint);
         }
         else
         {
             aimPoint = ray.origin + ray.direction * attackRange;
-            Debug.Log("null, "+aimPoint);
+            //Debug.Log("null, "+aimPoint);
         }
         
         return aimPoint;
     }
 
-    public void TraceAim() {
-        Vector3 aimPoint = GetAimPoint();
+    public void TraceAim(Vector3 aimPoint) {
+        //Vector3 aimPoint = GetAimPoint();
         Vector3 direction = (aimPoint - playerGun.transform.position).normalized;
 
         Quaternion preRot = playerGun.transform.rotation;
@@ -57,5 +60,27 @@ public class GunController : MonoBehaviour
         Quaternion rot = Quaternion.Slerp(preRot, nextRot, 0.1f);
         
         playerGun.transform.rotation = rot;
+    }
+
+    public void Shoot(Vector3 aimPoint) {
+        //Vector3 aimPoint = GetAimPoint();
+        GameObject createdBullet = PhotonNetwork.Instantiate(bulletPrefab.gameObject.name, muzzle.position, muzzle.rotation);
+        Bullet bullet = createdBullet.GetComponent<Bullet>();
+        bullet.photonView.RPC("Setup", RpcTarget.All, aimPoint, attackRange);
+        currentFireRate = 1f;
+    }
+
+    public void Fire(Vector3 aimPoint)
+    {
+        if(currentFireRate <= 0)
+        {
+            Shoot(aimPoint);
+        }
+    }
+
+    public void GunFireRateCalc()
+    {
+        if (currentFireRate > 0)
+            currentFireRate -= Time.deltaTime;
     }
 }
