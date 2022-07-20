@@ -3,84 +3,84 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class GunController : MonoBehaviour
+public class GunController : MonoBehaviourPun
 {
     [SerializeField]
-    private GameObject playerGun;
     private Transform muzzle;
     public GameObject bulletPrefab;
 
     [SerializeField]
     LayerMask layerMask;
     
-    private CameraSetup cameraSetup;
     private Camera cam;
 
-    public float attackRange;
-    float currentFireRate;
+    public float attackRange = 30f;
+    public float fireTimeInterval = 1f;
+    private float lastFireTime;
+
+    private Vector3 aimVector;
 
     private void Awake() {
-        muzzle = playerGun.transform.GetChild(1);
+        muzzle = transform.GetChild(1);
 
-        cameraSetup = GetComponent<CameraSetup>();
-        cam = cameraSetup.followCam.gameObject.GetComponent<Camera>();
-        attackRange = 30f;
-        currentFireRate = 1f;
-    }
-    private void Start() {
-
+        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
-    public Vector3 GetAimPoint() {
-        Vector3 aimPoint;
+    private void Update() {
+        if(!photonView.IsMine)
+        {
+            return;
+        }
+
+        Debug.DrawRay(transform.position, aimVector * 20f, Color.red);
+        CalcAimVector();
+        TraceAim();
+    }
+
+    private void OnEnable() {
+        lastFireTime = 0;
+    }
+
+    public void CalcAimVector() {
         RaycastHit hitData;
         Ray ray = cam.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
+        Vector3 aimPoint;
 
         if(Physics.Raycast(ray, out hitData, attackRange, layerMask))
         {
             aimPoint = hitData.point;
-            //Debug.Log(hitData.transform.name+", "+aimPoint);
         }
         else
         {
             aimPoint = ray.origin + ray.direction * attackRange;
-            //Debug.Log("null, "+aimPoint);
         }
         
-        return aimPoint;
+        aimVector = (aimPoint - transform.position).normalized;
     }
 
-    public void TraceAim(Vector3 aimPoint) {
-        //Vector3 aimPoint = GetAimPoint();
-        Vector3 direction = (aimPoint - playerGun.transform.position).normalized;
-
-        Quaternion preRot = playerGun.transform.rotation;
-        Quaternion nextRot = Quaternion.LookRotation(direction);
-
+    // aim을 따라 플레이어의 총을 회전시킨다.
+    public void TraceAim() {
+        Quaternion preRot = transform.rotation;
+        Quaternion nextRot = Quaternion.LookRotation(aimVector);
         Quaternion rot = Quaternion.Slerp(preRot, nextRot, 0.1f);
         
-        playerGun.transform.rotation = rot;
+        transform.rotation = rot;
     }
 
-    public void Shoot(Vector3 aimPoint) {
-        //Vector3 aimPoint = GetAimPoint();
-        GameObject createdBullet = PhotonNetwork.Instantiate(bulletPrefab.gameObject.name, muzzle.position, muzzle.rotation);
+    // 총알 생성
+    // 총알의 방향은 총의 방향과 같도록
+    public void Shoot() {
+        GameObject createdBullet = PhotonNetwork.Instantiate(bulletPrefab.gameObject.name, muzzle.position, transform.rotation);
         Bullet bullet = createdBullet.GetComponent<Bullet>();
-        bullet.photonView.RPC("Setup", RpcTarget.All, aimPoint, attackRange);
-        currentFireRate = 1f;
+        bullet.photonView.RPC("Setup", RpcTarget.All, attackRange);
     }
 
-    public void Fire(Vector3 aimPoint)
+    public void Fire()
     {
-        if(currentFireRate <= 0)
+        if(Time.time >= lastFireTime + fireTimeInterval)
         {
-            Shoot(aimPoint);
+            lastFireTime = Time.time;
+            Shoot();
         }
-    }
-
-    public void GunFireRateCalc()
-    {
-        if (currentFireRate > 0)
-            currentFireRate -= Time.deltaTime;
     }
 }
