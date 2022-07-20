@@ -206,6 +206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2129553893955934209}
+  - component: {fileID: 2059696932650946525}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Weapon
@@ -230,6 +231,25 @@ Transform:
   m_Father: {fileID: 5352331137499062312}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2059696932650946525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002404234181138689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b558c32b265b0534288c78c0ab68c645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  muzzle: {fileID: 0}
+  bulletPrefab: {fileID: 3122080028253504167, guid: b41ce09d0caa4eb4ab17defa5ca7d323, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 384
+  attackRange: 30
+  fireTimeInterval: 1
 --- !u!1 &1831215300425842322
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,6 +527,7 @@ GameObject:
   - component: {fileID: 6955203693822827252}
   - component: {fileID: 2721983955573791418}
   - component: {fileID: 4132571221110126371}
+  - component: {fileID: 7819450821971473574}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -694,12 +715,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b558c32b265b0534288c78c0ab68c645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerGun: {fileID: 1002404234181138689}
+  muzzle: {fileID: 0}
   bulletPrefab: {fileID: 3122080028253504167, guid: b41ce09d0caa4eb4ab17defa5ca7d323, type: 3}
   layerMask:
     serializedVersion: 2
     m_Bits: 384
-  attackRange: 0
+  attackRange: 30
+  fireTimeInterval: 1
 --- !u!114 &926294368036530175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,6 +788,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: {fileID: 1509340231984311118}
+--- !u!114 &7819450821971473574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60cf850b5dc71f3459397c397c77c606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunController: {fileID: 0}
 --- !u!1 &5674600873166414637
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,7 +814,7 @@ GameObject:
   - component: {fileID: 6249076894392087006}
   m_Layer: 0
   m_Name: InteractArea
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1000,7 +1035,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 8451916282793670694}
   m_HandleRect: {fileID: 0}
