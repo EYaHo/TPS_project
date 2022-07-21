@@ -7,7 +7,9 @@ using Photon.Pun;
 public class LivingEntity : MonoBehaviourPun, IDamageable
 {
     public float maxHealth = 100f;
+    [SerializeField]
     public float health { get; protected set; }
+    [SerializeField]
     public bool dead { get; protected set; }
     public event Action onDeath;
 

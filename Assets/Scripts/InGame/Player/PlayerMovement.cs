@@ -61,14 +61,15 @@ public class PlayerMovement : MonoBehaviourPun
     private void Rotate() {
         verticalMouseMove += verticalRotateSpeed * playerInput.verticalRotate;
         horizontalMouseMove += horizontalRotateSpeed * playerInput.horizontalRotate;
-        if(Mathf.Abs(horizontalMouseMove)>=80) {
-            if(horizontalMouseMove<0)
-                horizontalMouseMove = -80;
-            else
-                horizontalMouseMove = 80;
+        
+        if(horizontalMouseMove >= 80f) {
+            horizontalMouseMove = 80f;
+        } else if(horizontalMouseMove <= -80f) {
+            horizontalMouseMove = -80f;
         }
+
         transform.rotation = Quaternion.Euler(0, verticalMouseMove, 0);
-        targetOfCam.rotation = Quaternion.Euler(-1*horizontalMouseMove,verticalMouseMove,0);
+        targetOfCam.rotation = Quaternion.Euler(-1 * horizontalMouseMove, verticalMouseMove, 0);
     }
 
     private void Jump() {

@@ -46,7 +46,7 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
     {
         int enemyID = Random.Range(0, enemyDatas.Count);
         int spawnPointIdx = Random.Range(0, spawnPointList.Count);
-        Transform spawnPoint = spawnPointList[enemyID];
+        Transform spawnPoint = spawnPointList[spawnPointIdx];
         GameObject createdEnemy = PhotonNetwork.Instantiate(enemyPrefab.gameObject.name, spawnPoint.position, spawnPoint.rotation);
         Enemy enemy = createdEnemy.GetComponent<Enemy>();
 
