@@ -6,8 +6,6 @@ using Photon.Pun;
 
 public class EnemyMovement : MonoBehaviour
 {
-    PhotonView PV;
-
     NavMeshAgent navMeshAgent;
 
     private bool isMove;
@@ -46,8 +44,6 @@ public class EnemyMovement : MonoBehaviour
     {
         enemyHealth = GetComponent<EnemyHealth>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-        if(!PhotonNetwork.IsMasterClient) return;
-        PV = PhotonView.Get(this);
     }
 
     private void Start()
@@ -67,49 +63,14 @@ public class EnemyMovement : MonoBehaviour
         this.attackForeDelay = 1.0f;
         this.attackBackDelay = 1.5f;
         navMeshAgent.speed = moveSpeed;
-        //agent.stoppingDistance = attackRange;
     }
 
     private void FixedUpdate() {
+        if(!PhotonNetwork.IsMasterClient) return;
+
         UpdateRotation();
         CheckTargetInAttackRange();
         UpdateAttack();
-        // if(!PhotonNetwork.IsMasterClient) return;
-        // if(target==null) Sight();
-
-        // if(isAttacking)
-        // {
-        //     delayTimer += Time.deltaTime;
-        //     if(!alreadyAttack && delayTimer>=attackForeDelay)
-        //     {
-        //         delayTimer = 0.0f;
-        //         Attack();
-        //         alreadyAttack = true;
-        //     }
-        //     if(alreadyAttack && delayTimer>=attackBackDelay)
-        //     {
-        //         delayTimer = 0.0f;
-        //         isAttacking = false;
-        //         alreadyAttack = false;
-        //         Debug.Log("Chase again");
-        //     }
-        // }
-        // else
-        // {
-        //     if(target!=null)
-        //     {
-        //         //SetDestination(target.transform.position);
-        //         Chase();
-        //     }
-        //     else
-        //     {
-        //         Roam();
-        //     }
-        // }
-    }
-
-    private float CalcDistance(Transform targetTransform) {
-        return (targetTransform.position - transform.position).magnitude;
     }
 
     private void UpdateRotation() {
@@ -122,7 +83,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void CheckTargetInAttackRange() {
         if(targetEntity != null) {
-            if(CalcDistance(targetEntity.transform) <= attackRange) {
+            if(Vector3.Distance(targetEntity.transform.position, transform.position) <= attackRange) {
                 isTargetInAttackRange = true;
             } else {
                 isTargetInAttackRange = false;
@@ -203,7 +164,7 @@ public class EnemyMovement : MonoBehaviour
         Vector3 hitNormal = transform.position - targetCollider.transform.position;
 
         attackTarget.OnDamage(damage, hitPoint, hitNormal);
-        Debug.Log("Attack!");
+        Debug.Log("Attack!", attackTarget);
     }
 
     private void Roam()

@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviourPun
 {
     [SerializeField]
     private Item[] items;
 
-    // Start is called before the first frame update
+    public GameObject canvas;
+
+    private void Awake() {
+        if(!photonView.IsMine) {
+            canvas.SetActive(false);
+        }
+    }
+
     void Start()
     {
         
