@@ -30,7 +30,6 @@ public class PlayerMovement : MonoBehaviourPun
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         gunController = GetComponent<GunController>();
-        //targetOfCam = transform.GetChild(3);
         num_remain_jump = num_max_jump;
     }
 
@@ -43,7 +42,6 @@ public class PlayerMovement : MonoBehaviourPun
 
         Rotate();
         Jump();
-        Fire();
     }
 
     private void FixedUpdate() {
@@ -78,16 +76,6 @@ public class PlayerMovement : MonoBehaviourPun
             playerRigidbody.AddForce(jumpForce * transform.up, ForceMode.Impulse);
             num_remain_jump--;
             on_ground = false;
-        }
-    }
-
-    private void Fire() {
-        gunController.GunFireRateCalc();
-        Vector3 aimPoint = gunController.GetAimPoint();
-        gunController.TraceAim(aimPoint);
-        if(playerInput.fire)
-        {
-            gunController.Fire(aimPoint);
         }
     }
 
