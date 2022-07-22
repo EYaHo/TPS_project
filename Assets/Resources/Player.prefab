@@ -516,7 +516,6 @@ GameObject:
   - component: {fileID: 5352331137499062312}
   - component: {fileID: 5352331137499062315}
   - component: {fileID: 5352331137499062314}
-  - component: {fileID: 5352331137499062325}
   - component: {fileID: 5352331137499062324}
   - component: {fileID: 1056764865156093252}
   - component: {fileID: 8905056420176297793}
@@ -528,6 +527,8 @@ GameObject:
   - component: {fileID: 2721983955573791418}
   - component: {fileID: 4132571221110126371}
   - component: {fileID: 7819450821971473574}
+  - component: {fileID: 3654551112686153016}
+  - component: {fileID: 7424924294779644196}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -605,20 +606,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5352331137499062325
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5352331137499062327}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5352331137499062324
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -632,9 +619,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1056764865156093252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,6 +788,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunController: {fileID: 0}
+--- !u!65 &3654551112686153016
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7424924294779644196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352331137499062327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cce2ecb1d2d894fa6f471c0c80068a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  canvas: {fileID: 1831215300425842322}
 --- !u!1 &5674600873166414637
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,7 +885,6 @@ GameObject:
   - component: {fileID: 4046441035001502191}
   - component: {fileID: 3730832588043018488}
   - component: {fileID: 5811103835563835580}
-  - component: {fileID: 6364565276998502196}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -944,19 +957,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6364565276998502196
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6231098401256194168}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6987584690106777008
 GameObject:
   m_ObjectHideFlags: 0
