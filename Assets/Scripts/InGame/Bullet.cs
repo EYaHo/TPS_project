@@ -5,11 +5,11 @@ using Photon.Pun;
 
 public class Bullet : MonoBehaviourPunCallbacks
 {
-    public float damage = 10f;
     public float speed = 2f;
 
     private Vector3 startPosition;
     private float attackRange = 100f;
+    private float damage = 0f;
 
     private void Update() {
         transform.position += transform.forward * Time.deltaTime * speed;
@@ -20,8 +20,9 @@ public class Bullet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void Setup(float attackRange) {
+    public void Setup(float attackRange, float attackDamage) {
         this.attackRange = attackRange;
+        this.damage = attackDamage;
         startPosition = transform.position;
     }
 
