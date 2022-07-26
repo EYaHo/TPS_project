@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            PhotonNetwork.LeaveRoom();
+            //PhotonNetwork.LeaveRoom();
         }
     }
 
