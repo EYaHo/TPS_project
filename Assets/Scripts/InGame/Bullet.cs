@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviourPunCallbacks
     private Vector3 startPosition;
     private float attackRange = 100f;
     private bool isAlive;
+    private float damage = 0f;
 
     private void Update() {
         if(!isAlive) return;
