@@ -52,6 +52,13 @@ MonoBehaviour:
   - RestoreHealth
   - LoadGameScene
   - LoadTestScene
+  - SetActive
+  - shoot
+  - Release
+  - RPCshoot
+  - A
+  - Shoot
+  - RPCSetActive
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
