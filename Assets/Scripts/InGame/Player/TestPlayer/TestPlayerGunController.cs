@@ -11,7 +11,9 @@ public class TestPlayerGunController : GunController
     // 총알의 방향은 총의 방향과 같도록
     public override void Shoot() {
         GameObject createdBullet = PhotonNetwork.Instantiate(bulletPrefab.gameObject.name, muzzle.position, transform.rotation);
+        GameObject createdBullet = BulletPool.instance.GetBullet();
+
         Bullet bullet = createdBullet.GetComponent<Bullet>();
-        bullet.photonView.RPC("Setup", RpcTarget.All, attackRange, attackDamage);
+        bullet.photonView.RPC("Setup", RpcTarget.All, attackRange, attackDamage, muzzle.position, transform.rotation);
     }
 }
