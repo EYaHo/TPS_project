@@ -521,7 +521,6 @@ GameObject:
   - component: {fileID: 8905056420176297793}
   - component: {fileID: 3657463055305498326}
   - component: {fileID: 8092846174809040634}
-  - component: {fileID: 8341236787024118335}
   - component: {fileID: 926294368036530175}
   - component: {fileID: 6955203693822827252}
   - component: {fileID: 2721983955573791418}
@@ -690,25 +689,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followCam: {fileID: 0}
---- !u!114 &8341236787024118335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5352331137499062327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b558c32b265b0534288c78c0ab68c645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  muzzle: {fileID: 0}
-  bulletPrefab: {fileID: 3122080028253504167, guid: b41ce09d0caa4eb4ab17defa5ca7d323, type: 3}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 384
-  attackRange: 30
-  fireTimeInterval: 1
 --- !u!114 &926294368036530175
 MonoBehaviour:
   m_ObjectHideFlags: 0

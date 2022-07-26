@@ -70,9 +70,11 @@ public class GunController : MonoBehaviourPun
     // 총알 생성
     // 총알의 방향은 총의 방향과 같도록
     public void Shoot() {
-        GameObject createdBullet = PhotonNetwork.Instantiate(bulletPrefab.gameObject.name, muzzle.position, transform.rotation);
+        //GameObject createdBullet = PhotonNetwork.Instantiate(bulletPrefab.gameObject.name, muzzle.position, transform.rotation);
+        GameObject createdBullet = BulletPool.instance.GetBullet();
+        
         Bullet bullet = createdBullet.GetComponent<Bullet>();
-        bullet.photonView.RPC("Setup", RpcTarget.All, attackRange);
+        bullet.photonView.RPC("Setup", RpcTarget.All, attackRange, muzzle.position, transform.rotation);
     }
 
     public void Fire()
