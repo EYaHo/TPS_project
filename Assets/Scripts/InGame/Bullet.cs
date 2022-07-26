@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class Bullet : MonoBehaviourPunCallbacks
 {
-    public float damage = 10f;
     public float speed = 2f;
 
     private Vector3 startPosition;
@@ -23,8 +22,9 @@ public class Bullet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void Setup(float attackRange, Vector3 startPosition, Quaternion rot) {
+    public void Setup(float attackRange, float attackDamage, Vector3 startPosition, Quaternion rot) {
         this.attackRange = attackRange;
+        this.damage = attackDamage;
         this.transform.position = startPosition;
         this.startPosition = transform.position;
         this.transform.rotation = rot;

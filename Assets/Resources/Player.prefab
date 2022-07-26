@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7326126207990172002}
   m_Layer: 0
-  m_Name: Target of Cam
+  m_Name: TargetOfCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2129553893955934209}
-  - component: {fileID: 2059696932650946525}
+  - component: {fileID: 1600693027136925821}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Weapon
@@ -231,7 +231,7 @@ Transform:
   m_Father: {fileID: 5352331137499062312}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2059696932650946525
+--- !u!114 &1600693027136925821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,16 +240,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1002404234181138689}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b558c32b265b0534288c78c0ab68c645, type: 3}
+  m_Script: {fileID: 11500000, guid: c46097043451ee249b5f561779bea670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzle: {fileID: 0}
-  bulletPrefab: {fileID: 3122080028253504167, guid: b41ce09d0caa4eb4ab17defa5ca7d323, type: 3}
+  muzzle: {fileID: 4949069508225888206}
   layerMask:
     serializedVersion: 2
     m_Bits: 384
+  cam: {fileID: 0}
   attackRange: 30
+  attackDamage: 10
   fireTimeInterval: 1
+  bulletPrefab: {fileID: 0}
 --- !u!1 &1831215300425842322
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60cf850b5dc71f3459397c397c77c606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunController: {fileID: 0}
+  gunController: {fileID: 1600693027136925821}
 --- !u!65 &3654551112686153016
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -7,12 +7,11 @@ public class PlayerShooter : MonoBehaviourPun
 {
     private PlayerInput playerInput;
     [SerializeField]
-    private GunController gunController;
+    public GunController gunController;
 
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        gunController = transform.Find("Gun").gameObject.GetComponent<GunController>();
     }
 
     void Update()
