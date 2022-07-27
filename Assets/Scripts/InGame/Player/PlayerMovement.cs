@@ -8,9 +8,9 @@ public class PlayerMovement : MonoBehaviourPun
     public Transform targetOfCam;
 
     public float moveSpeed = 10f;
-    public float jumpForce = 100f;
-    public float verticalRotateSpeed = 10f;
-    public float horizontalRotateSpeed = 2f;
+    public float jumpForce = 6f;
+    public float verticalRotateSpeed = 4f;
+    public float horizontalRotateSpeed = 4f;
     private PlayerInput playerInput;
     private Rigidbody playerRigidbody;
     private GunController gunController;
