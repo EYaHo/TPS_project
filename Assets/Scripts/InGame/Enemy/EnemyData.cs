@@ -29,6 +29,10 @@ public class EnemyData : ScriptableObject
     private float moveSpeed;
     public float MoveSpeed { get { return moveSpeed; } }
 
+    [SerializeField]
+    private GameObject prefab;
+    public GameObject Prefab { get { return prefab; } }
+
     
 
 }
