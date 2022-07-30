@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public enum EnemyType { A, B, C, D, E }
+//public enum EnemyType { A, B, C, D, E }
 
 public class EnemySpawner : MonoBehaviourPun, IPunObservable
 {
@@ -47,10 +47,12 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
         int enemyID = Random.Range(0, enemyDatas.Count);
         int spawnPointIdx = Random.Range(0, spawnPointList.Count);
         Transform spawnPoint = spawnPointList[spawnPointIdx];
-        GameObject createdEnemy = PhotonNetwork.Instantiate(enemyPrefab.gameObject.name, spawnPoint.position, spawnPoint.rotation);
-        Enemy enemy = createdEnemy.GetComponent<Enemy>();
 
         EnemyData enemyData = enemyDatas[enemyID];
+        GameObject createdEnemy = PhotonNetwork.Instantiate(enemyData.Prefab.gameObject.name/*enemyPrefab.gameObject.name*/, spawnPoint.position, spawnPoint.rotation);
+        createdEnemy.name = enemyData.Prefab.gameObject.name;
+        Enemy enemy = createdEnemy.GetComponent<Enemy>();
+
         // 수정하기!!
         // 게임이 시작되자마자 몬스터가 생기면 그 다음 들어오는 플레이어에게는 이 함수가 호출되지 않음
         // 모든 플레이어가 동시에 게임이 시작되도록 수정해야함

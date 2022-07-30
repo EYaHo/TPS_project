@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923e8e2afa6c7a049bc8e89eef2e5415, type: 3}
   m_Name: Enemy Data
   m_EditorClassIdentifier: 
-  enemyName: E
-  hp: 150
-  damage: 20
+  enemyName: TurtleShellPBR
+  hp: 250
+  damage: 25
   sightRange: 15
   sightAngle: 90
-  moveSpeed: 6
+  moveSpeed: 3
+  prefab: {fileID: 1774625739149480, guid: 7638b026f933e064ba7fad92d0bfa337, type: 3}

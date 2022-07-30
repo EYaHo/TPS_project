@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923e8e2afa6c7a049bc8e89eef2e5415, type: 3}
   m_Name: Enemy Data 1
   m_EditorClassIdentifier: 
-  enemyName: A
+  enemyName: TestEnemy
   hp: 100
   damage: 10
   sightRange: 10
   sightAngle: 90
   moveSpeed: 5
+  prefab: {fileID: 5108304410460496618, guid: 0d89eef24eb44ae438b003b614cd4506, type: 3}

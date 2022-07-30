@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923e8e2afa6c7a049bc8e89eef2e5415, type: 3}
   m_Name: Enemy Data 3
   m_EditorClassIdentifier: 
-  enemyName: C
-  hp: 80
-  damage: 10
+  enemyName: SlimePBR
+  hp: 120
+  damage: 25
   sightRange: 15
   sightAngle: 120
-  moveSpeed: 7
+  moveSpeed: 5
+  prefab: {fileID: 1919012471076396, guid: b8c26f6a6f70c774c8332831fc5d804c, type: 3}

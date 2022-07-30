@@ -6,7 +6,7 @@ using Photon.Pun;
 
 public class EnemyMovement : MonoBehaviour
 {
-    NavMeshAgent navMeshAgent;
+    protected NavMeshAgent navMeshAgent;
 
     private bool isMove;
     private bool isAttacking;
@@ -14,23 +14,23 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 destination;
 
     [SerializeField] float damage;
-    [SerializeField] float sightAngle;
-    [SerializeField] float sightRange;
-    [SerializeField] float attackRange;
-    [SerializeField] float attackForeDelay;
+    [SerializeField] protected float sightAngle;
+    [SerializeField] protected float sightRange;
+    [SerializeField] protected float attackRange;
+    [SerializeField] protected float attackForeDelay;
     [SerializeField] float attackBackDelay;
-    [SerializeField] LayerMask layerMask;
+    [SerializeField] protected LayerMask layerMask;
 
     public LivingEntity targetEntity;
     public Transform eyes;
-    private float lastAttackTime;
+    protected float lastAttackTime;
 
-    private EnemyHealth enemyHealth;
+    protected EnemyHealth enemyHealth;
 
     [SerializeField]
-    private bool isTargetInAttackRange = false;
+    protected bool isTargetInAttackRange = false;
 
-    private bool hasTarget {
+    protected bool hasTarget {
         get {
             if(targetEntity != null && !targetEntity.dead) {
                 return true;
@@ -93,7 +93,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void UpdateAttack() {
+    protected virtual void UpdateAttack() {
         if(!PhotonNetwork.IsMasterClient) {
             return;
         }
@@ -107,7 +107,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     // 경로 탐색
-    private IEnumerator UpdatePath() {
+    protected virtual IEnumerator UpdatePath() {
         while(!enemyHealth.dead) {
             // 타겟이 있는 경우 NavMeshAgent를 사용
             if(hasTarget && !isTargetInAttackRange) {
@@ -140,7 +140,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void Attack(LivingEntity attackTarget) {
+    protected void Attack(LivingEntity attackTarget) {
         Collider targetCollider = attackTarget.GetComponent<Collider>();
         Vector3 hitPoint = targetCollider.ClosestPoint(transform.position);
         Vector3 hitNormal = transform.position - targetCollider.transform.position;
