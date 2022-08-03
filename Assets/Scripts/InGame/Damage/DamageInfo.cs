@@ -6,7 +6,7 @@ public enum DamageTypes {
     Default     = 0,
 }
 
-public class DamageInfo : MonoBehaviour
+public class DamageInfo
 {
     private DamageTypes damageType;
     private float damage;
