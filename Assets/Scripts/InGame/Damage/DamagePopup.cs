@@ -7,8 +7,9 @@ public class DamagePopup : MonoBehaviour
 {
     [SerializeField]
     private TextMeshPro textMesh;
-    public float ySpeed = 0.1f;
-    public float lifeTime = 1f;
+    public float ySpeed = 1f;
+    public float startFadeOutTime = 1f;
+    public float lifeTime = 1.5f;
     public Color startColor;
     private Color endColor;
     private float startTime;
@@ -23,7 +24,8 @@ public class DamagePopup : MonoBehaviour
     }
 
     private void Update() {
-        transform.position += new Vector3(0, ySpeed, 0);
+        transform.position += new Vector3(0, ySpeed * Time.deltaTime, 0);
+        transform.forward = transform.position - Camera.main.transform.position;
     }
 
     public void Setup(int damageAmount) {
@@ -32,9 +34,11 @@ public class DamagePopup : MonoBehaviour
 
     public IEnumerator FadeOut() {
         float f = 0f;
+        float fadeOutTime = lifeTime - startFadeOutTime;
+        yield return new WaitForSeconds(startFadeOutTime);
 
-        while(f < lifeTime) {
-            textMesh.color = Color.Lerp(startColor, endColor, f / lifeTime);
+        while(f < fadeOutTime) {
+            textMesh.color = Color.Lerp(startColor, endColor, f / fadeOutTime);
             f += Time.deltaTime;
             yield return null;
         }

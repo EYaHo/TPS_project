@@ -15,10 +15,6 @@ public class RobotGunController : GunController
         bulletLineRenderer.enabled = false;
     }
 
-    protected override void Start() {
-        base.Start();
-    }
-
     protected override void Update() {
         base.Update();
     }
@@ -37,7 +33,7 @@ public class RobotGunController : GunController
 
             if(target != null) {
                 target.OnDamage(attackDamage, hit.point, hit.normal);
-                CreateDamagePopup(hit.point, cam.transform.rotation, (int)attackDamage);
+                CreateDamagePopup(hit.point, Camera.main.transform.rotation, (int)attackDamage);
             }
 
             hitPosition = hit.point;
