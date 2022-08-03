@@ -9,9 +9,12 @@ public class PlayerShooter : MonoBehaviourPun
     [SerializeField]
     public GunController gunController;
 
+    private PlayerAnimationController animController;
+
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        animController = GetComponent<PlayerAnimationController>();
     }
 
     void Update()
@@ -22,7 +25,10 @@ public class PlayerShooter : MonoBehaviourPun
         }
 
         if(playerInput.fire) {
+            animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
             gunController.Fire();
+        } else {
+            animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
         }
     }
 

@@ -1567,9 +1567,10 @@ GameObject:
   - component: {fileID: 3426491599678120853}
   - component: {fileID: 5386231098056951674}
   - component: {fileID: 2931579212330086729}
-  m_Layer: 0
+  - component: {fileID: 2195111620641564800}
+  m_Layer: 6
   m_Name: RobotPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1730,6 +1731,10 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+  - SynchronizeType: 0
+    LayerIndex: 1
+  - SynchronizeType: 0
+    LayerIndex: 2
 --- !u!114 &4018903767873234895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1813,6 +1818,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2195111620641564800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416483574673089708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5733d76960f6d8d4e95aae960480bd9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8416483574673089710
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviourPun
     private PlayerInput playerInput;
     private Rigidbody playerRigidbody;
     private GunController gunController;
+    private PlayerAnimationController animController;
 
     private float verticalMouseMove = 0f;
     private float horizontalMouseMove = 0f;
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviourPun
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         gunController = GetComponent<GunController>();
+        animController = GetComponent<PlayerAnimationController>();
         num_remain_jump = num_max_jump;
     }
 
@@ -56,6 +58,28 @@ public class PlayerMovement : MonoBehaviourPun
     private void Move() {
         Vector3 moveDistance = ((playerInput.verticalMove * transform.forward) + (playerInput.horizontalMove * transform.right)).normalized * moveSpeed * Time.deltaTime;
         playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
+        if(on_ground) {
+            if(playerInput.horizontalMove != 0) {
+                if(playerInput.horizontalMove < 0) {
+                    animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.WalkLeft_Shoot_AR.ToString(), -1, 0f);
+                    Debug.Log("Left");
+                } else {
+                    animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.WalkRight_Shoot_AR.ToString(), -1, 0f);
+                    Debug.Log("Right");
+                }
+            }
+            else {
+                if(playerInput.verticalMove < 0) {
+                    animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.WalkBack_Shoot_AR.ToString(), -1, 0f);
+                    Debug.Log("Back");
+                } else if(playerInput.verticalMove > 0) {
+                    animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.WalkFront_Shoot_AR.ToString(), -1, 0f);
+                    Debug.Log("Front");
+                } else {
+                    animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), -1, 0f);
+                }
+            }
+        }
     }
 
     private void Rotate() {
@@ -74,6 +98,7 @@ public class PlayerMovement : MonoBehaviourPun
 
     private void Jump() {
         if(playerInput.jump && num_remain_jump > 0) {
+            animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Jump.ToString(), -1, 0f, true);
             playerRigidbody.AddForce(jumpForce * transform.up, ForceMode.Impulse);
             num_remain_jump--;
             on_ground = false;
@@ -85,8 +110,9 @@ public class PlayerMovement : MonoBehaviourPun
             RaycastHit hitData;
             if(Physics.Raycast(transform.position, new Vector3(0f, -1f, 0f), out hitData, 2f)) {
                 if(hitData.transform.gameObject.CompareTag("Ground")) {
-                    on_ground = false;
+                    on_ground = true;
                     num_remain_jump = num_max_jump;
+                    Debug.Log("ground");
                 }
             }
         }
