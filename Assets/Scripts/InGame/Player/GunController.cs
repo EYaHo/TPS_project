@@ -30,7 +30,7 @@ public class GunController : MonoBehaviourPun
         }
 
         Vector3 aimVector = CalcAimVector();
-        Debug.DrawRay(transform.position, aimVector * 20f, Color.red);
+        Debug.DrawRay(muzzle.position, aimVector * 20f, Color.red);
         TraceAim(aimVector);
     }
 
@@ -38,6 +38,7 @@ public class GunController : MonoBehaviourPun
         lastFireTime = 0;
     }
 
+    // 화면의 중앙으로 향하는 에임 벡터를 계산
     public Vector3 CalcAimVector() {
         RaycastHit hitData;
         Ray ray = cam.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
@@ -52,7 +53,7 @@ public class GunController : MonoBehaviourPun
             aimPoint = ray.origin + ray.direction * attackRange;
         }
         
-        return (aimPoint - transform.position).normalized;
+        return (aimPoint - muzzle.position).normalized;
     }
 
     // aim을 따라 플레이어의 총을 회전시킨다.
@@ -62,6 +63,8 @@ public class GunController : MonoBehaviourPun
         Quaternion rot = Quaternion.Slerp(preRot, nextRot, 0.1f);
         
         transform.rotation = rot;
+
+        muzzle.rotation = Quaternion.LookRotation(aimVector);
     }
 
     public virtual void Shoot() {
