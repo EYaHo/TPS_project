@@ -12,18 +12,22 @@ public class GunController : MonoBehaviourPun
     LayerMask layerMask;
     
     [SerializeField]
-    private Camera cam;
+    protected Camera cam;
+
+    [SerializeField]
+    public Transform damagePopupPrefab;
 
     public float attackRange = 30f;
     public float attackDamage = 10f;
     public float fireTimeInterval = 1f;
-    private float lastFireTime;
+    public float damagePopupXPositionNoise = 0.5f;
+    protected float lastFireTime;
 
-    private void Start() {
+    protected virtual void Start() {
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
 
-    private void Update() {
+    protected virtual void Update() {
         if(!photonView.IsMine)
         {
             return;
@@ -34,8 +38,8 @@ public class GunController : MonoBehaviourPun
         TraceAim(aimVector);
     }
 
-    private void OnEnable() {
-        lastFireTime = 0;
+    protected virtual void OnEnable() {
+        lastFireTime = 0f;
     }
 
     // 화면의 중앙으로 향하는 에임 벡터를 계산
@@ -69,6 +73,13 @@ public class GunController : MonoBehaviourPun
 
     public virtual void Shoot() {
         
+    }
+
+    public void CreateDamagePopup(Vector3 position, Quaternion rotation, int damageAmount) {
+        Vector3 noiseVector = new Vector3(Random.Range(-damagePopupXPositionNoise, damagePopupXPositionNoise), 0f, 0f);
+        Transform damagePopupTransform = Instantiate(damagePopupPrefab, position + noiseVector, rotation);
+        DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
+        damagePopup.Setup(damageAmount);
     }
 
     public void Fire()

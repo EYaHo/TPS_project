@@ -1647,6 +1647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthSlider: {fileID: 2487351319159181722}
+  collider: {fileID: 0}
 --- !u!114 &1503491724186047798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,9 +2297,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   cam: {fileID: 0}
+  damagePopupPrefab: {fileID: 4646628534639066757, guid: 143b2b4d08f4fa54ca383d0782182a5a, type: 3}
   attackRange: 30
   attackDamage: 10
   fireTimeInterval: 0.15
+  damagePopupXPositionNoise: 0.5
   bulletLineLifeTime: 0.03
 --- !u!120 &6967598129991055666
 LineRenderer:

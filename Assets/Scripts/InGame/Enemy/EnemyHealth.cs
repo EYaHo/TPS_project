@@ -23,13 +23,11 @@ public class EnemyHealth : LivingEntity
     [PunRPC]
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal) {
         base.OnDamage(damage, hitPoint, hitNormal);
-        Debug.Log("enemy damaged " + damage);
     }
 
     public override void Die() {
         base.Die();
 
         enemyMovement.enabled = false;
-        Debug.Log("Test");
     }
 }
