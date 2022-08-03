@@ -1559,8 +1559,8 @@ GameObject:
   - component: {fileID: 7042124475710202926}
   - component: {fileID: 1503491724186047798}
   - component: {fileID: 7701249497330264059}
-  - component: {fileID: 1759440340920459125}
-  - component: {fileID: 7217774678792857045}
+  - component: {fileID: -2500878089751916991}
+  - component: {fileID: -8801044410093129680}
   - component: {fileID: 8658263909723232416}
   - component: {fileID: 4018903767873234895}
   - component: {fileID: 3759320789658235434}
@@ -1648,6 +1648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthSlider: {fileID: 2487351319159181722}
+  collider: {fileID: 0}
 --- !u!114 &1503491724186047798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1680,7 +1681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: {fileID: 4808842561505121096}
---- !u!114 &1759440340920459125
+--- !u!114 &-2500878089751916991
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1689,7 +1690,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8416483574673089708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa171adcfd928c944a48c02af6a58dd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 77e369094b8230c4b92b2a27cdb4cff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetOfCam: {fileID: 1550839013473907932}
@@ -1700,7 +1701,7 @@ MonoBehaviour:
   on_ground: 0
   num_max_jump: 2
   num_remain_jump: 0
---- !u!114 &7217774678792857045
+--- !u!114 &-8801044410093129680
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1709,7 +1710,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8416483574673089708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60cf850b5dc71f3459397c397c77c606, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e50fedabda90f04ba626e2f338be049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gunController: {fileID: 5159211173609770824}
