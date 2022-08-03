@@ -11,25 +11,27 @@ public class PlayerMovement : MonoBehaviourPun
     public float jumpForce = 6f;
     public float verticalRotateSpeed = 4f;
     public float horizontalRotateSpeed = 4f;
-    private PlayerInput playerInput;
-    private Rigidbody playerRigidbody;
-    private GunController gunController;
+    protected PlayerInput playerInput;
+    protected Rigidbody playerRigidbody;
+    protected GunController gunController;
+    //private PlayerAnimationController animController;
 
     private float verticalMouseMove = 0f;
     private float horizontalMouseMove = 0f;
 
     [SerializeField]
-    private bool on_ground = false;
+    protected bool on_ground = false;
     [SerializeField]
-    private int num_max_jump = 2;
+    protected int num_max_jump = 2;
     [SerializeField]
-    private int num_remain_jump;
+    protected int num_remain_jump;
 
-    void Start()
+    protected virtual void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         gunController = GetComponent<GunController>();
+        //animController = GetComponent<PlayerAnimationController>();
         num_remain_jump = num_max_jump;
     }
 
@@ -53,7 +55,7 @@ public class PlayerMovement : MonoBehaviourPun
         Move();
     }
 
-    private void Move() {
+    protected virtual void Move() {
         Vector3 moveDistance = ((playerInput.verticalMove * transform.forward) + (playerInput.horizontalMove * transform.right)).normalized * moveSpeed * Time.deltaTime;
         playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
     }
@@ -72,7 +74,7 @@ public class PlayerMovement : MonoBehaviourPun
         targetOfCam.rotation = Quaternion.Euler(-1 * horizontalMouseMove, verticalMouseMove, 0);
     }
 
-    private void Jump() {
+    protected virtual void Jump() {
         if(playerInput.jump && num_remain_jump > 0) {
             playerRigidbody.AddForce(jumpForce * transform.up, ForceMode.Impulse);
             num_remain_jump--;
@@ -85,8 +87,9 @@ public class PlayerMovement : MonoBehaviourPun
             RaycastHit hitData;
             if(Physics.Raycast(transform.position, new Vector3(0f, -1f, 0f), out hitData, 2f)) {
                 if(hitData.transform.gameObject.CompareTag("Ground")) {
-                    on_ground = false;
+                    on_ground = true;
                     num_remain_jump = num_max_jump;
+                    Debug.Log("ground");
                 }
             }
         }

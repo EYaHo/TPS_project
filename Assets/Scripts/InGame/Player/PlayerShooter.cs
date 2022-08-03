@@ -5,16 +5,19 @@ using Photon.Pun;
 
 public class PlayerShooter : MonoBehaviourPun
 {
-    private PlayerInput playerInput;
+    protected PlayerInput playerInput;
     [SerializeField]
     public GunController gunController;
 
-    void Awake()
+    //private PlayerAnimationController animController;
+
+    protected virtual void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        //animController = GetComponent<PlayerAnimationController>();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if(!photonView.IsMine)
         {
@@ -22,7 +25,10 @@ public class PlayerShooter : MonoBehaviourPun
         }
 
         if(playerInput.fire) {
+            //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
             gunController.Fire();
+        } else {
+            //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
         }
     }
 
