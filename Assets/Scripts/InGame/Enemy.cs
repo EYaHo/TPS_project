@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Enemy : LivingEntity
+public class Enemy : MonoBehaviourPun
 {
     private EnemyMovement enemyMovement;
 
