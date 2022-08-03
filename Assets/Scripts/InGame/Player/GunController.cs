@@ -10,22 +10,16 @@ public class GunController : MonoBehaviourPun
 
     [SerializeField]
     LayerMask layerMask;
-    
-    [SerializeField]
-    protected Camera cam;
 
     [SerializeField]
     public Transform damagePopupPrefab;
 
+    public Transform canvasTransform;
     public float attackRange = 30f;
     public float attackDamage = 10f;
     public float fireTimeInterval = 1f;
     public float damagePopupXPositionNoise = 0.5f;
     protected float lastFireTime;
-
-    protected virtual void Start() {
-        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-    }
 
     protected virtual void Update() {
         if(!photonView.IsMine)
@@ -45,7 +39,7 @@ public class GunController : MonoBehaviourPun
     // 화면의 중앙으로 향하는 에임 벡터를 계산
     public Vector3 CalcAimVector() {
         RaycastHit hitData;
-        Ray ray = cam.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
         Vector3 aimPoint;
 
         if(Physics.Raycast(ray, out hitData, attackRange, layerMask))
@@ -78,8 +72,16 @@ public class GunController : MonoBehaviourPun
     public void CreateDamagePopup(Vector3 position, Quaternion rotation, int damageAmount) {
         Vector3 noiseVector = new Vector3(Random.Range(-damagePopupXPositionNoise, damagePopupXPositionNoise), 0f, 0f);
         Transform damagePopupTransform = Instantiate(damagePopupPrefab, position + noiseVector, rotation);
+        // Transform damagePopupTransform = Instantiate(damagePopupPrefab);
+        // Debug.Log("instantiate position: " + damagePopupTransform.position);
+        // Debug.Log("input position: " + position);
+        // damagePopupTransform.localPosition = Camera.main.WorldToScreenPoint(position);
+        // damagePopupTransform.SetParent(canvasTransform);
+        // Debug.Log("local position: " + damagePopupTransform.localPosition);
+
         DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
         damagePopup.Setup(damageAmount);
+        
     }
 
     public void Fire()

@@ -8,16 +8,14 @@ using Cinemachine;
 public class EnemyHealth : LivingEntity
 {
     [SerializeField]
-    private CinemachineVirtualCamera virtualCam;
     private EnemyMovement enemyMovement;
 
     private void Awake() {
         enemyMovement = GetComponent<EnemyMovement>();
-        virtualCam = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>();
     }
 
     private void LateUpdate() {
-        healthSlider.transform.LookAt(healthSlider.transform.position + virtualCam.transform.rotation * Vector3.back, virtualCam.transform.rotation * Vector3.up);
+        healthSlider.transform.LookAt(healthSlider.transform.position + Camera.main.transform.rotation * Vector3.back, Camera.main.transform.rotation * Vector3.up);
     }
 
     [PunRPC]

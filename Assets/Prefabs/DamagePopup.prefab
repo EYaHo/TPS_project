@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6001467657116762781}
   - component: {fileID: 6344997788261975693}
   - component: {fileID: 2824189284594180078}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DamagePopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMesh: {fileID: 0}
-  ySpeed: 0.003
-  lifeTime: 1
+  ySpeed: 1.2
+  startFadeOutTime: 0.5
+  lifeTime: 1.2
   startColor: {r: 1, g: 1, b: 1, a: 1}

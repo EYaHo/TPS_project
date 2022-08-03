@@ -968,7 +968,7 @@ MonoBehaviour:
   maxHealth: 100
   healthSlider: {fileID: 438178883452264155}
   collider: {fileID: 0}
-  virtualCam: {fileID: 0}
+  enemyMovement: {fileID: 0}
 --- !u!65 &6032319302159915628
 BoxCollider:
   m_ObjectHideFlags: 0

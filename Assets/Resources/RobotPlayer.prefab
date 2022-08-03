@@ -2313,8 +2313,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 384
-  cam: {fileID: 0}
   damagePopupPrefab: {fileID: 4646628534639066757, guid: 143b2b4d08f4fa54ca383d0782182a5a, type: 3}
+  canvasTransform: {fileID: 2413451224802582661}
   attackRange: 30
   attackDamage: 10
   fireTimeInterval: 0.15
