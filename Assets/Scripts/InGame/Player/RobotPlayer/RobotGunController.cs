@@ -15,6 +15,14 @@ public class RobotGunController : GunController
         bulletLineRenderer.enabled = false;
     }
 
+    protected override void Update() {
+        base.Update();
+    }
+
+    protected override void OnEnable() {
+        base.OnEnable();
+    }
+
     // 총알 생성
     // 총알의 방향은 총의 방향과 같도록
     public override void Shoot() {
@@ -25,6 +33,7 @@ public class RobotGunController : GunController
 
             if(target != null) {
                 target.OnDamage(attackDamage, hit.point, hit.normal);
+                CreateDamagePopup(hit.point, Camera.main.transform.rotation, (int)attackDamage);
             }
 
             hitPosition = hit.point;

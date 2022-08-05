@@ -36,6 +36,7 @@ public class Bullet : MonoBehaviourPunCallbacks
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Enemy" || other.gameObject.tag == "Ground") {
             Debug.Log("Bullet hit: "+other.gameObject.name);
+            
             //PhotonNetwork.Destroy(this.gameObject);
             Release();
         }
