@@ -24,7 +24,7 @@ public class PlayerAnimationController : AnimationController
     private string currentState_second;
 
     [PunRPC]
-    public void ChangeAnimationState(string newState, int layer, float normalizedTime) {
+    public void ChangeAnimationState(string newState, int layer, float normalizedTime) { // layer = -1: base layer, layer = 1: upper layer
         if(layer == -1) {
             if(currentState == newState) return;
             else currentState = newState;
@@ -34,13 +34,8 @@ public class PlayerAnimationController : AnimationController
         }
 
         animator.Play(newState, layer, normalizedTime);
-/*
-        if(layer == -1) {
-            currentState = newState;
-        } else {
-            currentState_second = newState;
-        }*/
     }
+
     [PunRPC]
     public void ChangeAnimationState(string newState, int layer, float normalizedTime, bool init) { // init = true : 같은 애니메이션이 들어올 때도 애니메이션을 처음부터 다시 재생.
         if(layer == -1) {
@@ -56,11 +51,5 @@ public class PlayerAnimationController : AnimationController
         }
 
         animator.Play(newState, layer, normalizedTime);
-/*
-        if(layer == -1) {
-            currentState = newState;
-        } else {
-            currentState_second = newState;
-        }*/
     }
 }

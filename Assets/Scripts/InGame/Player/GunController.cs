@@ -9,7 +9,7 @@ public class GunController : MonoBehaviourPun
     protected Transform muzzle;
 
     [SerializeField]
-    LayerMask layerMask;
+    protected LayerMask layerMask;
 
     [SerializeField]
     public Transform damagePopupPrefab;
@@ -37,7 +37,7 @@ public class GunController : MonoBehaviourPun
     }
 
     // 화면의 중앙으로 향하는 에임 벡터를 계산
-    public Vector3 CalcAimVector() {
+    public virtual Vector3 CalcAimVector() {
         RaycastHit hitData;
         Ray ray = Camera.main.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
         Vector3 aimPoint;

@@ -16,8 +16,8 @@ public class PlayerMovement : MonoBehaviourPun
     protected GunController gunController;
     //private PlayerAnimationController animController;
 
-    private float verticalMouseMove = 0f;
-    private float horizontalMouseMove = 0f;
+    protected float verticalMouseMove = 0f;
+    protected float horizontalMouseMove = 0f;
 
     [SerializeField]
     protected bool on_ground = false;
@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviourPun
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         gunController = GetComponent<GunController>();
-        //animController = GetComponent<PlayerAnimationController>();
         num_remain_jump = num_max_jump;
+        //animController = GetComponent<PlayerAnimationController>();
     }
 
     void Update()
@@ -60,14 +60,14 @@ public class PlayerMovement : MonoBehaviourPun
         playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
     }
 
-    private void Rotate() {
+    protected virtual void Rotate() {
         verticalMouseMove += verticalRotateSpeed * playerInput.verticalRotate;
         horizontalMouseMove += horizontalRotateSpeed * playerInput.horizontalRotate;
         
-        if(horizontalMouseMove >= 80f) {
-            horizontalMouseMove = 80f;
-        } else if(horizontalMouseMove <= -80f) {
-            horizontalMouseMove = -80f;
+        if(horizontalMouseMove >= 70f) {
+            horizontalMouseMove = 70f;
+        } else if(horizontalMouseMove <= -90f) {
+            horizontalMouseMove = -90f;
         }
 
         transform.rotation = Quaternion.Euler(0, verticalMouseMove, 0);
@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviourPun
         }
     }
 
-    private void OnCollisionEnter(Collision other) {
+    protected virtual void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Ground")) {
             RaycastHit hitData;
             if(Physics.Raycast(transform.position, new Vector3(0f, -1f, 0f), out hitData, 2f)) {
