@@ -119,7 +119,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8416483574672996492}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4539191774984890043
 GameObject:
@@ -1558,6 +1558,7 @@ GameObject:
   - component: {fileID: 6611886773520732188}
   - component: {fileID: 7042124475710202926}
   - component: {fileID: 1503491724186047798}
+  - component: {fileID: 2195111620641564800}
   - component: {fileID: 7701249497330264059}
   - component: {fileID: -2500878089751916991}
   - component: {fileID: -8801044410093129680}
@@ -1567,7 +1568,6 @@ GameObject:
   - component: {fileID: 3426491599678120853}
   - component: {fileID: 5386231098056951674}
   - component: {fileID: 2931579212330086729}
-  - component: {fileID: 2195111620641564800}
   m_Layer: 6
   m_Name: RobotPlayer
   m_TagString: Player
@@ -1595,8 +1595,8 @@ Transform:
   - {fileID: 8416483574672996584}
   - {fileID: 8416483574672996602}
   - {fileID: 2413451224802582661}
-  - {fileID: 1550839013473907932}
   - {fileID: 4065513200657479517}
+  - {fileID: 1550839013473907932}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1668,6 +1668,18 @@ MonoBehaviour:
   rotateAxisName: Horizontal
   jumpButtonName: Jump
   fireButtonName: Fire1
+--- !u!114 &2195111620641564800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416483574673089708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5733d76960f6d8d4e95aae960480bd9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7701249497330264059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1819,18 +1831,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &2195111620641564800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8416483574673089708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5733d76960f6d8d4e95aae960480bd9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8416483574673089710
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,9 +2179,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8416483574673089762}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -118.1315, y: -98.01, z: -57.969975}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalRotation: {x: -0.000000029802322, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.009999999, y: 0.01, z: 0.010000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8416483574672996492}
@@ -2320,6 +2320,7 @@ MonoBehaviour:
   fireTimeInterval: 0.15
   damagePopupXPositionNoise: 0.5
   bulletLineLifeTime: 0.03
+  animController: {fileID: 2195111620641564800}
 --- !u!120 &6967598129991055666
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3730,11 +3731,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8723029033593345487}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.239, y: 1.577, z: 1.61}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalRotation: {x: 0.000000014901161, y: -0.00000008940697, z: 0.000000044703484, w: 1}
+  m_LocalPosition: {x: 0.23901367, y: 1.5770264, z: 1.6100011}
+  m_LocalScale: {x: 0.009999999, y: 0.009999999, z: 0.010000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8416483574672996492}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

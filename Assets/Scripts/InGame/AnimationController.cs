@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class AnimationController : MonoBehaviourPun
 {
-    protected Animator animator;
+    public Animator animator { get; private set; }
     protected string currentState;
 
     private void Awake() {
