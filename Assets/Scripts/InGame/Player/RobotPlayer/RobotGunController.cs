@@ -6,12 +6,18 @@ public class RobotGunController : GunController
 {
     public float bulletLineLifeTime = 0.03f;
 
+    public Transform spine;
+    public Transform arm_position_left;
+    public Transform arm_position_right;
+
     private LineRenderer bulletLineRenderer;
     [SerializeField]
     private PlayerAnimationController animController;
-    private Transform spine;
-    private Animator a;
-    Vector3 aimPoint;
+    
+    private Vector3 aimPoint;
+    private Vector3 spine_rotation_offset = new Vector3(0, -40, -100);
+    private Vector3 arm_position_left_rotation_offset = new Vector3(0, 90, -45);
+    private Vector3 arm_position_right_rotation_offset = new Vector3(0, 90, -45);
 
     private void Awake() {
         bulletLineRenderer = GetComponent<LineRenderer>();
@@ -22,19 +28,23 @@ public class RobotGunController : GunController
         //animController = gameObject.transform.parent.GetComponent<PlayerAnimationController>();
     }
     private void Start() {
-        a = animController.animator;
-        spine = animController.animator.GetBoneTransform(HumanBodyBones.Spine); // upper body
+
     }
 
     protected override void Update() {
         base.Update();
     }
     
-    Vector3 offset = new Vector3(0, -40, -100);
+    
     private void LateUpdate() {
         spine.LookAt(aimPoint);
-        spine.rotation = spine.rotation * Quaternion.Euler(offset);
-        
+        spine.rotation = spine.rotation * Quaternion.Euler(spine_rotation_offset);
+        arm_position_left.LookAt(aimPoint);
+        arm_position_right.LookAt(aimPoint);
+        arm_position_left.rotation = arm_position_left.rotation * Quaternion.Euler(arm_position_left_rotation_offset);
+        arm_position_right.rotation = arm_position_right.rotation * Quaternion.Euler(arm_position_right_rotation_offset);
+
+
         //this.transform.LookAt(aimPoint);
         //transform.rotation = transform.rotation * Quaternion.Euler(offset);
     }
