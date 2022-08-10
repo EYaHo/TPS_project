@@ -20,6 +20,8 @@ public class GunController : MonoBehaviourPun
     public float fireTimeInterval = 1f;
     public float damagePopupXPositionNoise = 0.5f;
     protected float lastFireTime;
+    protected Vector3 aimVector;
+    protected Vector3 aimPoint;
 
     protected virtual void Update() {
         if(!photonView.IsMine)
@@ -27,7 +29,7 @@ public class GunController : MonoBehaviourPun
             return;
         }
 
-        Vector3 aimVector = CalcAimVector();
+        aimVector = CalcAimVector();
         Debug.DrawRay(muzzle.position, aimVector * 20f, Color.red);
         TraceAim(aimVector);
     }
@@ -40,7 +42,6 @@ public class GunController : MonoBehaviourPun
     public virtual Vector3 CalcAimVector() {
         RaycastHit hitData;
         Ray ray = Camera.main.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
-        Vector3 aimPoint;
 
         if(Physics.Raycast(ray, out hitData, attackRange, layerMask))
         {

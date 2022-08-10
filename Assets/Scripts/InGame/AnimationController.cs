@@ -8,7 +8,7 @@ public class AnimationController : MonoBehaviourPun
     public Animator animator { get; private set; }
     protected string currentState;
 
-    private void Awake() {
+    protected void Awake() {
         animator = GetComponent<Animator>();
     }
 

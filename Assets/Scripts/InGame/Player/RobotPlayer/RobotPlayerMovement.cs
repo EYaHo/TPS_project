@@ -19,7 +19,6 @@ public class RobotPlayerMovement : PlayerMovement
         if(on_ground) {
             if(playerInput.horizontalMove == 0 && playerInput.verticalMove == 0) {
                 animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), -1, 0f);
-                Debug.Log("Idle");
             }
             if(playerInput.horizontalMove != 0) {
                 if(playerInput.horizontalMove < 0) {

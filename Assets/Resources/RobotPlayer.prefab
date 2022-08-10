@@ -1680,6 +1680,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5733d76960f6d8d4e95aae960480bd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHandMount: {fileID: 8416483574672996592}
+  rightHandMount: {fileID: 8416483574672996548}
+  leftHandPositionOffset: {x: 0, y: 0, z: 0}
+  leftHandRotationOffset: {x: 0, y: -90, z: 45}
+  rightHandPositionOffset: {x: 0, y: 0, z: 0}
+  rightHandRotationOffset: {x: 0, y: -90, z: 45}
 --- !u!114 &7701249497330264059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2321,8 +2327,8 @@ MonoBehaviour:
   damagePopupXPositionNoise: 0.5
   bulletLineLifeTime: 0.03
   spine: {fileID: 8416483574672996526}
-  arm_position_left: {fileID: 8416483574672996550}
-  arm_position_right: {fileID: 8416483574672996548}
+  armPositionLeft: {fileID: 8416483574672996550}
+  armPositionRight: {fileID: 8416483574672996548}
   animController: {fileID: 2195111620641564800}
 --- !u!120 &6967598129991055666
 LineRenderer:
