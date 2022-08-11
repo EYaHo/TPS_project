@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1625678979637951139}
   m_Layer: 0
-  m_Name: axisPoint
+  m_Name: gunTriggerPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1712,12 +1712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5733d76960f6d8d4e95aae960480bd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandMount: {fileID: 8416483574672996592}
-  rightHandMount: {fileID: 8416483574672996548}
-  leftHandPositionOffset: {x: 0, y: 0, z: 0}
-  leftHandRotationOffset: {x: 0, y: -90, z: 45}
-  rightHandPositionOffset: {x: 0, y: 0, z: 0}
-  rightHandRotationOffset: {x: 0, y: -90, z: 45}
 --- !u!114 &7701249497330264059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1744,13 +1738,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetOfCam: {fileID: 1550839013473907932}
+  groundCheck: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
   moveSpeed: 10
   jumpForce: 6
   verticalRotateSpeed: 4
   horizontalRotateSpeed: 4
-  on_ground: 0
-  num_max_jump: 2
-  num_remain_jump: 0
+  numMaxJump: 2
+  numRemainJump: 0
+  isGrounded: 0
 --- !u!114 &-8801044410093129680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2353,7 +2351,7 @@ MonoBehaviour:
     m_Bits: 384
   damagePopupPrefab: {fileID: 4646628534639066757, guid: 143b2b4d08f4fa54ca383d0782182a5a, type: 3}
   canvasTransform: {fileID: 2413451224802582661}
-  attackRange: 30
+  attackRange: 70
   attackDamage: 10
   fireTimeInterval: 0.15
   damagePopupXPositionNoise: 0.5
@@ -2361,8 +2359,8 @@ MonoBehaviour:
   spine: {fileID: 8416483574672996526}
   armPositionLeft: {fileID: 8416483574672996550}
   armPositionRight: {fileID: 8416483574672996548}
+  gunTriggerPoint: {fileID: 1625678979637951139}
   animController: {fileID: 2195111620641564800}
-  axisPoint: {fileID: 1625678979637951139}
 --- !u!120 &6967598129991055666
 LineRenderer:
   m_ObjectHideFlags: 0

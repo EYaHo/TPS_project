@@ -6,20 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
 {
-    public static GameManager instance {
+    public static GameManager Instance {
         get {
-            if(m_instance == null) {
-                m_instance = FindObjectOfType<GameManager>();
+            if(_instance == null) {
+                _instance = FindObjectOfType<GameManager>();
             }
 
-            return m_instance;
+            return _instance;
         }
     }
 
     public GameObject playerPrefab;
     public bool isGameover { get; private set; }
 
-    private static GameManager m_instance;
+    private static GameManager _instance;
 
     private void Awake() {
 

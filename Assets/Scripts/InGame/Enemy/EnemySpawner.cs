@@ -36,7 +36,7 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
 
     private void Update() {
         if(PhotonNetwork.IsMasterClient) {
-            if(GameManager.instance != null && GameManager.instance.isGameover) {
+            if(GameManager.Instance != null && GameManager.Instance.isGameover) {
                 return;
             }
         }

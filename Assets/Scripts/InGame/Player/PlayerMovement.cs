@@ -6,6 +6,7 @@ using Photon.Pun;
 public class PlayerMovement : MonoBehaviourPun
 {
     public Transform targetOfCam;
+    public LayerMask groundLayer;
 
     public float moveSpeed = 10f;
     public float jumpForce = 6f;
@@ -14,25 +15,26 @@ public class PlayerMovement : MonoBehaviourPun
     protected PlayerInput playerInput;
     protected Rigidbody playerRigidbody;
     protected GunController gunController;
-    //private PlayerAnimationController animController;
 
     protected float verticalMouseMove = 0f;
     protected float horizontalMouseMove = 0f;
 
+    private float maxHorizontalMouseMove = 50f;
+    private float minHorizontalMouseMove = -45f;
+
     [SerializeField]
-    protected bool on_ground = false;
+    protected int numMaxJump = 2;
     [SerializeField]
-    protected int num_max_jump = 2;
+    protected int numRemainJump;
     [SerializeField]
-    protected int num_remain_jump;
+    protected bool isGrounded = false;
 
     protected virtual void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         playerRigidbody = GetComponent<Rigidbody>();
         gunController = GetComponent<GunController>();
-        num_remain_jump = num_max_jump;
-        //animController = GetComponent<PlayerAnimationController>();
+        numRemainJump = numMaxJump;
     }
 
     void Update()
@@ -63,34 +65,28 @@ public class PlayerMovement : MonoBehaviourPun
     protected virtual void Rotate() {
         verticalMouseMove += verticalRotateSpeed * playerInput.verticalRotate;
         horizontalMouseMove += horizontalRotateSpeed * playerInput.horizontalRotate;
-        
-        if(horizontalMouseMove >= 70f) {
-            horizontalMouseMove = 70f;
-        } else if(horizontalMouseMove <= -90f) {
-            horizontalMouseMove = -90f;
-        }
+
+        horizontalMouseMove = Mathf.Max(horizontalMouseMove, minHorizontalMouseMove);
+        horizontalMouseMove = Mathf.Min(horizontalMouseMove, maxHorizontalMouseMove);
 
         transform.rotation = Quaternion.Euler(0, verticalMouseMove, 0);
         targetOfCam.rotation = Quaternion.Euler(-1 * horizontalMouseMove, verticalMouseMove, 0);
     }
 
     protected virtual void Jump() {
-        if(playerInput.jump && num_remain_jump > 0) {
+        if(playerInput.jump && numRemainJump > 0) {
             playerRigidbody.AddForce(jumpForce * transform.up, ForceMode.Impulse);
-            num_remain_jump--;
-            on_ground = false;
+            isGrounded = false;
+            numRemainJump--;
         }
     }
 
     protected virtual void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Ground")) {
-            RaycastHit hitData;
-            if(Physics.Raycast(transform.position, new Vector3(0f, -1f, 0f), out hitData, 2f)) {
-                if(hitData.transform.gameObject.CompareTag("Ground")) {
-                    on_ground = true;
-                    num_remain_jump = num_max_jump;
-                    Debug.Log("ground");
-                }
+            if(Physics.CheckSphere(transform.position, .1f, groundLayer)) {
+                isGrounded = true;
+                numRemainJump = numMaxJump;
+                Debug.Log("ground");
             }
         }
     }
