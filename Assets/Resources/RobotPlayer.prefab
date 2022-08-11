@@ -150,7 +150,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8416483574672996492}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4539191774984890043
 GameObject:
@@ -1627,7 +1627,6 @@ Transform:
   - {fileID: 8416483574672996584}
   - {fileID: 8416483574672996602}
   - {fileID: 2413451224802582661}
-  - {fileID: 4065513200657479517}
   - {fileID: 1550839013473907932}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1738,7 +1737,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetOfCam: {fileID: 1550839013473907932}
-  groundCheck: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -2348,7 +2346,7 @@ MonoBehaviour:
   muzzle: {fileID: 4065513200657479517}
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 896
   damagePopupPrefab: {fileID: 4646628534639066757, guid: 143b2b4d08f4fa54ca383d0782182a5a, type: 3}
   canvasTransform: {fileID: 2413451224802582661}
   attackRange: 70
@@ -2488,6 +2486,7 @@ Transform:
   m_Children:
   - {fileID: 8416483574672996592}
   - {fileID: 8416483574672996536}
+  - {fileID: 4065513200657479517}
   m_Father: {fileID: 8416483574672996584}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3771,11 +3770,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8723029033593345487}
-  m_LocalRotation: {x: 0.000000014901161, y: -0.00000008940697, z: 0.000000044703484, w: 1}
-  m_LocalPosition: {x: 0.597, y: 1.614, z: 2.099}
-  m_LocalScale: {x: 0.009999999, y: 0.01, z: 0.010000001}
+  m_LocalRotation: {x: 0.66049284, y: -0.25248632, z: 0.6564857, w: 0.26272887}
+  m_LocalPosition: {x: -87, y: -88.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8416483574672996492}
-  m_RootOrder: 8
+  m_Father: {fileID: 8416483574672996548}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

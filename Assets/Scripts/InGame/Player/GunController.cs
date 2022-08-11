@@ -30,7 +30,7 @@ public class GunController : MonoBehaviourPun
         }
 
         aimVector = CalcAimVector();
-        Debug.DrawRay(muzzle.position, aimVector * 20f, Color.red);
+        Debug.DrawRay(muzzle.position, aimVector * (aimPoint - muzzle.position).magnitude, Color.red);
         TraceAim(aimVector);
     }
 
