@@ -28,7 +28,7 @@ public class PlayerInput : MonoBehaviourPun
             return;
         }
 
-        if(GameManager.instance != null && GameManager.instance.isGameover) {
+        if(GameManager.Instance != null && GameManager.Instance.isGameover) {
             verticalMove = 0;
             horizontalMove = 0;
             rotate = 0;

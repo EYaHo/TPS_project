@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviourPunCallbacks
     private float attackRange = 100f;
     private bool isAlive;
     private float damage = 0f;
+    private Transform gunController;
 
     private void Update() {
         if(!isAlive) return;
@@ -41,9 +42,9 @@ public class Bullet : MonoBehaviourPunCallbacks
             Release();
         }
     }
+    
     private void Release() {
-        
-        BulletPool.instance.ReleaseBullet(gameObject);
+        BulletPool.Instance.ReleaseBullet(gameObject);
         isAlive = false;
     }
 }
