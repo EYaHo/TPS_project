@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &895359335623169101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1625678979637951139}
+  m_Layer: 0
+  m_Name: axisPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1625678979637951139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895359335623169101}
+  m_LocalRotation: {x: 0.49015978, y: -0.5096477, z: -0.70587534, w: -0.041746255}
+  m_LocalPosition: {x: -26.842613, y: -42.32865, z: -50.061245}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8416483574672996580}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -0.143, y: -0.88, z: -56.477}
 --- !u!1 &2307924048064265310
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +746,8 @@ Transform:
   m_LocalPosition: {x: -7.9785438, y: 1.7053026e-13, z: 4.440892e-15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1625678979637951139}
   m_Father: {fileID: 8416483574672996576}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2330,6 +2362,7 @@ MonoBehaviour:
   armPositionLeft: {fileID: 8416483574672996550}
   armPositionRight: {fileID: 8416483574672996548}
   animController: {fileID: 2195111620641564800}
+  axisPoint: {fileID: 1625678979637951139}
 --- !u!120 &6967598129991055666
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -3741,8 +3774,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8723029033593345487}
   m_LocalRotation: {x: 0.000000014901161, y: -0.00000008940697, z: 0.000000044703484, w: 1}
-  m_LocalPosition: {x: 0.23901367, y: 1.5770264, z: 1.6100011}
-  m_LocalScale: {x: 0.009999999, y: 0.009999999, z: 0.010000001}
+  m_LocalPosition: {x: 0.597, y: 1.614, z: 2.099}
+  m_LocalScale: {x: 0.009999999, y: 0.01, z: 0.010000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8416483574672996492}
