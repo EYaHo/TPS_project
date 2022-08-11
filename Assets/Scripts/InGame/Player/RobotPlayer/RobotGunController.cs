@@ -14,7 +14,7 @@ public class RobotGunController : GunController
     [SerializeField]
     private PlayerAnimationController animController;
     
-    private Vector3 spineRotationOffset = new Vector3(0, -40, -100);
+    private Vector3 spineRotationOffset = new Vector3(0, -45, -90);
     private Vector3 armPositionLeftRotationOffset = new Vector3(0, 90, -45);
     private Vector3 armPositionRightRotationOffset = new Vector3(0, 90, -45);
 
@@ -25,6 +25,7 @@ public class RobotGunController : GunController
         bulletLineRenderer.enabled = false;
 
         animController = gameObject.transform.parent.GetComponent<PlayerAnimationController>();
+        axisPoint.position = armPositionRight.position;
     }
     private void Start() {
 
@@ -32,13 +33,16 @@ public class RobotGunController : GunController
 
     protected override void Update() {
         base.Update();
+        axisPoint.position = armPositionRight.position;
     }
     
-    private void LateUpdate() {
-        // spine.LookAt(aimPoint);
-        // spine.rotation = spine.rotation * Quaternion.Euler(spineRotationOffset);
+    public Transform axisPoint;
 
-        armPositionRight.position += new Vector3(1f, 0f, 0f);
+    private void LateUpdate() {
+        spine.LookAt(aimPoint);
+        spine.rotation = spine.rotation * Quaternion.Euler(spineRotationOffset);
+
+        armPositionRight.position = axisPoint.position;
         armPositionLeft.LookAt(aimPoint);
         armPositionRight.LookAt(aimPoint);
         armPositionLeft.rotation = armPositionLeft.rotation * Quaternion.Euler(armPositionLeftRotationOffset);
