@@ -6,15 +6,15 @@ using Photon.Pun;
 
 public class BulletPool : MonoBehaviourPun
 {
-    private static BulletPool m_instance;
+    private static BulletPool _instance;
 
-    public static BulletPool instance {
+    public static BulletPool Instance {
         get {
-            if(m_instance == null) {
-                m_instance = FindObjectOfType<BulletPool>();
+            if(_instance == null) {
+                _instance = FindObjectOfType<BulletPool>();
             }
 
-            return m_instance;
+            return _instance;
         }
     }
 
@@ -51,7 +51,7 @@ public class BulletPool : MonoBehaviourPun
     public GameObject GetBullet() {
         return bulletPool.Get();
     }
-    public void ReleaseBullet(GameObject _bullet) {
-        bulletPool.Release(_bullet);
+    public void ReleaseBullet(GameObject bullet) {
+        bulletPool.Release(bullet);
     }
 }
