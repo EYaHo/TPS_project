@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class RobotGunController : GunController
 {
@@ -32,20 +33,28 @@ public class RobotGunController : GunController
 
     }
 
-    protected override void Update() {
+    protected override void Update() {/*
+        if(!photonView.IsMine)
+        {
+            return;
+        }*/
         base.Update();
-        gunTriggerPoint.position = armPositionRight.position;
+        this.gunTriggerPoint.position = this.armPositionRight.position;
     }
 
-    private void LateUpdate() {
-        spine.LookAt(aimPoint);
-        spine.rotation = spine.rotation * Quaternion.Euler(spineRotationOffset);
+    private void LateUpdate() {/*
+        if(!photonView.IsMine)
+        {
+            return;
+        }*/
+        this.spine.LookAt(this.aimPoint);
+        this.spine.rotation = this.spine.rotation * Quaternion.Euler(spineRotationOffset);
 
-        armPositionRight.position = gunTriggerPoint.position;
-        armPositionLeft.LookAt(aimPoint);
-        armPositionRight.LookAt(aimPoint);
-        armPositionLeft.rotation = armPositionLeft.rotation * Quaternion.Euler(armPositionLeftRotationOffset);
-        armPositionRight.rotation = armPositionRight.rotation * Quaternion.Euler(armPositionRightRotationOffset);
+        this.armPositionRight.position = this.gunTriggerPoint.position;
+        this.armPositionLeft.LookAt(this.aimPoint);
+        this.armPositionRight.LookAt(this.aimPoint);
+        this.armPositionLeft.rotation = this.armPositionLeft.rotation * Quaternion.Euler(armPositionLeftRotationOffset);
+        this.armPositionRight.rotation = this.armPositionRight.rotation * Quaternion.Euler(armPositionRightRotationOffset);
 
         //this.transform.LookAt(aimPoint);
         //transform.rotation = transform.rotation * Quaternion.Euler(offset);
@@ -84,5 +93,29 @@ public class RobotGunController : GunController
         yield return new WaitForSeconds(bulletLineLifeTime);
 
         bulletLineRenderer.enabled = false;
+    }
+
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if(stream.IsWriting) {
+            stream.SendNext(aimPoint);
+
+            stream.SendNext(spine.rotation);
+
+            // stream.SendNext(armPositionRight.position);
+            // stream.SendNext(gunTriggerPoint.position);
+
+            // stream.SendNext(armPositionLeft.rotation);
+            // stream.SendNext(armPositionRight.rotation);
+        } else {
+            aimPoint = (Vector3)stream.ReceiveNext();
+
+            spine.rotation = (Quaternion)stream.ReceiveNext();
+
+            // armPositionRight.position = (Vector3)stream.ReceiveNext();
+            // gunTriggerPoint.position = (Vector3)stream.ReceiveNext();
+
+            // armPositionLeft.rotation = (Quaternion)stream.ReceiveNext();
+            // armPositionRight.rotation = (Quaternion)stream.ReceiveNext();
+        }
     }
 }
