@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class GunController : MonoBehaviourPun
+public class GunController : MonoBehaviourPun, IPunObservable
 {
     [SerializeField]
     protected Transform muzzle;
@@ -21,7 +21,7 @@ public class GunController : MonoBehaviourPun
     public float damagePopupXPositionNoise = 0.5f;
     protected float lastFireTime;
     protected Vector3 aimVector;
-    protected Vector3 aimPoint;
+    public Vector3 aimPoint { get; protected set; }
 
     protected virtual void Update() {
         if(!photonView.IsMine)
@@ -93,4 +93,19 @@ public class GunController : MonoBehaviourPun
             Shoot();
         }
     }
+    [PunRPC]
+    public void RpcFire()
+    {
+        //Fire();
+        Debug.Log("RpcFire");
+    }
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if(stream.IsWriting) {
+            stream.SendNext(aimPoint);
+        } else {
+            aimPoint = (Vector3)stream.ReceiveNext();
+        }
+    }
+
 }

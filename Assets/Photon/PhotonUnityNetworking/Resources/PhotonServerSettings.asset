@@ -61,6 +61,8 @@ MonoBehaviour:
   - RPCSetActive
   - ChangeAnimationState
   - StopAnimation
+  - ShowEffect
+  - RpcFire
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
