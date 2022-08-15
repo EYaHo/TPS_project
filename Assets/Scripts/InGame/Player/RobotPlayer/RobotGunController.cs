@@ -65,13 +65,20 @@ public class RobotGunController : GunController
     }
 
     public override void Shoot() {
+        RaycastHit hit;
+        Vector3 hitPosition = Vector3.zero;
+        if(Physics.Raycast(muzzle.position, muzzle.forward, out hit, attackRange)) {
+            hitPosition = hit.point;
+        } else {
+            hitPosition = muzzle.position + muzzle.forward * attackRange;
+        }
+        photonView.RPC("ShootEffectProcessOnClients", RpcTarget.All, hitPosition);
         photonView.RPC("ShootProcessOnServer", RpcTarget.MasterClient);
     }
 
     [PunRPC]
-    private void ShootProcessOnServer() {
+    protected override void ShootProcessOnServer() {
         RaycastHit hit;
-        Vector3 hitPosition = Vector3.zero;
         if(Physics.Raycast(muzzle.position, muzzle.forward, out hit, attackRange)) {
             IDamageable target = hit.collider.GetComponent<IDamageable>();
 
@@ -79,13 +86,7 @@ public class RobotGunController : GunController
                 target.OnDamage(attackDamage, hit.point, hit.normal);
                 photonView.RPC("CreateDamagePopup", RpcTarget.All, hit.point, Camera.main.transform.rotation, (int)attackDamage);
             }
-
-            hitPosition = hit.point;
-        } else {
-            hitPosition = muzzle.position + muzzle.forward * attackRange;
         }
-
-        photonView.RPC("ShootEffectProcessOnClients", RpcTarget.All, hitPosition);
     }
 
     [PunRPC]
