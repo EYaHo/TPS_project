@@ -32,7 +32,7 @@ public class GunController : MonoBehaviourPun, IPunObservable
         aimVector = CalcAimVector();
         //Debug.DrawRay(muzzle.position, aimVector * (aimPoint - muzzle.position).magnitude, Color.red);
         Debug.DrawRay(muzzle.position, muzzle.forward * (aimPoint - muzzle.position).magnitude, Color.red);
-        TraceAim(aimVector);
+        // TraceAim(aimVector);
     }
 
     protected virtual void OnEnable() {
@@ -55,19 +55,23 @@ public class GunController : MonoBehaviourPun, IPunObservable
     }
 
     // aim을 따라 플레이어의 총을 회전시킨다.
-    public void TraceAim(Vector3 aimVector) {
-        Quaternion preRot = transform.rotation;
-        Quaternion nextRot = Quaternion.LookRotation(aimVector);
-        Quaternion rot = Quaternion.Slerp(preRot, nextRot, 0.1f);
+    // public void TraceAim(Vector3 aimVector) {
+    //     Quaternion preRot = transform.rotation;
+    //     Quaternion nextRot = Quaternion.LookRotation(aimVector);
+    //     Quaternion rot = Quaternion.Slerp(preRot, nextRot, 0.1f);
         
-        //transform.rotation = rot;
-        //transform.rotation = Quaternion.LookRotation(aimVector);
+    //     //transform.rotation = rot;
+    //     //transform.rotation = Quaternion.LookRotation(aimVector);
 
-        //muzzle.rotation = Quaternion.LookRotation(aimVector);
-    }
+    //     //muzzle.rotation = Quaternion.LookRotation(aimVector);
+    // }
 
     public virtual void Shoot() {
         
+    }
+
+    [PunRPC]
+    protected virtual void ShootProcessOnServer() {
     }
 
     [PunRPC]
@@ -103,11 +107,11 @@ public class GunController : MonoBehaviourPun, IPunObservable
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-        // if(stream.IsWriting) {
-        //     stream.SendNext(aimPoint);
-        // } else {
-        //     aimPoint = (Vector3)stream.ReceiveNext();
-        // }
+        if(stream.IsWriting) {
+            stream.SendNext(aimPoint);
+        } else {
+            aimPoint = (Vector3)stream.ReceiveNext();
+        }
     }
 
 }
