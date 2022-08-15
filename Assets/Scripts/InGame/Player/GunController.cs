@@ -30,7 +30,8 @@ public class GunController : MonoBehaviourPun, IPunObservable
         }
 
         aimVector = CalcAimVector();
-        Debug.DrawRay(muzzle.position, aimVector * (aimPoint - muzzle.position).magnitude, Color.red);
+        //Debug.DrawRay(muzzle.position, aimVector * (aimPoint - muzzle.position).magnitude, Color.red);
+        Debug.DrawRay(muzzle.position, muzzle.forward * (aimPoint - muzzle.position).magnitude, Color.red);
         TraceAim(aimVector);
     }
 
@@ -46,12 +47,10 @@ public class GunController : MonoBehaviourPun, IPunObservable
         if(Physics.Raycast(ray, out hitData, attackRange, layerMask))
         {
             aimPoint = hitData.point;
-        }
-        else
-        {
+        } else {
             aimPoint = ray.origin + ray.direction * attackRange;
         }
-        
+
         return (aimPoint - muzzle.position).normalized;
     }
 
@@ -61,15 +60,17 @@ public class GunController : MonoBehaviourPun, IPunObservable
         Quaternion nextRot = Quaternion.LookRotation(aimVector);
         Quaternion rot = Quaternion.Slerp(preRot, nextRot, 0.1f);
         
-        transform.rotation = rot;
+        //transform.rotation = rot;
+        //transform.rotation = Quaternion.LookRotation(aimVector);
 
-        muzzle.rotation = Quaternion.LookRotation(aimVector);
+        //muzzle.rotation = Quaternion.LookRotation(aimVector);
     }
 
     public virtual void Shoot() {
         
     }
 
+    [PunRPC]
     public void CreateDamagePopup(Vector3 position, Quaternion rotation, int damageAmount) {
         Vector3 noiseVector = new Vector3(Random.Range(-damagePopupXPositionNoise, damagePopupXPositionNoise), 0f, 0f);
         Transform damagePopupTransform = Instantiate(damagePopupPrefab, position + noiseVector, rotation);
@@ -93,6 +94,7 @@ public class GunController : MonoBehaviourPun, IPunObservable
             Shoot();
         }
     }
+    
     [PunRPC]
     public void RpcFire()
     {
@@ -101,11 +103,11 @@ public class GunController : MonoBehaviourPun, IPunObservable
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-        if(stream.IsWriting) {
-            stream.SendNext(aimPoint);
-        } else {
-            aimPoint = (Vector3)stream.ReceiveNext();
-        }
+        // if(stream.IsWriting) {
+        //     stream.SendNext(aimPoint);
+        // } else {
+        //     aimPoint = (Vector3)stream.ReceiveNext();
+        // }
     }
 
 }

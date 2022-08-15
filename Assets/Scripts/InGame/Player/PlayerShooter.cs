@@ -32,11 +32,11 @@ public class PlayerShooter : MonoBehaviourPun
         }
     }
 
-    private void OnEnable() {
+    protected void OnEnable() {
         gunController.gameObject.SetActive(true);
     }
 
-    private void OnDisable() {
+    protected void OnDisable() {
         gunController.gameObject.SetActive(false);
     }
 }

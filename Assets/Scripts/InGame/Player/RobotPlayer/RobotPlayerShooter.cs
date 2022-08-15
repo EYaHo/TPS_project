@@ -23,9 +23,13 @@ public class RobotPlayerShooter : PlayerShooter
         if(playerInput.fire) {
             animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
             gunController.Fire();
-            /*
-            if(PhotonNetwork.IsMasterClient) gunController.Fire();//gunController.photonView.RPC("Fire", RpcTarget.MasterClient);
-            else (gunController as RobotGunController).photonView.RPC("RpcFire", RpcTarget.MasterClient);*/
+            
+            // if(PhotonNetwork.IsMasterClient) {
+            //     //gunController.Fire();
+            //     gunController.photonView.RPC("RpcFire", RpcTarget.MasterClient);
+            // } else {
+            //     gunController.photonView.RPC("RpcFire", RpcTarget.MasterClient);
+            // }
             
             //gunController.photonView.RPC("RpcFire", RpcTarget.All);
 
