@@ -64,9 +64,12 @@ public class RobotGunController : GunController
         base.OnEnable();
     }
 
-    // 총알 생성
-    // 총알의 방향은 총의 방향과 같도록
     public override void Shoot() {
+        photonView.RPC("ShootProcessOnServer", RpcTarget.MasterClient);
+    }
+
+    [PunRPC]
+    private void ShootProcessOnServer() {
         RaycastHit hit;
         Vector3 hitPosition = Vector3.zero;
         if(Physics.Raycast(muzzle.position, muzzle.forward, out hit, attackRange)) {
@@ -74,7 +77,7 @@ public class RobotGunController : GunController
 
             if(target != null) {
                 target.OnDamage(attackDamage, hit.point, hit.normal);
-                CreateDamagePopup(hit.point, Camera.main.transform.rotation, (int)attackDamage);
+                photonView.RPC("CreateDamagePopup", RpcTarget.All, hit.point, Camera.main.transform.rotation, (int)attackDamage);
             }
 
             hitPosition = hit.point;
@@ -82,10 +85,15 @@ public class RobotGunController : GunController
             hitPosition = muzzle.position + muzzle.forward * attackRange;
         }
 
-        StartCoroutine(ShotEffect(hitPosition));
+        photonView.RPC("ShootEffectProcessOnClients", RpcTarget.All, hitPosition);
     }
 
-    private IEnumerator ShotEffect(Vector3 hitPosition) {
+    [PunRPC]
+    private void ShootEffectProcessOnClients(Vector3 hitPosition) {
+        StartCoroutine(ShootEffect(hitPosition));
+    }
+
+    private IEnumerator ShootEffect(Vector3 hitPosition) {
         bulletLineRenderer.SetPosition(0, muzzle.position);
         bulletLineRenderer.SetPosition(1, hitPosition);
         bulletLineRenderer.enabled = true;
