@@ -73,7 +73,7 @@ public class RobotGunController : GunController
             hitPosition = muzzle.position + muzzle.forward * attackRange;
         }
         photonView.RPC("ShootEffectProcessOnClients", RpcTarget.All, hitPosition);
-        photonView.RPC("ShootProcessOnServer", RpcTarget.MasterClient);
+        photonView.RPC("ShootProcessOnServer", RpcTarget.MasterClient, aimVector);
     }
 
     [PunRPC]
@@ -107,24 +107,11 @@ public class RobotGunController : GunController
     public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if(stream.IsWriting) {
             stream.SendNext(aimPoint);
+            stream.SendNext(gunTriggerPoint.position);
 
-            stream.SendNext(spine.rotation);
-
-            // stream.SendNext(armPositionRight.position);
-            // stream.SendNext(gunTriggerPoint.position);
-
-            // stream.SendNext(armPositionLeft.rotation);
-            // stream.SendNext(armPositionRight.rotation);
         } else {
             aimPoint = (Vector3)stream.ReceiveNext();
-
-            spine.rotation = (Quaternion)stream.ReceiveNext();
-
-            // armPositionRight.position = (Vector3)stream.ReceiveNext();
-            // gunTriggerPoint.position = (Vector3)stream.ReceiveNext();
-
-            // armPositionLeft.rotation = (Quaternion)stream.ReceiveNext();
-            // armPositionRight.rotation = (Quaternion)stream.ReceiveNext();
+            gunTriggerPoint.position = (Vector3)stream.ReceiveNext();
         }
     }
 }
