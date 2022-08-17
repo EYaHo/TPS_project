@@ -20,8 +20,8 @@ public class SlimeMovement : EnemyMovement
 
         if(isTargetInAttackRange) {
             if(!enemyHealth.dead && Time.time >= lastAttackTime + attackForeDelay) {
-                //animController.ChangeAnimationState(SlimeAnimationController.AnimState.Attack01.ToString());    //anim
-                animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, SlimeAnimationController.AnimState.Attack01.ToString());
+                animController.ChangeAnimationState(SlimeAnimationController.AnimState.Attack01.ToString());    //anim
+                //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, SlimeAnimationController.AnimState.Attack01.ToString());
                 lastAttackTime = Time.time;
                 Attack(targetEntity);
             }
@@ -34,8 +34,8 @@ public class SlimeMovement : EnemyMovement
             if(hasTarget && !isTargetInAttackRange) {
                 navMeshAgent.isStopped = false;
                 Vector3 distance = targetEntity.transform.position - transform.position;
-                //animController.ChangeAnimationState(SlimeAnimationController.AnimState.WalkFWD.ToString());     //anim
-                animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, SlimeAnimationController.AnimState.WalkFWD.ToString());
+                animController.ChangeAnimationState(SlimeAnimationController.AnimState.WalkFWD.ToString());     //anim
+                //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, SlimeAnimationController.AnimState.WalkFWD.ToString());
                 navMeshAgent.SetDestination(targetEntity.transform.position - (distance.normalized * attackRange * 0.8f));
             } else {
                 navMeshAgent.isStopped = true;

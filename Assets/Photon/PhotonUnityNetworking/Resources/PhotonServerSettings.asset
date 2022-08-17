@@ -51,6 +51,8 @@ MonoBehaviour:
   - ShootEffectProcessOnClients
   - ShootProcessOnServer
   - CreateDamagePopup
+  - RpcJump
+  - RpcChangeAnimationState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

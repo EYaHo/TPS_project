@@ -73,7 +73,7 @@ public class RobotGunController : GunController
             hitPosition = muzzle.position + muzzle.forward * attackRange;
         }
         photonView.RPC("ShootEffectProcessOnClients", RpcTarget.All, hitPosition);
-        photonView.RPC("ShootProcessOnServer", RpcTarget.MasterClient, aimVector);
+        photonView.RPC("ShootProcessOnServer", RpcTarget.MasterClient);
     }
 
     [PunRPC]
