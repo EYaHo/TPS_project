@@ -45,7 +45,6 @@ public class PlayerMovement : MonoBehaviourPun
         }
 
         Rotate();
-        Jump();
     }
 
     private void FixedUpdate() {
@@ -55,6 +54,10 @@ public class PlayerMovement : MonoBehaviourPun
         }
 
         Move();
+        //Jump();
+        if(playerInput.jump && numRemainJump > 0) {
+            photonView.RPC("RpcJump", RpcTarget.All);
+        }
     }
 
     protected virtual void Move() {
@@ -79,6 +82,12 @@ public class PlayerMovement : MonoBehaviourPun
             isGrounded = false;
             numRemainJump--;
         }
+    }
+    [PunRPC]
+    protected void RpcJump() {
+        playerRigidbody.AddForce(jumpForce * transform.up, ForceMode.Impulse);
+        isGrounded = false;
+        numRemainJump--;
     }
 
     protected virtual void OnCollisionEnter(Collision other) {

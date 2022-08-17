@@ -13,11 +13,16 @@ public class AnimationController : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void ChangeAnimationState(string newState) {
-        if(currentState == newState) return;
+    public void RpcChangeAnimationState(string newState) {
+        //if(currentState == newState) return;
 
         animator.Play(newState);
 
         currentState = newState;
+    }
+
+    public void ChangeAnimationState(string newState) {
+        if(currentState == newState) return;
+        photonView.RPC("RpcChangeAnimationState", RpcTarget.All, newState);
     }
 }
