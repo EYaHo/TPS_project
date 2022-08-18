@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Weapon
   - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Object
   - Ground
   - DamagePopupUI
-  - 
+  - Bullet
   - 
   - 
   - 

@@ -54,7 +54,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433915260845872591}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.2000002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -207,6 +207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2129553893955934209}
   - component: {fileID: 1600693027136925821}
+  - component: {fileID: 2841760669973279096}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Weapon
@@ -247,11 +248,35 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 384
-  cam: {fileID: 0}
-  attackRange: 30
+  damagePopupPrefab: {fileID: 4646628534639066757, guid: 143b2b4d08f4fa54ca383d0782182a5a, type: 3}
+  attackRange: 60
   attackDamage: 10
-  fireTimeInterval: 1
-  bulletPrefab: {fileID: 0}
+  fireTimeInterval: 0.3
+  damagePopupXPositionNoise: 0.5
+  gunTransform: {fileID: 2129553893955934209}
+--- !u!114 &2841760669973279096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002404234181138689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1600693027136925821}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1831215300425842322
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,13 +680,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetOfCam: {fileID: 7326126207990172002}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   moveSpeed: 10
   jumpForce: 6
   verticalRotateSpeed: 4
   horizontalRotateSpeed: 4
-  on_ground: 0
-  num_max_jump: 2
-  num_remain_jump: 0
+  numMaxJump: 2
+  numRemainJump: 0
+  isGrounded: 0
 --- !u!114 &3657463055305498326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,6 +772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthSlider: {fileID: 608953154294086441}
+  collider: {fileID: 0}
 --- !u!114 &4132571221110126371
 MonoBehaviour:
   m_ObjectHideFlags: 0
