@@ -143,9 +143,8 @@ public class EnemyMovement : MonoBehaviour
     protected void Attack(LivingEntity attackTarget) {
         Collider targetCollider = attackTarget.GetComponent<Collider>();
         Vector3 hitPoint = targetCollider.ClosestPoint(transform.position);
-        Vector3 hitNormal = transform.position - targetCollider.transform.position;
 
-        attackTarget.OnDamage(damage, hitPoint, hitNormal);
+        attackTarget.OnDamage(damage, hitPoint);
         Debug.Log("Attack!", attackTarget);
     }
 

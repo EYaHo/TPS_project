@@ -33,20 +33,12 @@ public class RobotGunController : GunController
 
     }
 
-    protected override void Update() {/*
-        if(!photonView.IsMine)
-        {
-            return;
-        }*/
+    protected override void Update() {
         base.Update();
         this.gunTriggerPoint.position = this.armPositionRight.position;
     }
 
-    private void LateUpdate() {/*
-        if(!photonView.IsMine)
-        {
-            return;
-        }*/
+    private void LateUpdate() {
         this.spine.LookAt(this.aimPoint);
         this.spine.rotation = this.spine.rotation * Quaternion.Euler(spineRotationOffset);
 
@@ -55,9 +47,6 @@ public class RobotGunController : GunController
         this.armPositionRight.LookAt(this.aimPoint);
         this.armPositionLeft.rotation = this.armPositionLeft.rotation * Quaternion.Euler(armPositionLeftRotationOffset);
         this.armPositionRight.rotation = this.armPositionRight.rotation * Quaternion.Euler(armPositionRightRotationOffset);
-
-        //this.transform.LookAt(aimPoint);
-        //transform.rotation = transform.rotation * Quaternion.Euler(offset);
     }
 
     protected override void OnEnable() {
@@ -83,8 +72,8 @@ public class RobotGunController : GunController
             IDamageable target = hit.collider.GetComponent<IDamageable>();
 
             if(target != null) {
-                target.OnDamage(attackDamage, hit.point, hit.normal);
-                photonView.RPC("CreateDamagePopup", RpcTarget.All, hit.point, Camera.main.transform.rotation, (int)attackDamage);
+                target.OnDamage(attackDamage, hit.point);
+                //photonView.RPC("CreateDamagePopup", RpcTarget.All, hit.point, Camera.main.transform.rotation, (int)attackDamage);
             }
         }
     }

@@ -5,10 +5,11 @@ using Photon.Pun;
 
 public class Player : MonoBehaviourPun
 {
+    public float attackDamage = 10f;
+    public GameObject canvas;
+
     [SerializeField]
     private Item[] items;
-
-    public GameObject canvas;
 
     private void Awake() {
         if(!photonView.IsMine) {
@@ -16,14 +17,11 @@ public class Player : MonoBehaviourPun
         }
     }
 
-    void Start()
-    {
-        
-    }
+    [PunRPC]
+    public void OnDamage(IDamageable target, Vector3 hitPoint) {
+        // 아이템의 OnDamage 함수 호출
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // 데미지 적용
+        target.OnDamage(attackDamage, hitPoint);
     }
 }
