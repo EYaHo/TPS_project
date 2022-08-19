@@ -11,14 +11,9 @@ public class GunController : MonoBehaviourPun, IPunObservable
     [SerializeField]
     protected LayerMask layerMask;
 
-    [SerializeField]
-    public Transform damagePopupPrefab;
-
-    public Transform canvasTransform;
     public float attackRange = 30f;
     public float attackDamage = 10f;
     public float fireTimeInterval = 1f;
-    public float damagePopupXPositionNoise = 0.5f;
     protected float lastFireTime;
     protected Vector3 aimVector;
     public Vector3 aimPoint { get; protected set; }
@@ -30,9 +25,7 @@ public class GunController : MonoBehaviourPun, IPunObservable
         }
 
         aimVector = CalcAimVector();
-        //Debug.DrawRay(muzzle.position, aimVector * (aimPoint - muzzle.position).magnitude, Color.red);
         Debug.DrawRay(muzzle.position, muzzle.forward * (aimPoint - muzzle.position).magnitude, Color.red);
-        // TraceAim(aimVector);
     }
 
     protected virtual void OnEnable() {
@@ -54,40 +47,12 @@ public class GunController : MonoBehaviourPun, IPunObservable
         return (aimPoint - muzzle.position).normalized;
     }
 
-    // aim을 따라 플레이어의 총을 회전시킨다.
-    // public void TraceAim(Vector3 aimVector) {
-    //     Quaternion preRot = transform.rotation;
-    //     Quaternion nextRot = Quaternion.LookRotation(aimVector);
-    //     Quaternion rot = Quaternion.Slerp(preRot, nextRot, 0.1f);
-        
-    //     //transform.rotation = rot;
-    //     //transform.rotation = Quaternion.LookRotation(aimVector);
-
-    //     //muzzle.rotation = Quaternion.LookRotation(aimVector);
-    // }
-
     public virtual void Shoot() {
         
     }
 
     [PunRPC]
     protected virtual void ShootProcessOnServer() {
-    }
-
-    [PunRPC]
-    public void CreateDamagePopup(Vector3 position, Quaternion rotation, int damageAmount) {
-        Vector3 noiseVector = new Vector3(Random.Range(-damagePopupXPositionNoise, damagePopupXPositionNoise), 0f, 0f);
-        Transform damagePopupTransform = Instantiate(damagePopupPrefab, position + noiseVector, rotation);
-        // Transform damagePopupTransform = Instantiate(damagePopupPrefab);
-        // Debug.Log("instantiate position: " + damagePopupTransform.position);
-        // Debug.Log("input position: " + position);
-        // damagePopupTransform.localPosition = Camera.main.WorldToScreenPoint(position);
-        // damagePopupTransform.SetParent(canvasTransform);
-        // Debug.Log("local position: " + damagePopupTransform.localPosition);
-
-        DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
-        damagePopup.Setup(damageAmount);
-        
     }
 
     public void Fire()
@@ -97,13 +62,6 @@ public class GunController : MonoBehaviourPun, IPunObservable
             lastFireTime = Time.time;
             Shoot();
         }
-    }
-    
-    [PunRPC]
-    public void RpcFire()
-    {
-        //Fire();
-        Debug.Log("RpcFire");
     }
 
     public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
