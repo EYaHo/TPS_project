@@ -558,6 +558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthSlider: {fileID: 8302322340289296063}
+  damagePopupXPositionNoise: 0.5
   collider: {fileID: 0}
   enemyMovement: {fileID: 0}
 --- !u!65 &8528588751126956513

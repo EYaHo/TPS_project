@@ -19,20 +19,27 @@ public class DamagePopup : MonoBehaviour
         textMesh.color = startColor;
         endColor = startColor;
         endColor.a = 0f;
-        Destroy(this.gameObject, lifeTime);
-        StartCoroutine(FadeOut());
     }
 
-    private void Update() {
+    private void OnEnable() {
+        StartCoroutine(FadeOutAndRelease());
+        transform.forward = transform.position - Camera.main.transform.position;
+    }
+
+    private void FixedUpdate() {
         transform.position += new Vector3(0, ySpeed * Time.deltaTime, 0);
         transform.forward = transform.position - Camera.main.transform.position;
     }
 
-    public void Setup(int damageAmount) {
+    public void Setup(Vector3 position) {
+        transform.position = position;
+    }
+
+    public void SetDamageAmount(int damageAmount) {
         textMesh.SetText(damageAmount.ToString());
     }
 
-    public IEnumerator FadeOut() {
+    public IEnumerator FadeOutAndRelease() {
         float f = 0f;
         float fadeOutTime = lifeTime - startFadeOutTime;
         yield return new WaitForSeconds(startFadeOutTime);
@@ -42,5 +49,7 @@ public class DamagePopup : MonoBehaviour
             f += Time.deltaTime;
             yield return null;
         }
+
+        DamagePopupPool.Instance.ReleaseObject(this.gameObject);
     }
 }

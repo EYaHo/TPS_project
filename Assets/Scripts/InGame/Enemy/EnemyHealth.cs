@@ -21,7 +21,6 @@ public class EnemyHealth : LivingEntity
     [PunRPC]
     public override void OnDamage(float damage, Vector3 hitPoint) {
         base.OnDamage(damage, hitPoint);
-        photonView.RPC("CreateDamagePopup", RpcTarget.All, hitPoint, Camera.main.transform.rotation, (int)damage);
     }
 
     public override void Die() {
