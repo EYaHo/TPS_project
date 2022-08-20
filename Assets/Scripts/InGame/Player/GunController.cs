@@ -51,10 +51,6 @@ public class GunController : MonoBehaviourPun, IPunObservable
         
     }
 
-    [PunRPC]
-    protected virtual void ShootProcessOnServer() {
-    }
-
     public void Fire()
     {
         if(Time.time >= lastFireTime + fireTimeInterval)

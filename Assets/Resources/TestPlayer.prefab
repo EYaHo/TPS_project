@@ -248,11 +248,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 384
-  damagePopupPrefab: {fileID: 4646628534639066757, guid: 143b2b4d08f4fa54ca383d0782182a5a, type: 3}
   attackRange: 60
   attackDamage: 10
   fireTimeInterval: 0.3
-  damagePopupXPositionNoise: 0.5
   gunTransform: {fileID: 2129553893955934209}
 --- !u!114 &2841760669973279096
 MonoBehaviour:
@@ -772,6 +770,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthSlider: {fileID: 608953154294086441}
+  damagePopupXPositionNoise: 0.5
+  damagePopupPrefab: {fileID: 0}
   collider: {fileID: 0}
 --- !u!114 &4132571221110126371
 MonoBehaviour:
@@ -811,8 +811,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cce2ecb1d2d894fa6f471c0c80068a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
+  attackDamage: 10
   canvas: {fileID: 1831215300425842322}
+  items: []
 --- !u!136 &4676430382727211133
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -18,15 +18,14 @@ public class TestPlayerGunController : GunController
         Debug.DrawRay(muzzle.position, muzzle.forward * (aimPoint - muzzle.position).magnitude, Color.red);
     }
 
-    // 서버에서 Shoot을 처리하도록 넘김
+    // 모든 클라이언트에서 총알을 생성하도록 ShootProcess를 호출
     public override void Shoot() {
-        photonView.RPC("ShootProcessOnServer", RpcTarget.MasterClient);
+        photonView.RPC("ShootProcess", RpcTarget.All);
     }
 
-    // 서버에서 Shoot을 처리
     // 총알을 ObjectPool에서 가져와서 초기화
     [PunRPC]
-    protected override void ShootProcessOnServer() {
+    protected void ShootProcess() {
         Bullet bullet = BulletPool.Instance.GetBullet().GetComponent<Bullet>();
         bullet.Setup(attackRange, attackDamage, muzzle.position, transform.rotation, transform.parent.gameObject.GetComponent<Player>());
     }
