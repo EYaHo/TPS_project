@@ -7,7 +7,7 @@ public class BulletPool : MonoBehaviour
 {
     private static BulletPool _instance;
 
-    private int maxPoolSize = 20;
+    private int maxPoolSize = 50;
 
     public static BulletPool Instance {
         get {
