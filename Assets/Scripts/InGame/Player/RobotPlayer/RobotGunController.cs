@@ -66,7 +66,7 @@ public class RobotGunController : GunController
     }
 
     [PunRPC]
-    protected override void ShootProcessOnServer() {
+    protected void ShootProcessOnServer() {
         RaycastHit hit;
         if(Physics.Raycast(muzzle.position, muzzle.forward, out hit, attackRange)) {
             IDamageable target = hit.collider.GetComponent<IDamageable>();
