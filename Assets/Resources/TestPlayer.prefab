@@ -771,7 +771,6 @@ MonoBehaviour:
   maxHealth: 100
   healthSlider: {fileID: 608953154294086441}
   damagePopupXPositionNoise: 0.5
-  damagePopupPrefab: {fileID: 0}
   collider: {fileID: 0}
 --- !u!114 &4132571221110126371
 MonoBehaviour:

@@ -14,8 +14,6 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
     public Slider healthSlider;
     public float damagePopupXPositionNoise = 0.5f;
 
-    public Transform damagePopupPrefab;
-
     [SerializeField]
     protected Collider collider;
 
@@ -45,10 +43,10 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
             health -= damage;
             photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, dead);
             photonView.RPC("OnDamage", RpcTarget.Others, damage, hitPoint);
-            photonView.RPC("CreateDamagePopup", RpcTarget.All, hitPoint, Camera.main.transform.rotation, (int)damage);
         }
 
         healthSlider.value = health;
+        photonView.RPC("CreateDamagePopup", RpcTarget.All, hitPoint, (int)damage);
 
         if(health <= 0 && !dead) {
             Die();
@@ -84,12 +82,10 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
 
     // 데미지를 받은 위치에 데미지 팝업을 표시하는 함수
     [PunRPC]
-    public void CreateDamagePopup(Vector3 position, Quaternion rotation, int damageAmount) {
+    public void CreateDamagePopup(Vector3 position, int damageAmount) {
         Vector3 noiseVector = new Vector3(UnityEngine.Random.Range(-damagePopupXPositionNoise, damagePopupXPositionNoise), 0f, 0f);
-        Transform damagePopupTransform = Instantiate(damagePopupPrefab, position + noiseVector, rotation);
-
-        DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
-        damagePopup.Setup(damageAmount);
-        
+        DamagePopup damagePopup = DamagePopupPool.Instance.GetObject().GetComponent<DamagePopup>();
+        damagePopup.Setup(position + noiseVector);
+        damagePopup.SetDamageAmount(damageAmount);
     }
 }
