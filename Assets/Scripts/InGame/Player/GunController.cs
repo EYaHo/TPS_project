@@ -17,6 +17,7 @@ public class GunController : MonoBehaviourPun, IPunObservable
     protected float lastFireTime;
     protected Vector3 aimVector;
     public Vector3 aimPoint { get; protected set; }
+    public PlayerShooter playerShooter;
 
     protected virtual void Update() {
         if(!photonView.IsMine)

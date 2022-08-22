@@ -27,7 +27,7 @@ public class TestPlayerGunController : GunController
     [PunRPC]
     protected void ShootProcess() {
         Bullet bullet = BulletPool.Instance.GetObject().GetComponent<Bullet>();
-        bullet.Setup(attackRange, attackDamage, muzzle.position, transform.rotation, transform.parent.gameObject.GetComponent<Player>());
+        bullet.Setup(attackRange, attackDamage, muzzle.position, transform.rotation, transform.parent.gameObject.GetComponent<PlayerShooter>());
     }
 
     // aim을 따라 플레이어의 총을 회전시킨다.

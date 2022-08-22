@@ -8,11 +8,11 @@ public class Item : InteractableObject
         Destroy(gameObject);
     }
 
-    public virtual void OnDamage() {        
-
+    public virtual float OnAttack(float damage) {
+        return damage;
     }
 
-    public virtual void OnDamaged() {
+    public virtual void OnDamage() {
 
     }
 }

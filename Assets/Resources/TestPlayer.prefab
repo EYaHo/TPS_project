@@ -251,6 +251,7 @@ MonoBehaviour:
   attackRange: 60
   attackDamage: 10
   fireTimeInterval: 0.3
+  playerShooter: {fileID: 7819450821971473574}
   gunTransform: {fileID: 2129553893955934209}
 --- !u!114 &2841760669973279096
 MonoBehaviour:
@@ -798,6 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunController: {fileID: 1600693027136925821}
+  attackDamage: 10
 --- !u!114 &7424924294779644196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,9 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cce2ecb1d2d894fa6f471c0c80068a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 10
   canvas: {fileID: 1831215300425842322}
-  items: []
 --- !u!136 &4676430382727211133
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -5,15 +5,20 @@ using Photon.Pun;
 
 public class PlayerShooter : MonoBehaviourPun
 {
-    protected PlayerInput playerInput;
     [SerializeField]
     public GunController gunController;
+    public float attackDamage = 10f;
+
+    protected PlayerInput playerInput;
+    [SerializeField]
+    protected Player player;
 
     //private PlayerAnimationController animController;
 
     protected virtual void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        player = GetComponent<Player>();
         //animController = GetComponent<PlayerAnimationController>();
     }
 
@@ -38,5 +43,14 @@ public class PlayerShooter : MonoBehaviourPun
 
     protected void OnDisable() {
         gunController.gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    public void OnAttack(IDamageable target, Vector3 hitPoint) {
+        // 아이템의 OnDamage 함수 호출
+        float damage = player.OnAttack(attackDamage);
+
+        // 데미지 적용
+        target.OnDamage(damage, hitPoint);
     }
 }
