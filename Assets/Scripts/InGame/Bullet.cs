@@ -66,6 +66,6 @@ public class Bullet : MonoBehaviour
     // ObjectPool에서 가져온 총알을 Release
     private void Release() {
         trailRenderer.enabled = false;
-        BulletPool.Instance.ReleaseBullet(gameObject);
+        BulletPool.Instance.ReleaseObject(gameObject);
     }
 }

@@ -14,7 +14,7 @@ public class TestPlayerGunController : GunController
         }
 
         aimVector = CalcAimVector();
-        TraceAim(aimVector);
+        photonView.RPC("TraceAim", RpcTarget.All, aimVector);
         Debug.DrawRay(muzzle.position, muzzle.forward * (aimPoint - muzzle.position).magnitude, Color.red);
     }
 
@@ -26,11 +26,12 @@ public class TestPlayerGunController : GunController
     // 총알을 ObjectPool에서 가져와서 초기화
     [PunRPC]
     protected void ShootProcess() {
-        Bullet bullet = BulletPool.Instance.GetBullet().GetComponent<Bullet>();
+        Bullet bullet = BulletPool.Instance.GetObject().GetComponent<Bullet>();
         bullet.Setup(attackRange, attackDamage, muzzle.position, transform.rotation, transform.parent.gameObject.GetComponent<Player>());
     }
 
     // aim을 따라 플레이어의 총을 회전시킨다.
+    [PunRPC]
     public void TraceAim(Vector3 aimVector) {
         Quaternion preRot = transform.rotation;
         Quaternion nextRot = Quaternion.LookRotation(aimVector);
