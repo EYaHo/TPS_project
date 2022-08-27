@@ -209,7 +209,6 @@ MonoBehaviour:
   maxHealth: 100
   healthSlider: {fileID: 4126074703897983117}
   damagePopupXPositionNoise: 0.5
-  damagePopupPrefab: {fileID: 4646628534639066757, guid: 143b2b4d08f4fa54ca383d0782182a5a, type: 3}
   collider: {fileID: 0}
   enemyMovement: {fileID: 0}
 --- !u!65 &8934357938413430564
@@ -255,6 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2066db8bad78f2147bc95ff2d8eab4f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationForPlayingOnce:
+  - {fileID: 0}
 --- !u!114 &7445470042913824052
 MonoBehaviour:
   m_ObjectHideFlags: 0
