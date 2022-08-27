@@ -45,6 +45,9 @@ public class PlayerMovement : MonoBehaviourPun
         }
 
         Rotate();
+        if(playerInput.jump && numRemainJump > 0) {
+            photonView.RPC("RpcJump", RpcTarget.All);
+        }
     }
 
     private void FixedUpdate() {
@@ -55,9 +58,6 @@ public class PlayerMovement : MonoBehaviourPun
 
         Move();
         //Jump();
-        if(playerInput.jump && numRemainJump > 0) {
-            photonView.RPC("RpcJump", RpcTarget.All);
-        }
     }
 
     protected virtual void Move() {

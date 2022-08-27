@@ -59,8 +59,8 @@ public class EnemyMovement : MonoBehaviour
         this.damage = damage;
         this.sightRange = sightRange;
         this.sightAngle = sightAngle;
-        this.attackRange = 2.0f;
-        this.attackForeDelay = 1.0f;
+        this.attackRange = 4.0f;
+        this.attackForeDelay = 3.0f;
         this.attackBackDelay = 1.5f;
         navMeshAgent.speed = moveSpeed;
     }
