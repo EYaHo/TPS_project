@@ -487,8 +487,6 @@ MonoBehaviour:
   maxHealth: 100
   healthSlider: {fileID: 5153177665681103250}
   damagePopupXPositionNoise: 0.5
-  damagePopupPrefab: {fileID: 4646628534639066757, guid: 143b2b4d08f4fa54ca383d0782182a5a, type: 3}
-  collider: {fileID: 0}
   enemyMovement: {fileID: 0}
 --- !u!136 &980005754831658055
 CapsuleCollider:

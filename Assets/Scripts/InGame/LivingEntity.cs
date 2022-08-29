@@ -14,7 +14,6 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
     public Slider healthSlider;
     public float damagePopupXPositionNoise = 0.5f;
 
-    [SerializeField]
     protected Collider collider;
 
     protected void Start() {

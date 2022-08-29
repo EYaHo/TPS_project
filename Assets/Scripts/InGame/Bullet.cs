@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Enemy" || other.gameObject.tag == "Ground") {
+        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Ground")) {
             // 마스터 클라이언트인 경우 데미지 계산하고 처리
             if(PhotonNetwork.IsMasterClient) {
                 IDamageable target = other.gameObject.GetComponent<IDamageable>();

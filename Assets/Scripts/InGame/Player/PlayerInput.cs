@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviourPun
     public string rotateAxisName = "Horizontal";
     public string jumpButtonName = "Jump";
     public string fireButtonName = "Fire1";
+    public string interactButtonName = "Interact";
 
     public float verticalRotate { get; private set; }
     public float horizontalRotate { get; private set; }
@@ -20,6 +21,7 @@ public class PlayerInput : MonoBehaviourPun
     public float rotate { get; private set; }
     public bool jump { get; private set; }
     public bool fire { get; private set; }
+    public bool interact { get; private set; }
 
     // Update is called once per frame
     void Update()
@@ -44,5 +46,6 @@ public class PlayerInput : MonoBehaviourPun
         rotate = Input.GetAxis(rotateAxisName);
         jump = Input.GetButtonDown(jumpButtonName);
         fire = Input.GetButton(fireButtonName);
+        interact = Input.GetButton(interactButtonName);
     }
 }

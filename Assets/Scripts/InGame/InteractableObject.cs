@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
-    public string interactString = "";
+    protected string interactString = "";
 
     public string GetInteractString() {
         return interactString;
