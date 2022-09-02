@@ -2,23 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : InteractableObject
+public enum Attributes {
+    AttackBonus,
+    DamageReduction,
+    MovementSpeed,
+}
+
+public class Item
 {
-    public ItemData itemData;
+    public string name;
+    public int id;
+    public ItemBuff[] buffs;
 
-    private void Start() {
-        interactString = itemData.ItemName + " 획득 " + "<color=yellow>" + "[E]" + "</color>";
+    public Item(ItemData itemData) {
+        name = itemData.name;
+        id = itemData.Id;
+        buffs = new ItemBuff[itemData.Buffs.Length];
+        for(int i=0; i < buffs.Length; i++) {
+            buffs[i] = new ItemBuff();
+        }
     }
+}
 
-    public override void Interact() {
-        Destroy(gameObject);
-    }
+[System.Serializable]
+public class ItemBuff
+{
+    public Attributes attribute;
+    public int value;
 
-    public virtual float OnAttack(float damage) {
-        return damage;
-    }
-
-    public virtual void OnDamage() {
+    public ItemBuff() {
 
     }
 }

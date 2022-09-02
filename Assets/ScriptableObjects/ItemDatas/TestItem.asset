@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e304a0db34579a74886fb6abfe98466f, type: 3}
   m_Name: TestItem
   m_EditorClassIdentifier: 
-  itemName: TestItem
+  id: 0
   tier: 0
   prefab: {fileID: 4233373547031316362, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
   sprite: {fileID: 0}
-  itemScript: {fileID: 0}
+  groundItem: {fileID: 0}
+  description: 
+  buffs:
+  - attribute: 0
+    value: 10

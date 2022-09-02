@@ -6,7 +6,6 @@ using Photon.Pun;
 public class Player : MonoBehaviourPun
 {
     public GameObject canvas;
-    private List<ItemData> items = new List<ItemData>();
 
     private void Awake() {
         if(!photonView.IsMine) {
@@ -14,15 +13,4 @@ public class Player : MonoBehaviourPun
         }
     }
 
-    public float OnAttack(float damage) {
-        for(int i=0; i < items.Count; i++) {
-            //damage = items[i].OnAttack(damage);
-        }
-
-        return damage;
-    }
-
-    public void AddItem(ItemData itemData) {
-        items.Add(itemData);
-    }
 }

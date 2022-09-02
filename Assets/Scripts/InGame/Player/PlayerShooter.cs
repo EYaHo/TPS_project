@@ -11,15 +11,12 @@ public class PlayerShooter : MonoBehaviourPun
 
     protected PlayerInput playerInput;
     [SerializeField]
-    protected Player player;
-
-    //private PlayerAnimationController animController;
+    protected PlayerInventory playerInventory;
 
     protected virtual void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        player = GetComponent<Player>();
-        //animController = GetComponent<PlayerAnimationController>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     protected virtual void Update()
@@ -30,10 +27,9 @@ public class PlayerShooter : MonoBehaviourPun
         }
 
         if(playerInput.fire) {
-            //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
             gunController.Fire();
         } else {
-            //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
+            
         }
     }
 
@@ -48,9 +44,10 @@ public class PlayerShooter : MonoBehaviourPun
     [PunRPC]
     public void OnAttack(IDamageable target, Vector3 hitPoint) {
         // 아이템의 OnDamage 함수 호출
-        float damage = player.OnAttack(attackDamage);
+        // float damage = playerInventory.OnAttack(attackDamage);
 
         // 데미지 적용
-        target.OnDamage(damage, hitPoint);
+        // target.OnDamage(damage, hitPoint);
+        target.OnDamage(attackDamage, hitPoint);
     }
 }

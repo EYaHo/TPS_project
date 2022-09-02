@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemTier {
+    Normal,
+    Rare,
+    Unique,
+    Legendary,
+}
+
 [CreateAssetMenu(fileName = "Item Data", menuName = "Scriptable Object/Item Data")]
 public class ItemData : ScriptableObject
 {
-    public enum ItemTier {
-        Normal,
-        Rare,
-        Unique,
-        Legendary,
-    }
-
     [SerializeField]
-    private string itemName;
-    public string ItemName { get { return itemName; } }
+    private int id;
+    public int Id { get { return id; } }
 
     [SerializeField]
     private ItemTier tier;
@@ -29,6 +29,19 @@ public class ItemData : ScriptableObject
     public Sprite Sprite { get { return sprite; } }
 
     [SerializeField]
-    private Item itemScript;
-    public Item ItemScript { get { return itemScript; } }
+    private GroundItem groundItem;
+    public GroundItem GroundItem { get { return groundItem; } }
+
+    [SerializeField]
+    private string description;
+    public string Description { get { return description; } }
+
+    [SerializeField]
+    private ItemBuff[] buffs;
+    public ItemBuff[] Buffs { get { return buffs; } }
+
+    public Item CreateItem() {
+        Item newItem = new Item(this);
+        return newItem;
+    }
 }
