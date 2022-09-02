@@ -21,21 +21,9 @@ public class RobotPlayerShooter : PlayerShooter
         }
 
         if(playerInput.fire) {
-            //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
             animController.ChangeAnimationState(PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
             gunController.Fire();
-            
-            // if(PhotonNetwork.IsMasterClient) {
-            //     //gunController.Fire();
-            //     gunController.photonView.RPC("RpcFire", RpcTarget.MasterClient);
-            // } else {
-            //     gunController.photonView.RPC("RpcFire", RpcTarget.MasterClient);
-            // }
-            
-            //gunController.photonView.RPC("RpcFire", RpcTarget.All);
-
         } else {
-            //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
             animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
         }
     }

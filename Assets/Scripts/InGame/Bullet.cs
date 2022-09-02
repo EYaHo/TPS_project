@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     private Rigidbody rigidbody;
     private TrailRenderer trailRenderer;
     [SerializeField]
-    private Player player;
+    private PlayerShooter playerShooter;
     
 
     public float speed = 20f;
@@ -33,13 +33,13 @@ public class Bullet : MonoBehaviour
     }
 
     // 총알의 사거리, 데미지, 초기 위치, 회전, 어느 플레이어의 소유인지 등을 설정
-    public void Setup(float attackRange, float attackDamage, Vector3 startPosition, Quaternion rot, Player player) {
+    public void Setup(float attackRange, float attackDamage, Vector3 startPosition, Quaternion rot, PlayerShooter playerShooter) {
         this.attackRange = attackRange;
         this.damage = attackDamage;
         this.transform.position = startPosition;
         this.startPosition = transform.position;
         this.transform.rotation = rot;
-        this.player = player;
+        this.playerShooter = playerShooter;
 
         trailRenderer.enabled = true;
         trailRenderer.Clear();
@@ -49,13 +49,13 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Enemy" || other.gameObject.tag == "Ground") {
+        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Ground")) {
             // 마스터 클라이언트인 경우 데미지 계산하고 처리
             if(PhotonNetwork.IsMasterClient) {
                 IDamageable target = other.gameObject.GetComponent<IDamageable>();
 
                 if(target != null) {
-                    player.photonView.RPC("OnDamage", RpcTarget.MasterClient, target, other.transform.position);
+                    playerShooter.photonView.RPC("OnAttack", RpcTarget.MasterClient, target, other.transform.position);
                 }
             }
 
