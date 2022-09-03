@@ -12,6 +12,10 @@ public class AbstractPool : MonoBehaviour
     // Start is called before the first frame update
     public void Awake()
     {
+        InitializePool();
+    }
+
+    protected virtual void InitializePool() {
         objectPool = new ObjectPool<GameObject>(
             CreatePooledItem,
             OnTakeFromPool,
