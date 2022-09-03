@@ -18,6 +18,18 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
     private List<Enemy> enemies = new List<Enemy>();
     private int enemyCount = 0;
 
+    private static EnemySpawner _instance;
+
+    public static EnemySpawner Instance {
+        get {
+            if(_instance == null) {
+                _instance = FindObjectOfType<EnemySpawner>();
+            }
+
+            return _instance;
+        }
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if(stream.IsWriting) {
             stream.SendNext(enemies.Count);
@@ -56,10 +68,18 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
         // 수정하기!!
         // 게임이 시작되자마자 몬스터가 생기면 그 다음 들어오는 플레이어에게는 이 함수가 호출되지 않음
         // 모든 플레이어가 동시에 게임이 시작되도록 수정해야함
-        enemy.photonView.RPC("Setup", RpcTarget.All, enemyData.EnemyName, enemyData.Hp, enemyData.Damage, enemyData.SightRange, enemyData.SightAngle, enemyData.MoveSpeed);
+        enemy.photonView.RPC("Setup", RpcTarget.All, enemyData.EnemyName, enemyData.Hp, enemyData.Damage, enemyData.SightRange, enemyData.SightAngle, enemyData.MoveSpeed, spawnPointIdx);
         //
         enemy.PrintEnemyData();
         enemies.Add(enemy);
+    }
+
+    public void SpawnEnemyByPosition() {
+        
+    }
+
+    public void ReSpawn() {
+
     }
 
     public void InitializeSpawnPosition()
