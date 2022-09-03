@@ -9,9 +9,12 @@ public class EnemyHealth : LivingEntity
 {
     [SerializeField]
     private EnemyMovement enemyMovement;
+    [SerializeField]
+    private AnimationController animController;
 
     private void Awake() {
         enemyMovement = GetComponent<EnemyMovement>();
+        animController = GetComponent<AnimationController>();
     }
 
     private void LateUpdate() {
@@ -25,7 +28,14 @@ public class EnemyHealth : LivingEntity
 
     public override void Die() {
         base.Die();
-
+        animController.PlayDieAnimation();
         enemyMovement.enabled = false;
+
+        if(GetComponent<Enemy>().hasSpawnPosition) {
+            //respawn;
+            Debug.Log("execute respawn");
+        } else {
+            Debug.Log("It doesn't have SpawnPosition.");
+        }
     }
 }

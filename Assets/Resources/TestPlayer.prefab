@@ -623,6 +623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numColumns: 10
   numRows: 1
+  offset: 10
   spaceBetweenItem: 10
   playerInventory: {fileID: 8049806443113783003}
   itemSlot: {fileID: 5724099779385951707, guid: d730afb81843edb4a9b951811b97d142, type: 3}

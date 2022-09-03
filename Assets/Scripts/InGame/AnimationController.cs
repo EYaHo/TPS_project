@@ -70,4 +70,8 @@ public class AnimationController : MonoBehaviourPun
         //if(currentState == newState) return;
         StartCoroutine(Play_Once(newState, nextState));
     }
+
+    public virtual void PlayDieAnimation() {
+        
+    }
 }

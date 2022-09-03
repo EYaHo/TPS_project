@@ -969,6 +969,7 @@ MonoBehaviour:
   healthSlider: {fileID: 438178883452264155}
   damagePopupXPositionNoise: 0.5
   enemyMovement: {fileID: 0}
+  animController: {fileID: 0}
 --- !u!65 &6032319302159915628
 BoxCollider:
   m_ObjectHideFlags: 0
