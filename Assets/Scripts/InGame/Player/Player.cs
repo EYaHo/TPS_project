@@ -5,9 +5,6 @@ using Photon.Pun;
 
 public class Player : MonoBehaviourPun
 {
-    [SerializeField]
-    private Item[] items;
-
     public GameObject canvas;
 
     private void Awake() {
@@ -16,14 +13,4 @@ public class Player : MonoBehaviourPun
         }
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

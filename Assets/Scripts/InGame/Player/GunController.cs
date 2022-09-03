@@ -3,68 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class GunController : MonoBehaviourPun
+public class GunController : MonoBehaviourPun, IPunObservable
 {
     [SerializeField]
     protected Transform muzzle;
 
     [SerializeField]
-    LayerMask layerMask;
-    
-    [SerializeField]
-    private Camera cam;
+    protected LayerMask layerMask;
 
     public float attackRange = 30f;
     public float attackDamage = 10f;
     public float fireTimeInterval = 1f;
-    private float lastFireTime;
+    protected float lastFireTime;
+    protected Vector3 aimVector;
+    public Vector3 aimPoint { get; protected set; }
+    public PlayerShooter playerShooter;
 
-    private void Start() {
-        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-    }
-
-    private void Update() {
+    protected virtual void Update() {
         if(!photonView.IsMine)
         {
             return;
         }
 
-        Vector3 aimVector = CalcAimVector();
-        Debug.DrawRay(muzzle.position, aimVector * 20f, Color.red);
-        TraceAim(aimVector);
+        aimVector = CalcAimVector();
+        Debug.DrawRay(muzzle.position, muzzle.forward * (aimPoint - muzzle.position).magnitude, Color.red);
     }
 
-    private void OnEnable() {
-        lastFireTime = 0;
+    protected virtual void OnEnable() {
+        lastFireTime = 0f;
     }
 
     // 화면의 중앙으로 향하는 에임 벡터를 계산
-    public Vector3 CalcAimVector() {
+    public virtual Vector3 CalcAimVector() {
         RaycastHit hitData;
-        Ray ray = cam.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
-        Vector3 aimPoint;
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
 
         if(Physics.Raycast(ray, out hitData, attackRange, layerMask))
         {
             aimPoint = hitData.point;
-        }
-        else
-        {
+        } else {
             aimPoint = ray.origin + ray.direction * attackRange;
         }
-        
+
         return (aimPoint - muzzle.position).normalized;
-    }
-
-    // aim을 따라 플레이어의 총을 회전시킨다.
-    public void TraceAim(Vector3 aimVector) {
-        Quaternion preRot = transform.rotation;
-        Quaternion nextRot = Quaternion.LookRotation(aimVector);
-        Quaternion rot = Quaternion.Slerp(preRot, nextRot, 0.1f);
-        
-        transform.rotation = rot;
-
-        muzzle.rotation = Quaternion.LookRotation(aimVector);
     }
 
     public virtual void Shoot() {
@@ -79,4 +60,13 @@ public class GunController : MonoBehaviourPun
             Shoot();
         }
     }
+
+    public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if(stream.IsWriting) {
+            stream.SendNext(aimPoint);
+        } else {
+            aimPoint = (Vector3)stream.ReceiveNext();
+        }
+    }
+
 }

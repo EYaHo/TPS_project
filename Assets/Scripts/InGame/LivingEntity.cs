@@ -8,17 +8,12 @@ using Photon.Pun;
 public class LivingEntity : MonoBehaviourPun, IDamageable
 {
     public float maxHealth = 100f;
-
-    [SerializeField]
     public float health { get; protected set; }
-
-    [SerializeField]
     public bool dead { get; protected set; }
     public event Action onDeath;
-
     public Slider healthSlider;
+    public float damagePopupXPositionNoise = 0.5f;
 
-    [SerializeField]
     protected Collider collider;
 
     protected void Start() {
@@ -42,14 +37,15 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
     }
 
     [PunRPC]
-    public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal) {
+    public virtual void OnDamage(float damage, Vector3 hitPoint) {
         if(PhotonNetwork.IsMasterClient) {
             health -= damage;
             photonView.RPC("ApplyUpdatedHealth", RpcTarget.Others, health, dead);
-            photonView.RPC("OnDamage", RpcTarget.Others, damage, hitPoint, hitNormal);
+            photonView.RPC("OnDamage", RpcTarget.Others, damage, hitPoint);
         }
 
         healthSlider.value = health;
+        photonView.RPC("CreateDamagePopup", RpcTarget.All, hitPoint, (int)damage);
 
         if(health <= 0 && !dead) {
             Die();
@@ -81,5 +77,14 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
 
         healthSlider.gameObject.SetActive(false);
         collider.enabled = false;
+    }
+
+    // 데미지를 받은 위치에 데미지 팝업을 표시하는 함수
+    [PunRPC]
+    public void CreateDamagePopup(Vector3 position, int damageAmount) {
+        Vector3 noiseVector = new Vector3(UnityEngine.Random.Range(-damagePopupXPositionNoise, damagePopupXPositionNoise), 0f, 0f);
+        DamagePopup damagePopup = DamagePopupPool.Instance.GetObject().GetComponent<DamagePopup>();
+        damagePopup.Setup(position + noiseVector);
+        damagePopup.SetDamageAmount(damageAmount);
     }
 }

@@ -59,8 +59,8 @@ public class EnemyMovement : MonoBehaviour
         this.damage = damage;
         this.sightRange = sightRange;
         this.sightAngle = sightAngle;
-        this.attackRange = 2.0f;
-        this.attackForeDelay = 1.0f;
+        this.attackRange = 4.0f;
+        this.attackForeDelay = 3.0f;
         this.attackBackDelay = 1.5f;
         navMeshAgent.speed = moveSpeed;
     }
@@ -143,9 +143,8 @@ public class EnemyMovement : MonoBehaviour
     protected void Attack(LivingEntity attackTarget) {
         Collider targetCollider = attackTarget.GetComponent<Collider>();
         Vector3 hitPoint = targetCollider.ClosestPoint(transform.position);
-        Vector3 hitNormal = transform.position - targetCollider.transform.position;
 
-        attackTarget.OnDamage(damage, hitPoint, hitNormal);
+        attackTarget.OnDamage(damage, hitPoint);
         Debug.Log("Attack!", attackTarget);
     }
 

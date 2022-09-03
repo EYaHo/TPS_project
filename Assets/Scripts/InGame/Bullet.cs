@@ -3,46 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Bullet : MonoBehaviourPunCallbacks
+public class Bullet : MonoBehaviour
 {
-    public float speed = 2f;
+    public LayerMask enemyLayerMasks;
+
+    private Rigidbody rigidbody;
+    private TrailRenderer trailRenderer;
+    [SerializeField]
+    private PlayerShooter playerShooter;
+    
+
+    public float speed = 20f;
 
     private Vector3 startPosition;
     private float attackRange = 100f;
-    private bool isAlive;
     private float damage = 0f;
+    private Transform gunController;
+
+    private void Awake() {
+        rigidbody = GetComponent<Rigidbody>();
+        trailRenderer = GetComponent<TrailRenderer>();
+    }
 
     private void Update() {
-        if(!isAlive) return;
-        transform.position += transform.forward * Time.deltaTime * speed;
-
+        // 총알이 사거리를 벗어나면 제거
         if(Vector3.Distance(startPosition, transform.position) >= attackRange) {
-            //PhotonNetwork.Destroy(this.gameObject);
             Release();
         }
     }
 
-    [PunRPC]
-    public void Setup(float attackRange, float attackDamage, Vector3 startPosition, Quaternion rot) {
+    // 총알의 사거리, 데미지, 초기 위치, 회전, 어느 플레이어의 소유인지 등을 설정
+    public void Setup(float attackRange, float attackDamage, Vector3 startPosition, Quaternion rot, PlayerShooter playerShooter) {
         this.attackRange = attackRange;
         this.damage = attackDamage;
         this.transform.position = startPosition;
         this.startPosition = transform.position;
         this.transform.rotation = rot;
-        GetComponent<PooledObject>().photonView.RPC("SetActive", RpcTarget.All, true);
-        isAlive = true;
+        this.playerShooter = playerShooter;
+
+        trailRenderer.enabled = true;
+        trailRenderer.Clear();
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+        rigidbody.AddForce(transform.forward * speed, ForceMode.VelocityChange);
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Enemy" || other.gameObject.tag == "Ground") {
-            Debug.Log("Bullet hit: "+other.gameObject.name);
-            //PhotonNetwork.Destroy(this.gameObject);
+        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Ground")) {
+            // 마스터 클라이언트인 경우 데미지 계산하고 처리
+            if(PhotonNetwork.IsMasterClient) {
+                IDamageable target = other.gameObject.GetComponent<IDamageable>();
+
+                if(target != null) {
+                    playerShooter.photonView.RPC("OnAttack", RpcTarget.MasterClient, target, other.transform.position);
+                }
+            }
+
             Release();
         }
     }
+    
+    // ObjectPool에서 가져온 총알을 Release
     private void Release() {
-        
-        BulletPool.instance.ReleaseBullet(gameObject);
-        isAlive = false;
+        trailRenderer.enabled = false;
+        BulletPool.Instance.ReleaseObject(gameObject);
     }
 }

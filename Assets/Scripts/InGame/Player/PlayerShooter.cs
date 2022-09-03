@@ -5,19 +5,21 @@ using Photon.Pun;
 
 public class PlayerShooter : MonoBehaviourPun
 {
-    private PlayerInput playerInput;
     [SerializeField]
     public GunController gunController;
+    public float attackDamage = 10f;
 
-    private PlayerAnimationController animController;
+    protected PlayerInput playerInput;
+    [SerializeField]
+    protected PlayerInventory playerInventory;
 
-    void Awake()
+    protected virtual void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        animController = GetComponent<PlayerAnimationController>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if(!photonView.IsMine)
         {
@@ -25,18 +27,27 @@ public class PlayerShooter : MonoBehaviourPun
         }
 
         if(playerInput.fire) {
-            animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
             gunController.Fire();
         } else {
-            animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
+            
         }
     }
 
-    private void OnEnable() {
+    protected void OnEnable() {
         gunController.gameObject.SetActive(true);
     }
 
-    private void OnDisable() {
+    protected void OnDisable() {
         gunController.gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    public void OnAttack(IDamageable target, Vector3 hitPoint) {
+        // 아이템의 OnDamage 함수 호출
+        // float damage = playerInventory.OnAttack(attackDamage);
+
+        // 데미지 적용
+        // target.OnDamage(damage, hitPoint);
+        target.OnDamage(attackDamage, hitPoint);
     }
 }
