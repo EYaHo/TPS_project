@@ -30,7 +30,8 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
     {
         if (PhotonNetwork.IsMasterClient) {
             InitializeSpawnPosition();
-            Invoke("SpawnEnemy", 5);
+            //Invoke("SpawnEnemy", 5);
+            Invoke("SpawnEnemyAllPosition", 5);
         }
     }
 
@@ -60,6 +61,33 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
         //
         enemy.PrintEnemyData();
         enemies.Add(enemy);
+    }
+
+    public void SpawnEnemyByPosition(int spawnPointIdx) {
+        Transform spawnPoint = spawnPointList[spawnPointIdx];
+        SpawnPosition spawnPos = spawnPoint.GetComponent<SpawnPosition>();
+
+        if(spawnPos.isEnemySpawned) {
+            return;
+        }
+
+        EnemyData enemyData = spawnPos.enemyData;
+        GameObject createdEnemy = PhotonNetwork.Instantiate(enemyData.Prefab.gameObject.name/*enemyPrefab.gameObject.name*/, spawnPoint.position, spawnPoint.rotation);
+        createdEnemy.name = enemyData.Prefab.gameObject.name;
+        Enemy enemy = createdEnemy.GetComponent<Enemy>();
+
+        enemy.photonView.RPC("Setup", RpcTarget.All, enemyData.EnemyName, enemyData.Hp, enemyData.Damage, enemyData.SightRange, enemyData.SightAngle, enemyData.MoveSpeed, spawnPointIdx);
+        //
+        enemy.PrintEnemyData();
+        enemies.Add(enemy);
+
+        spawnPos.isEnemySpawned = true;
+    }
+
+    public void SpawnEnemyAllPosition() {
+        for(int i=0; i < spawnPointSet.transform.childCount; i++) {
+            SpawnEnemyByPosition(i);
+        }
     }
 
     public void InitializeSpawnPosition()

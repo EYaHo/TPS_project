@@ -19,4 +19,7 @@ public class TurtleAnimationController : AnimationController
         Dizzy,      //11
         Die         //12
     }
+    public override void PlayDieAnimation() {
+        ChangeAnimationState(AnimState.Die.ToString());
+    }
 }

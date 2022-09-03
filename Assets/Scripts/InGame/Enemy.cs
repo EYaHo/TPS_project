@@ -14,6 +14,18 @@ public class Enemy : MonoBehaviourPun
     public float sightAngle;
     public float moveSpeed;
 
+    private int spawnPointIdx;
+    public bool hasSpawnPosition {
+        get {
+            if(spawnPointIdx == -1) {
+            return false;
+            } else {
+                return true;
+            }
+        }
+        private set{}
+    }
+
     private void Start() {
         enemyMovement = GetComponent<EnemyMovement>();
     }
@@ -30,6 +42,23 @@ public class Enemy : MonoBehaviourPun
         this.moveSpeed = moveSpeed;
         enemyMovement = GetComponent<EnemyMovement>();
         enemyMovement.Initialize(damage, sightRange, sightAngle, moveSpeed);
+
+        this.spawnPointIdx = -1;
+    }
+
+    [PunRPC]
+    public void Setup(string enemyName, int hp, int damage, float sightRange, float sightAngle, float moveSpeed, int spawnPointIdx) {
+        Debug.Log("Enemy.cs: Setup 호출!");
+        this.enemyName = enemyName;
+        this.hp = hp;
+        this.damage = damage;
+        this.sightRange = sightRange;
+        this.sightAngle = sightAngle;
+        this.moveSpeed = moveSpeed;
+        enemyMovement = GetComponent<EnemyMovement>();
+        enemyMovement.Initialize(damage, sightRange, sightAngle, moveSpeed);
+
+        this.spawnPointIdx = spawnPointIdx;
     }
 
     public void PrintEnemyData()
