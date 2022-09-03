@@ -72,8 +72,8 @@ public class RobotGunController : GunController
             IDamageable target = hit.collider.GetComponent<IDamageable>();
 
             if(target != null) {
-                target.OnDamage(attackDamage, hit.point);
-                //photonView.RPC("CreateDamagePopup", RpcTarget.All, hit.point, Camera.main.transform.rotation, (int)attackDamage);
+                playerShooter.photonView.RPC("OnAttack", RpcTarget.MasterClient, target, hit.point);
+                // target.OnDamage(attackDamage, hit.point);
             }
         }
     }
