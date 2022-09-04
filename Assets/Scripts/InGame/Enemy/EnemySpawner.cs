@@ -18,6 +18,18 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
     private List<Enemy> enemies = new List<Enemy>();
     private int enemyCount = 0;
 
+    private static EnemySpawner _instance;
+
+    public static EnemySpawner Instance {
+        get {
+            if(_instance == null) {
+                _instance = FindObjectOfType<EnemySpawner>();
+            }
+
+            return _instance;
+        }
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if(stream.IsWriting) {
             stream.SendNext(enemies.Count);
@@ -88,6 +100,21 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
         for(int i=0; i < spawnPointSet.transform.childCount; i++) {
             SpawnEnemyByPosition(i);
         }
+    }
+
+    public void ReSpawn(int spawnPointIdx) {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        StartCoroutine(ReSpawnCoroutine(spawnPointIdx));
+    }
+    IEnumerator ReSpawnCoroutine(int spawnPointIdx) {
+        Transform spawnPoint = spawnPointList[spawnPointIdx];
+        SpawnPosition spawnPos = spawnPoint.GetComponent<SpawnPosition>();
+        spawnPos.isEnemySpawned = false;
+
+        yield return new WaitForSeconds(spawnPos.respawnDelay);
+        
+        SpawnEnemyByPosition(spawnPointIdx);
     }
 
     public void InitializeSpawnPosition()

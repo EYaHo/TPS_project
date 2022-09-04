@@ -6,5 +6,5 @@ public class SpawnPosition : MonoBehaviour
 {
     public EnemyData enemyData;
     public bool isEnemySpawned = false;
-    public float respawnDelay = 10.0f; 
+    public float respawnDelay = 3.0f; 
 }
