@@ -23,4 +23,10 @@ public class SlimeAnimationController : AnimationController
     public override void PlayDieAnimation() {
         ChangeAnimationState(AnimState.Die.ToString());
     }
+    public override void PlayAttackAnimation() {
+        ChangeAnimationState_Once(AnimState.Attack01.ToString(), AnimState.IdleBattle.ToString());
+    }
+    public override void PlayWalkFWDAnimation() {
+        ChangeAnimationState(AnimState.WalkFWD.ToString());
+    }
 }

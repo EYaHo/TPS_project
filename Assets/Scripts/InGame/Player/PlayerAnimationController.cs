@@ -52,7 +52,7 @@ public class PlayerAnimationController : AnimationController
         } else { // layer == 1
             if(currentState_second == newState) return;
         }
-        photonView.RPC("RpcChangeAnimationState", RpcTarget.All, newState, layer, normalizedTime);
+        photonView.RPC("RpcChangeAnimationState", RpcTarget.AllBuffered, newState, layer, normalizedTime);
         
     }
 
