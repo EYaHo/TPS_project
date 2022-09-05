@@ -56,6 +56,7 @@ MonoBehaviour:
   - ShootProcess
   - TraceAim
   - OnAttack
+  - RpcChangeAnimationState_Once
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
