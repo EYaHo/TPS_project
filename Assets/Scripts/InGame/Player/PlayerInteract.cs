@@ -9,12 +9,12 @@ public class PlayerInteract : MonoBehaviour
     public float interactRange;
     public LayerMask itemLayerMask;
 
-    private PlayerInventory playerInventory;
+    private InventoryObject inventory;
     private PlayerInput playerInput;
     private RaycastHit hitInfo;
 
     private void Awake() {
-        playerInventory = GetComponent<PlayerInventory>();
+        inventory = GetComponent<Player>().inventoryObject;
         playerInput = GetComponent<PlayerInput>();
     }
 
@@ -25,7 +25,6 @@ public class PlayerInteract : MonoBehaviour
 
     private void CheckInteractableObject() {
         if(Physics.Raycast(transform.position, transform.forward, out hitInfo, interactRange, itemLayerMask)) {
-            Debug.Log(hitInfo.transform.tag);
             if(hitInfo.transform.CompareTag("Interactable")) {
                 interactText.text = hitInfo.transform.GetComponent<InteractableObject>().GetInteractString();
             }
@@ -40,7 +39,7 @@ public class PlayerInteract : MonoBehaviour
                 hitInfo.transform.GetComponent<InteractableObject>().Interact();
                 GroundItem groundItem = hitInfo.transform.GetComponent<GroundItem>();
                 if(groundItem) {
-                    playerInventory.AddItem(groundItem.itemData, 1);
+                    inventory.AddItem(new Item(groundItem.itemData), 1);
                     // playerInventory.AddItem(groundItem.itemData.CreateItem());
                     Destroy(hitInfo.transform.gameObject);
                 }

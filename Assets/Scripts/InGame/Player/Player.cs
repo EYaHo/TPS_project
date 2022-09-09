@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class Player : MonoBehaviourPun
 {
+    public InventoryObject inventoryObject;
     public GameObject canvas;
 
     private void Awake() {
@@ -13,4 +14,7 @@ public class Player : MonoBehaviourPun
         }
     }
 
+    private void OnApplicationQuit() {
+        inventoryObject.inventory.itemList.Clear();
+    }
 }
