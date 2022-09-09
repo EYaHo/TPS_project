@@ -210,7 +210,7 @@ MonoBehaviour:
   muzzle: {fileID: 4949069508225888206}
   layerMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 4992
   attackRange: 60
   attackDamage: 10
   fireTimeInterval: 0.3

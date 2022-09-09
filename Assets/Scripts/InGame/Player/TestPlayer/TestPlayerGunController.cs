@@ -18,6 +18,20 @@ public class TestPlayerGunController : GunController
         Debug.DrawRay(muzzle.position, muzzle.forward * (aimPoint - muzzle.position).magnitude, Color.red);
     }
 
+    public override Vector3 CalcAimVector() {
+        RaycastHit hitData;
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3 (0.5f, 0.5f, 0));
+
+        if(Physics.Raycast(ray, out hitData, attackRange, layerMask))
+        {
+            aimPoint = hitData.point;
+        } else {
+            aimPoint = ray.origin + ray.direction * attackRange;
+        }
+
+        return (aimPoint - gunTransform.position).normalized;
+    }
+
     // 모든 클라이언트에서 총알을 생성하도록 ShootProcess를 호출
     public override void Shoot() {
         photonView.RPC("ShootProcess", RpcTarget.All);
