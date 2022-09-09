@@ -9,30 +9,22 @@ public enum ItemTier {
     Legendary,
 }
 
-[CreateAssetMenu(fileName = "Item Data", menuName = "Scriptable Object/Item Data")]
+[CreateAssetMenu(fileName = "Item Data", menuName = "Scriptable Object/Items/Item Data")]
 public class ItemData : ScriptableObject
 {
     [SerializeField]
-    private int id;
-    public int Id { get { return id; } }
+    public int id;
 
     [SerializeField]
     private ItemTier tier;
     public ItemTier Tier { get { return tier; } }
 
     [SerializeField]
-    private GameObject prefab;
-    public GameObject Prefab { get { return prefab; } }
-
-    [SerializeField]
     private Sprite sprite;
     public Sprite Sprite { get { return sprite; } }
 
     [SerializeField]
-    private GroundItem groundItem;
-    public GroundItem GroundItem { get { return groundItem; } }
-
-    [SerializeField]
+    [TextArea(15, 20)]
     private string description;
     public string Description { get { return description; } }
 

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1240210732678908129}
   - component: {fileID: 1321839403571070618}
   - component: {fileID: 146002289276044778}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   enemyLayerMasks:
     serializedVersion: 2
     m_Bits: 128
-  player: {fileID: 0}
+  playerShooter: {fileID: 0}
   speed: 20
 --- !u!54 &1321839403571070618
 Rigidbody:

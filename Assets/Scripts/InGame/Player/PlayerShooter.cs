@@ -11,12 +11,12 @@ public class PlayerShooter : MonoBehaviourPun
 
     protected PlayerInput playerInput;
     [SerializeField]
-    protected PlayerInventory playerInventory;
+    protected InventoryObject inventoryObject;
 
     protected virtual void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        playerInventory = GetComponent<PlayerInventory>();
+        inventoryObject = GetComponent<Player>().inventoryObject;
     }
 
     protected virtual void Update()
