@@ -7,6 +7,7 @@ using Cinemachine;
 
 public class EnemyHealth : LivingEntity
 {
+    private Enemy myEnemyComponent;
     [SerializeField]
     private EnemyMovement enemyMovement;
     [SerializeField]
@@ -15,6 +16,7 @@ public class EnemyHealth : LivingEntity
     private void Awake() {
         enemyMovement = GetComponent<EnemyMovement>();
         animController = GetComponent<AnimationController>();
+        myEnemyComponent = GetComponent<Enemy>();
     }
 
     private void LateUpdate() {
@@ -31,9 +33,11 @@ public class EnemyHealth : LivingEntity
         animController.PlayDieAnimation();
         enemyMovement.enabled = false;
 
-        if(GetComponent<Enemy>().hasSpawnPosition) {
+        
+        if(myEnemyComponent.hasSpawnPosition) {
             //respawn;
             Debug.Log("execute respawn");
+            EnemySpawner.Instance.ReSpawn(myEnemyComponent.spawnPointIdx);
         } else {
             Debug.Log("It doesn't have SpawnPosition.");
         }

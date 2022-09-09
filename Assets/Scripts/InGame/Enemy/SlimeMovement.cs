@@ -20,9 +20,7 @@ public class SlimeMovement : EnemyMovement
 
         if(isTargetInAttackRange) {
             if(!enemyHealth.dead && Time.time >= lastAttackTime + attackForeDelay) {
-                // animController.ChangeAnimationState(SlimeAnimationController.AnimState.Attack01.ToString());    //anim
-                animController.ChangeAnimationState(SlimeAnimationController.AnimState.Attack01.ToString(),
-                                                    SlimeAnimationController.AnimState.IdleBattle.ToString());
+                animController.PlayAttackAnimation(1);
                 lastAttackTime = Time.time;
                 Attack(targetEntity);
             }
@@ -35,7 +33,7 @@ public class SlimeMovement : EnemyMovement
             if(hasTarget && !isTargetInAttackRange) {
                 navMeshAgent.isStopped = false;
                 Vector3 distance = targetEntity.transform.position - transform.position;
-                animController.ChangeAnimationState(SlimeAnimationController.AnimState.WalkFWD.ToString());     //anim
+                animController.PlayWalkFWDAnimation();
                 navMeshAgent.SetDestination(targetEntity.transform.position - (distance.normalized * attackRange * 0.8f));
             } else {
                 navMeshAgent.isStopped = true;

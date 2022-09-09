@@ -21,10 +21,12 @@ public class RobotPlayerShooter : PlayerShooter
         }
 
         if(playerInput.fire) {
-            animController.ChangeAnimationState(PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
+            //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
+            animController.PlayAttackAnimation(3);
             gunController.Fire();
         } else {
-            animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
+            //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
+            animController.PlayIdleAnimation(1);
         }
     }
 }

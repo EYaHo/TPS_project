@@ -24,7 +24,7 @@ public class AnimationController : MonoBehaviourPun
 
     public void ChangeAnimationState(string newState) {
         if(currentState == newState) return;
-        photonView.RPC("RpcChangeAnimationState", RpcTarget.All, newState);
+        photonView.RPC("RpcChangeAnimationState", RpcTarget.AllBuffered, newState);
     }
 
     IEnumerator WaitForAnimation(string newState, float ratio, bool play)
@@ -61,17 +61,17 @@ public class AnimationController : MonoBehaviourPun
         currentState = nextState;
 	}
 
-    public void ChangeAnimationState(string newState, string nextState) {
+    public void ChangeAnimationState_Once(string newState, string nextState) {
         if(currentState == newState) return;
-        photonView.RPC("RpcChangeAnimationState", RpcTarget.All, newState, nextState);
+        photonView.RPC("RpcChangeAnimationState_Once", RpcTarget.AllBuffered, newState, nextState);
     }
     [PunRPC]
-    public void RpcChangeAnimationState(string newState, string nextState) {
+    public void RpcChangeAnimationState_Once(string newState, string nextState) {
         //if(currentState == newState) return;
         StartCoroutine(Play_Once(newState, nextState));
     }
 
-    public virtual void PlayDieAnimation() {
-        
-    }
+    public virtual void PlayDieAnimation() { }
+    public virtual void PlayAttackAnimation(int attackType) { }
+    public virtual void PlayWalkFWDAnimation() { }
 }

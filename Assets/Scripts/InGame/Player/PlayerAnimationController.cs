@@ -52,7 +52,7 @@ public class PlayerAnimationController : AnimationController
         } else { // layer == 1
             if(currentState_second == newState) return;
         }
-        photonView.RPC("RpcChangeAnimationState", RpcTarget.All, newState, layer, normalizedTime);
+        photonView.RPC("RpcChangeAnimationState", RpcTarget.AllBuffered, newState, layer, normalizedTime);
         
     }
 
@@ -71,5 +71,43 @@ public class PlayerAnimationController : AnimationController
         }
 
         animator.Play(newState, layer, normalizedTime);
+    }
+
+    public override void PlayDieAnimation() {
+        ChangeAnimationState(AnimState.Die.ToString(), -1, 0f);
+        ChangeAnimationState(AnimState.Die.ToString(), 1, 0f);
+    }
+    public override void PlayAttackAnimation(int attackType) {
+        switch(attackType) {
+            case 1:
+                ChangeAnimationState(AnimState.Shoot_SingleShot_AR.ToString(), 1, 0f);
+                break;
+            case 2:
+                ChangeAnimationState(AnimState.Shoot_BurstShot_AR.ToString(), 1, 0f);
+                break;
+            case 3:
+                ChangeAnimationState(AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
+                break;
+        }
+    }
+
+    public void PlayIdleAnimation(int layer) {
+        ChangeAnimationState(AnimState.Idle_gunMiddle_AR.ToString(), layer, 0f);
+    }
+    public void PlayWalkAnimation(string walkDirection) {
+        switch(walkDirection) {
+            case "front":
+                ChangeAnimationState(AnimState.WalkFront_Shoot_AR.ToString(), -1, 0f);
+                break;
+            case "back":
+                ChangeAnimationState(AnimState.WalkBack_Shoot_AR.ToString(), -1, 0f);
+                break;
+            case "left":
+                ChangeAnimationState(AnimState.WalkLeft_Shoot_AR.ToString(), -1, 0f);
+                break;
+            case "right":
+                ChangeAnimationState(AnimState.WalkRight_Shoot_AR.ToString(), -1, 0f);
+                break;
+        }
     }
 }

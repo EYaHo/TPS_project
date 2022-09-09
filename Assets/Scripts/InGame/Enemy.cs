@@ -14,11 +14,11 @@ public class Enemy : MonoBehaviourPun
     public float sightAngle;
     public float moveSpeed;
 
-    private int spawnPointIdx;
+    public int spawnPointIdx { get; private set;}
     public bool hasSpawnPosition {
         get {
             if(spawnPointIdx == -1) {
-            return false;
+                return false;
             } else {
                 return true;
             }
