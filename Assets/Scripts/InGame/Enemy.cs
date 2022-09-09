@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviourPun
     public bool hasSpawnPosition {
         get {
             if(spawnPointIdx == -1) {
-            return false;
+                return false;
             } else {
                 return true;
             }

@@ -20,7 +20,7 @@ public class TurtleMovement : EnemyMovement
 
         if(isTargetInAttackRange) {
             if(!enemyHealth.dead && Time.time >= lastAttackTime + attackForeDelay) {
-                animController.PlayAttackAnimation();
+                animController.PlayAttackAnimation(1);
                 lastAttackTime = Time.time;
                 Attack(targetEntity);
             }

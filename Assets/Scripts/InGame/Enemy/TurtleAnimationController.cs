@@ -19,11 +19,19 @@ public class TurtleAnimationController : AnimationController
         Dizzy,      //11
         Die         //12
     }
+    
     public override void PlayDieAnimation() {
         ChangeAnimationState(AnimState.Die.ToString());
     }
-    public override void PlayAttackAnimation() {
-        ChangeAnimationState_Once(AnimState.Attack01.ToString(), AnimState.IdleBattle.ToString());
+    public override void PlayAttackAnimation(int attackType) {
+        switch(attackType) {
+            case 1:
+                ChangeAnimationState_Once(AnimState.Attack01.ToString(), AnimState.IdleBattle.ToString());
+                break;
+            case 2:
+                ChangeAnimationState_Once(AnimState.Attack02.ToString(), AnimState.IdleBattle.ToString());
+                break;
+        }
     }
     public override void PlayWalkFWDAnimation() {
         ChangeAnimationState(AnimState.WalkFWD.ToString());

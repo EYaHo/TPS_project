@@ -72,6 +72,6 @@ public class AnimationController : MonoBehaviourPun
     }
 
     public virtual void PlayDieAnimation() { }
-    public virtual void PlayAttackAnimation() { }
+    public virtual void PlayAttackAnimation(int attackType) { }
     public virtual void PlayWalkFWDAnimation() { }
 }

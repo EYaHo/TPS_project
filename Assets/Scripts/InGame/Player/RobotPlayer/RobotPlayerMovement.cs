@@ -17,29 +17,29 @@ public class RobotPlayerMovement : PlayerMovement
         base.Move();
 
         if(isGrounded) {
-            if(playerInput.horizontalMove == 0 && playerInput.verticalMove == 0) {
-                //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), -1, 0f);
-                animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), -1, 0f);
+            if(playerInput.horizontalMove == 0 && playerInput.verticalMove == 0) {   
+                //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), -1, 0f);
+                animController.PlayIdleAnimation(-1);
             }
             if(playerInput.horizontalMove != 0) {
                 if(playerInput.horizontalMove < 0) {
-                    //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.WalkLeft_Shoot_AR.ToString(), -1, 0f);
-                    animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkLeft_Shoot_AR.ToString(), -1, 0f);
+                    //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkLeft_Shoot_AR.ToString(), -1, 0f);
+                    animController.PlayWalkAnimation("left");
                     Debug.Log("Left");
                 } else {
-                    //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.WalkRight_Shoot_AR.ToString(), -1, 0f);
-                    animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkRight_Shoot_AR.ToString(), -1, 0f);
+                    //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkRight_Shoot_AR.ToString(), -1, 0f);
+                    animController.PlayWalkAnimation("right");
                     Debug.Log("Right");
                 }
             }
             else {
                 if(playerInput.verticalMove < 0) {
-                    //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.WalkBack_Shoot_AR.ToString(), -1, 0f);
-                    animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkBack_Shoot_AR.ToString(), -1, 0f);
+                    //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkBack_Shoot_AR.ToString(), -1, 0f);
+                    animController.PlayWalkAnimation("back");
                     Debug.Log("Back");
                 } else if(playerInput.verticalMove > 0) {
-                    //animController.photonView.RPC("ChangeAnimationState", RpcTarget.All, PlayerAnimationController.AnimState.WalkFront_Shoot_AR.ToString(), -1, 0f);
-                    animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkFront_Shoot_AR.ToString(), -1, 0f);
+                    //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkFront_Shoot_AR.ToString(), -1, 0f);
+                    animController.PlayWalkAnimation("front");
                     Debug.Log("Front");
                 }
             }
