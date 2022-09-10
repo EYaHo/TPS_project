@@ -16,10 +16,10 @@ public class Item
 
     public Item(ItemData itemData) {
         name = itemData.name;
-        id = itemData.Id;
+        id = itemData.id;
         buffs = new ItemBuff[itemData.Buffs.Length];
         for(int i=0; i < buffs.Length; i++) {
-            buffs[i] = new ItemBuff();
+            buffs[i] = new ItemBuff(itemData.Buffs[i].attribute, itemData.Buffs[i].value);
         }
     }
 }
@@ -30,7 +30,8 @@ public class ItemBuff
     public Attributes attribute;
     public int value;
 
-    public ItemBuff() {
-
+    public ItemBuff(Attributes attribute, int value) {
+        this.attribute = attribute;
+        this.value = value;
     }
 }

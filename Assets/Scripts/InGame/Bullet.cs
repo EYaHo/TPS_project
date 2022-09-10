@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 {
     public LayerMask enemyLayerMasks;
 
-    private Rigidbody rigidbody;
+    private Rigidbody bulletRigidbody;
     private TrailRenderer trailRenderer;
     [SerializeField]
     private PlayerShooter playerShooter;
@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     private Transform gunController;
 
     private void Awake() {
-        rigidbody = GetComponent<Rigidbody>();
+        bulletRigidbody = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
@@ -43,9 +43,9 @@ public class Bullet : MonoBehaviour
 
         trailRenderer.enabled = true;
         trailRenderer.Clear();
-        rigidbody.velocity = Vector3.zero;
-        rigidbody.angularVelocity = Vector3.zero;
-        rigidbody.AddForce(transform.forward * speed, ForceMode.VelocityChange);
+        bulletRigidbody.velocity = Vector3.zero;
+        bulletRigidbody.angularVelocity = Vector3.zero;
+        bulletRigidbody.AddForce(transform.forward * speed, ForceMode.VelocityChange);
     }
 
     private void OnTriggerEnter(Collider other) {
