@@ -23,12 +23,11 @@ public class DamagePopup : MonoBehaviour
 
     private void OnEnable() {
         StartCoroutine(FadeOutAndRelease());
-        transform.forward = transform.position - Camera.main.transform.position;
     }
 
-    private void FixedUpdate() {
+    private void LateUpdate() {
         transform.position += new Vector3(0, ySpeed * Time.deltaTime, 0);
-        transform.forward = transform.position - Camera.main.transform.position;
+        transform.forward = Camera.main.transform.forward;
     }
 
     public void Setup(Vector3 position) {

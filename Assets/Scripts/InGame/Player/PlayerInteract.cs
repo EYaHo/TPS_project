@@ -8,13 +8,15 @@ public class PlayerInteract : MonoBehaviour
     public TextMeshProUGUI interactText;
     public float interactRange;
     public LayerMask itemLayerMask;
+    public Transform interactStartTransform;
 
-    private InventoryObject inventory;
+    private InventoryObject inventoryObject;
     private PlayerInput playerInput;
     private RaycastHit hitInfo;
+    private float interactVectorYOffset = 2f;
 
     private void Awake() {
-        inventory = GetComponent<Player>().inventoryObject;
+        inventoryObject = GetComponent<Player>().inventoryObject;
         playerInput = GetComponent<PlayerInput>();
     }
 
@@ -24,7 +26,7 @@ public class PlayerInteract : MonoBehaviour
     }
 
     private void CheckInteractableObject() {
-        if(Physics.Raycast(transform.position, transform.forward, out hitInfo, interactRange, itemLayerMask)) {
+        if(Physics.Raycast(interactStartTransform.position, interactStartTransform.forward, out hitInfo, interactRange, itemLayerMask)) {
             if(hitInfo.transform.CompareTag("Interactable")) {
                 interactText.text = hitInfo.transform.GetComponent<InteractableObject>().GetInteractString();
             }
@@ -39,7 +41,7 @@ public class PlayerInteract : MonoBehaviour
                 hitInfo.transform.GetComponent<InteractableObject>().Interact();
                 GroundItem groundItem = hitInfo.transform.GetComponent<GroundItem>();
                 if(groundItem) {
-                    inventory.AddItem(new Item(groundItem.itemData), 1);
+                    inventoryObject.AddItem(new Item(groundItem.itemData), 1);
                     // playerInventory.AddItem(groundItem.itemData.CreateItem());
                     Destroy(hitInfo.transform.gameObject);
                 }
