@@ -46,6 +46,6 @@ public class PlayerInput : MonoBehaviourPun
         rotate = Input.GetAxis(rotateAxisName);
         jump = Input.GetButtonDown(jumpButtonName);
         fire = Input.GetButton(fireButtonName);
-        interact = Input.GetButton(interactButtonName);
+        interact = Input.GetButtonDown(interactButtonName);
     }
 }
