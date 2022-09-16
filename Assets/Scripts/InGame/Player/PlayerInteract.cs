@@ -38,7 +38,7 @@ public class PlayerInteract : MonoBehaviour
     }
 
     private void CheckInteract() {
-        if(interactableObject.transform != null) {
+        if(interactableObject != null) {
             if(playerInput.interact) {
                 interactableObject.transform.GetComponent<InteractableObject>().Interact();
                 GroundItem groundItem = interactableObject.transform.GetComponent<GroundItem>();
