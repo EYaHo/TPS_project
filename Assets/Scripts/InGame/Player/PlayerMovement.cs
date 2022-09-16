@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviourPun
     protected float horizontalMouseMove = 0f;
 
     private float maxHorizontalMouseMove = 50f;
-    private float minHorizontalMouseMove = -45f;
+    private float minHorizontalMouseMove = -55f;
 
     [SerializeField]
     protected int numMaxJump = 2;

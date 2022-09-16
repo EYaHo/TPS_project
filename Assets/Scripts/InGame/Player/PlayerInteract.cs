@@ -9,12 +9,13 @@ public class PlayerInteract : MonoBehaviour
     public float interactRange;
     public LayerMask itemLayerMask;
 
-    private InventoryObject inventory;
+    private InventoryObject inventoryObject;
     private PlayerInput playerInput;
-    private RaycastHit hitInfo;
+    private GameObject interactableObject;
+    private readonly Collider[] _colliders = new Collider[3];
 
     private void Awake() {
-        inventory = GetComponent<Player>().inventoryObject;
+        inventoryObject = GetComponent<Player>().inventoryObject;
         playerInput = GetComponent<PlayerInput>();
     }
 
@@ -24,24 +25,26 @@ public class PlayerInteract : MonoBehaviour
     }
 
     private void CheckInteractableObject() {
-        if(Physics.Raycast(transform.position, transform.forward, out hitInfo, interactRange, itemLayerMask)) {
-            if(hitInfo.transform.CompareTag("Interactable")) {
-                interactText.text = hitInfo.transform.GetComponent<InteractableObject>().GetInteractString();
+        interactText.text = "";
+        interactableObject = null;
+        int numFound = Physics.OverlapSphereNonAlloc(transform.position, interactRange, _colliders, itemLayerMask);
+        
+        if(numFound > 0) {
+            interactableObject = _colliders[0].gameObject;
+            if(interactableObject != null) {
+                interactText.text = interactableObject.transform.GetComponent<InteractableObject>().GetInteractString();
             }
-        } else {
-            interactText.text = "";
         }
     }
 
     private void CheckInteract() {
-        if(hitInfo.transform != null) {
+        if(interactableObject.transform != null) {
             if(playerInput.interact) {
-                hitInfo.transform.GetComponent<InteractableObject>().Interact();
-                GroundItem groundItem = hitInfo.transform.GetComponent<GroundItem>();
+                interactableObject.transform.GetComponent<InteractableObject>().Interact();
+                GroundItem groundItem = interactableObject.transform.GetComponent<GroundItem>();
                 if(groundItem) {
-                    inventory.AddItem(new Item(groundItem.itemData), 1);
-                    // playerInventory.AddItem(groundItem.itemData.CreateItem());
-                    Destroy(hitInfo.transform.gameObject);
+                    inventoryObject.AddItem(new Item(groundItem.itemData), 1);
+                    Destroy(interactableObject.transform.gameObject);
                 }
             }
         }
