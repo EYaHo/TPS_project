@@ -167,8 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869584b7ce5ef9468d16ccdc24f89dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPointIdx: 0
   enemyData: {fileID: 11400000, guid: 67b38e6bded987647a292a823be98636, type: 2}
   isEnemySpawned: 0
+  isEnemyReSpawning: 0
   respawnDelay: 10
 --- !u!1 &298620954
 GameObject:
@@ -587,6 +589,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: da7129ed6a246f048a49d8d97de2d2d4, type: 3}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
 --- !u!1 &624159511
@@ -730,7 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac00c7956a9e14b46b351bd405115e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 5352331137499062327, guid: 2d77029c8f3bd5b459d23d97172f0ede, type: 3}
+  playerPrefab: {fileID: 8416483574673089708, guid: 9b03abfb8fa29674995b0158d7c2e29d, type: 3}
 --- !u!1 &713909922
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,8 +793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869584b7ce5ef9468d16ccdc24f89dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPointIdx: 0
   enemyData: {fileID: 11400000, guid: 7ee1cd0a4367ec6419c66019094f3d70, type: 2}
   isEnemySpawned: 0
+  isEnemyReSpawning: 0
   respawnDelay: 10
 --- !u!1 &809857807
 GameObject:
@@ -928,7 +948,7 @@ MonoBehaviour:
   CameraDistance: 7
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 640
   IgnoreTag: 
   CameraRadius: 0.2
   DampingIntoCollision: 0
@@ -1254,8 +1274,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869584b7ce5ef9468d16ccdc24f89dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPointIdx: 0
   enemyData: {fileID: 11400000, guid: d876012f72ed1a145b58b276b55d43f0, type: 2}
   isEnemySpawned: 0
+  isEnemyReSpawning: 0
   respawnDelay: 10
 --- !u!1 &1298330866
 GameObject:
@@ -1611,6 +1633,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a08ec4b334ea1c46b8171679417a74f, type: 3}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
 --- !u!1001 &1559831020
@@ -1675,6 +1713,22 @@ PrefabInstance:
     - target: {fileID: 4233373547031316362, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
       propertyPath: m_TagString
       value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: da7129ed6a246f048a49d8d97de2d2d4, type: 3}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
@@ -1907,7 +1961,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 50
+    FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -1991,7 +2045,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 50
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -2334,6 +2388,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a08ec4b334ea1c46b8171679417a74f, type: 3}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
 --- !u!1 &2038578282
@@ -2415,8 +2485,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0869584b7ce5ef9468d16ccdc24f89dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPointIdx: 0
   enemyData: {fileID: 11400000, guid: 44223e319d9c6014981738601c9a7c7f, type: 2}
   isEnemySpawned: 0
+  isEnemyReSpawning: 0
   respawnDelay: 10
 --- !u!1 &2077103968
 GameObject:
@@ -3033,6 +3105,22 @@ PrefabInstance:
     - target: {fileID: 4233373547031316362, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
       propertyPath: m_TagString
       value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a08ec4b334ea1c46b8171679417a74f, type: 3}
+    - target: {fileID: 5776660148712496106, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b475ef39213a974c9e7f21bdbeabd90, type: 3}

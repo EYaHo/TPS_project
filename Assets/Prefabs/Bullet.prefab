@@ -116,7 +116,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   playerShooter: {fileID: 0}
-  speed: 100
+  speed: 50
 --- !u!54 &1321839403571070618
 Rigidbody:
   m_ObjectHideFlags: 0

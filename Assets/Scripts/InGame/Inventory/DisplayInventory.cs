@@ -18,12 +18,11 @@ public class DisplayInventory : MonoBehaviour
     private float yStart = 0f;
     private float slotSize = 0f;
 
-    public GameObject inventoryPrefab;
+    public GameObject itemSlot;
     public float offset = 10f;
     public float intervalBetweenItem = 5f;
 
     public InventoryObject inventoryObject;
-    public GameObject itemSlot;
 
     Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
 
@@ -54,7 +53,7 @@ public class DisplayInventory : MonoBehaviour
         for(int i=0; i < inventoryObject.inventory.itemList.Count; i++) {
             InventorySlot slot = inventoryObject.inventory.itemList[i];
 
-            var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+            var obj = Instantiate(itemSlot, Vector3.zero, Quaternion.identity, transform);
             obj.transform.GetComponent<Image>().sprite = inventoryObject.database.itemDict[slot.item.id].Sprite;
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
             obj.GetComponent<RectTransform>().sizeDelta = new Vector2(itemSlotSize, itemSlotSize);
@@ -70,7 +69,7 @@ public class DisplayInventory : MonoBehaviour
             if(itemsDisplayed.ContainsKey(slot)) {
                 itemsDisplayed[slot].GetComponentInChildren<TextMeshProUGUI>().text = slot.amount.ToString("n0");
             } else {
-                var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity, transform);
+                var obj = Instantiate(itemSlot, Vector3.zero, Quaternion.identity, transform);
                 obj.transform.GetComponent<Image>().sprite = inventoryObject.database.itemDict[slot.item.id].Sprite;
                 obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
                 obj.GetComponent<RectTransform>().sizeDelta = new Vector2(itemSlotSize, itemSlotSize);
