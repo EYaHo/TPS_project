@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnPosition : MonoBehaviour
 {
     public int spawnPointIdx;
+    public int poolListIdx;
     public EnemyData enemyData;
     public bool isEnemySpawned = false;
     public bool isEnemyReSpawning = false;

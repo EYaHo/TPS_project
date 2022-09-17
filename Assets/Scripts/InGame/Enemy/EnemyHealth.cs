@@ -41,5 +41,11 @@ public class EnemyHealth : LivingEntity
         } else {
             Debug.Log("It doesn't have SpawnPosition.");
         }
+
+        Invoke("Release", 2.0f);
+    }
+
+    private void Release() {
+        EnemyPool.Instance.ReleaseObject(GetComponent<Enemy>().poolListIdx, gameObject);
     }
 }
