@@ -76,13 +76,13 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
     }
 
     public void SpawnEnemyByPosition(SpawnPosition spawnPos) {
-        // Transform spawnPoint = spawnPointList[spawnPointIdx];
-        // SpawnPosition spawnPos = spawnPoint.GetComponent<SpawnPosition>();
+        Enemy enemy = EnemyPool.Instance.GetObject(spawnPos.poolListIdx, spawnPos.transform.position).GetComponent<Enemy>();
+        enemy.poolListIdx = spawnPos.poolListIdx;
 
         EnemyData enemyData = spawnPos.enemyData;
-        GameObject createdEnemy = PhotonNetwork.Instantiate(enemyData.Prefab.gameObject.name/*enemyPrefab.gameObject.name*/, spawnPos.transform.position, spawnPos.transform.rotation);
-        createdEnemy.name = enemyData.Prefab.gameObject.name;
-        Enemy enemy = createdEnemy.GetComponent<Enemy>();
+        // GameObject createdEnemy = PhotonNetwork.Instantiate(enemyData.Prefab.gameObject.name/*enemyPrefab.gameObject.name*/, spawnPos.transform.position, spawnPos.transform.rotation);
+        // createdEnemy.name = enemyData.Prefab.gameObject.name;
+        // Enemy enemy = createdEnemy.GetComponent<Enemy>();
 
         enemy.photonView.RPC("Setup", RpcTarget.All, enemyData.EnemyName, enemyData.Hp, enemyData.Damage, enemyData.SightRange, enemyData.SightAngle, enemyData.MoveSpeed, spawnPos.spawnPointIdx);
         //
@@ -132,7 +132,11 @@ public class EnemySpawner : MonoBehaviourPun, IPunObservable
             
             spawnPointList.Add(spawnPoint);
             spawnPos.spawnPointIdx = i;
-            
+
+            int index = EnemyPool.Instance.GetPoolListIdx(spawnPos.enemyData.EnemyName);
+            if(index != -1) {
+                spawnPos.poolListIdx = index;
+            }
         }
     }
 }

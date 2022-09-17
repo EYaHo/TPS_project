@@ -538,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6028f736e0252f459955b623bb3fbcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolListIdx: 0
   enemyName: 
   hp: 0
   damage: 0
