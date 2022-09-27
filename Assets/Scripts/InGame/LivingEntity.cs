@@ -73,7 +73,6 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
         }
 
         dead = true;
-        Debug.Log("Enemy Die function called");
 
         healthSlider.gameObject.SetActive(false);
         collider.enabled = false;

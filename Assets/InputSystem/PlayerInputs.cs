@@ -5,6 +5,10 @@ using Photon.Pun;
 
 public class PlayerInput : MonoBehaviourPun
 {
+    [Header("Character Input Values")]
+    public Vector2 move;
+    public Vector2 look;
+
     public string verticalRotateAxisName = "Mouse X";
     public string horizontalRotateAxisName = "Mouse Y";
     public string verticalMoveAxisName = "Vertical";

@@ -15,18 +15,19 @@ public class RobotPlayerShooter : PlayerShooter
 
     protected override void Update()
     {
-        if(!photonView.IsMine)
-        {
-            return;
-        }
+        base.Update();
+        // if(!photonView.IsMine)
+        // {
+        //     return;
+        // }
 
-        if(playerInput.fire) {
-            //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
-            animController.PlayAttackAnimation(3);
-            gunController.Fire();
-        } else {
-            //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
-            animController.PlayIdleAnimation(1);
-        }
+        // if(playerInput.fire) {
+        //     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
+        //     animController.PlayAttackAnimation(3);
+        //     gunController.Fire();
+        // } else {
+        //     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
+        //     animController.PlayIdleAnimation(1);
+        // }
     }
 }

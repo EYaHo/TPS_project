@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class PlayerInteract : MonoBehaviour
@@ -21,7 +22,7 @@ public class PlayerInteract : MonoBehaviour
 
     private void Update() {
         CheckInteractableObject();
-        CheckInteract();
+        // CheckInteract();
     }
 
     private void CheckInteractableObject() {
@@ -47,6 +48,21 @@ public class PlayerInteract : MonoBehaviour
                     Destroy(interactableObject.transform.gameObject);
                 }
             }
+        }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context) {
+        switch(context.phase) {
+            case InputActionPhase.Performed:
+                if(interactableObject != null) {
+                    interactableObject.transform.GetComponent<InteractableObject>().Interact();
+                    GroundItem groundItem = interactableObject.transform.GetComponent<GroundItem>();
+                    if(groundItem) {
+                        inventoryObject.AddItem(new Item(groundItem.itemData), 1);
+                        Destroy(interactableObject.transform.gameObject);
+                    }
+                }
+                break;
         }
     }
 }

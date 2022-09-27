@@ -35,9 +35,9 @@ public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Escape)) {
+        // if(Input.GetKeyDown(KeyCode.Escape)) {
             //PhotonNetwork.LeaveRoom();
-        }
+        // }
     }
 
     public override void OnLeftRoom() {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Photon.Pun;
 
 public class PlayerShooter : MonoBehaviourPun
@@ -12,6 +13,7 @@ public class PlayerShooter : MonoBehaviourPun
     protected PlayerInput playerInput;
     [SerializeField]
     protected InventoryObject inventoryObject;
+    protected bool fireInputDown = false;
 
     protected virtual void Awake()
     {
@@ -26,10 +28,8 @@ public class PlayerShooter : MonoBehaviourPun
             return;
         }
 
-        if(playerInput.fire) {
+        if(fireInputDown) {
             gunController.Fire();
-        } else {
-            
         }
     }
 
@@ -39,6 +39,18 @@ public class PlayerShooter : MonoBehaviourPun
 
     protected void OnDisable() {
         gunController.gameObject.SetActive(false);
+    }
+
+    public void OnFire(InputAction.CallbackContext context) {
+        switch(context.phase) {
+            case InputActionPhase.Performed:
+                fireInputDown = true;
+                break;
+            default:
+                fireInputDown = false;
+                break;
+        }
+        Debug.Log(fireInputDown);
     }
 
     [PunRPC]
