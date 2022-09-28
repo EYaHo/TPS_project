@@ -9,4 +9,8 @@ public class PooledObject : MonoBehaviourPun
     public void SetActive(bool b) {
         gameObject.SetActive(b);
     }
+    [PunRPC]
+    public void SetPosition(Vector3 v) {
+        transform.position = v;
+    }
 }

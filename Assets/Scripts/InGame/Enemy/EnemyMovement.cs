@@ -140,6 +140,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
     public void StartUpdatePath() {
+        targetEntity = null;
         StartCoroutine(UpdatePath());
     }
 

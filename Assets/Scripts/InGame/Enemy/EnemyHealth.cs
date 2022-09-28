@@ -42,7 +42,9 @@ public class EnemyHealth : LivingEntity
             Debug.Log("It doesn't have SpawnPosition.");
         }
 
-        Invoke("Release", 2.0f);
+        if(PhotonNetwork.IsMasterClient) {
+            Invoke("Release", 2.0f);
+        }
     }
 
     private void Release() {

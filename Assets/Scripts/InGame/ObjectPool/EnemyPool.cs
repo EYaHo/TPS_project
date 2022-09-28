@@ -25,6 +25,7 @@ public class EnemyPool : AbstractPool
 
     public override void Awake()
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         poolList = new List<IObjectPool<GameObject>>();
 
         for(int i=0; i<enemyList.Count; i++) {
@@ -49,19 +50,23 @@ public class EnemyPool : AbstractPool
     }
 
     protected override void OnReturnedToPool(GameObject obj) {
-        obj.SetActive(false);
+        //obj.SetActive(false);
+        obj.GetComponent<PooledObject>().photonView.RPC("SetActive", RpcTarget.AllBuffered, false);
     }
 
     public GameObject GetObject(int poolListIdx, Vector3 startPosition) {
         GameObject enemy = poolList[poolListIdx].Get();
-        enemy.transform.position = startPosition;
-        enemy.SetActive(true);
+        var pv = enemy.GetComponent<PooledObject>().photonView;
+        pv.RPC("SetPosition", RpcTarget.AllBuffered, startPosition);
+        pv.RPC("SetActive", RpcTarget.AllBuffered, true);
+        //enemy.transform.position = startPosition;
+        //enemy.SetActive(true);
         return enemy;
     }
 
     public void ReleaseObject(int poolListIdx, GameObject obj) {
         poolList[poolListIdx].Release(obj);
-    }
+    } 
 
     public int GetPoolListIdx(string enemyName) {
         int result = -1;
