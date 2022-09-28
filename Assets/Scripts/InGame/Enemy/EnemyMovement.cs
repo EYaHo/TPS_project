@@ -50,7 +50,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if(!PhotonNetwork.IsMasterClient) return;
         lastAttackTime = Time.time;
-        StartCoroutine(UpdatePath());
+        //StartCoroutine(UpdatePath());
     }
     
     public void Initialize(float damage, float sightRange, float sightAngle, float moveSpeed)
@@ -138,6 +138,10 @@ public class EnemyMovement : MonoBehaviour
 
             yield return new WaitForSeconds(0.25f);
         }
+    }
+    public void StartUpdatePath() {
+        targetEntity = null;
+        StartCoroutine(UpdatePath());
     }
 
     protected void Attack(LivingEntity attackTarget) {

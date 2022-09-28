@@ -20,9 +20,9 @@ public class GroundItem : InteractableObject, ISerializationCallbackReceiver
 
     public void OnBeforeSerialize()
     {
-#if UNITY_EDITOR
-        GetComponentInChildren<SpriteRenderer>().sprite = itemData.Sprite;
-        EditorUtility.SetDirty(GetComponentInChildren<SpriteRenderer>());
-#endif
+// #if UNITY_EDITOR
+//         GetComponentInChildren<SpriteRenderer>().sprite = itemData.Sprite;
+//         EditorUtility.SetDirty(GetComponentInChildren<SpriteRenderer>());
+// #endif
     }
 }
