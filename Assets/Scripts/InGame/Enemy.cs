@@ -5,6 +5,8 @@ using Photon.Pun;
 
 public class Enemy : MonoBehaviourPun
 {
+    public int poolListIdx;
+
     private EnemyMovement enemyMovement;
 
     public string enemyName;
@@ -37,6 +39,10 @@ public class Enemy : MonoBehaviourPun
         enemyMovement = GetComponent<EnemyMovement>();
         enemyMovement.Initialize(damage, sightRange, sightAngle, moveSpeed);
 
+        enemyMovement.enabled = true;
+        enemyMovement.StartUpdatePath();
+        GetComponent<Collider>().enabled = true;
+
         this.spawnPointIdx = -1;
     }
 
@@ -45,6 +51,10 @@ public class Enemy : MonoBehaviourPun
         Debug.Log("Enemy.cs: Setup 호출!");
         enemyMovement = GetComponent<EnemyMovement>();
         enemyMovement.Initialize(damage, sightRange, sightAngle, moveSpeed);
+        
+        enemyMovement.enabled = true;
+        enemyMovement.StartUpdatePath();
+        GetComponent<Collider>().enabled = true;
 
         this.spawnPointIdx = spawnPointIdx;
     }

@@ -58,8 +58,8 @@ MonoBehaviour:
   - OnAttack
   - RpcChangeAnimationState_Once
   - DestroyInteractableObject
-  - RPCDestroy
   - RpcDestroy
+  - SetPosition
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
