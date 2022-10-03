@@ -9,15 +9,15 @@ public class PlayerShooter : MonoBehaviourPun
     [SerializeField]
     public GunController gunController;
     public float attackDamage = 10f;
+    public PlayerInputManager playerInputManager;
 
-    protected PlayerInput playerInput;
     [SerializeField]
     protected InventoryObject inventoryObject;
-    protected bool fireInputDown = false;
+    
 
     protected virtual void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        playerInputManager = GetComponent<PlayerInputManager>();
         inventoryObject = GetComponent<Player>().inventoryObject;
     }
 
@@ -28,7 +28,7 @@ public class PlayerShooter : MonoBehaviourPun
             return;
         }
 
-        if(fireInputDown) {
+        if(playerInputManager.fire) {
             gunController.Fire();
         }
     }
@@ -41,25 +41,12 @@ public class PlayerShooter : MonoBehaviourPun
         gunController.gameObject.SetActive(false);
     }
 
-    public void OnFire(InputAction.CallbackContext context) {
-        switch(context.phase) {
-            case InputActionPhase.Performed:
-                fireInputDown = true;
-                break;
-            default:
-                fireInputDown = false;
-                break;
-        }
-        Debug.Log(fireInputDown);
-    }
-
     [PunRPC]
     public void OnAttack(IDamageable target, Vector3 hitPoint) {
         // 아이템의 OnDamage 함수 호출
         // float damage = playerInventory.OnAttack(attackDamage);
 
         // 데미지 적용
-        // target.OnDamage(damage, hitPoint);
         target.OnDamage(attackDamage, hitPoint);
     }
 }

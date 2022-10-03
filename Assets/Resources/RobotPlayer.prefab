@@ -1004,6 +1004,7 @@ GameObject:
   - component: {fileID: 3759320789658235434}
   - component: {fileID: 3426491599678120853}
   - component: {fileID: 7464641889252974550}
+  - component: {fileID: 3195353330724264781}
   - component: {fileID: 7717078233519764115}
   - component: {fileID: 2045341249008914624}
   m_Layer: 6
@@ -1122,7 +1123,6 @@ MonoBehaviour:
   jumpForce: 8
   verticalRotateSpeed: 0.5
   horizontalRotateSpeed: 0.5
-  characterController: {fileID: 0}
   numMaxJump: 2
   numRemainJump: 0
 --- !u!114 &-8801044410093129680
@@ -1139,6 +1139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunController: {fileID: 5159211173609770824}
   attackDamage: 10
+  playerInputManager: {fileID: 0}
   inventoryObject: {fileID: 11400000, guid: 1be01e1d2dabc634e8b3cb21f5aba5e8, type: 2}
 --- !u!114 &8658263909723232416
 MonoBehaviour:
@@ -1232,6 +1233,18 @@ MonoBehaviour:
   itemLayerMask:
     serializedVersion: 2
     m_Bits: 4096
+--- !u!114 &3195353330724264781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416483574673089708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981be169428dc8242996700f669ed87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &7717078233519764115
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1263,7 +1276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 4320ad67b6bd6ec4f99531f19f7eb7ce, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:

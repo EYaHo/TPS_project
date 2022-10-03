@@ -16,7 +16,7 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "bfcc5850-7b46-4399-a118-c5a5ec462ab5",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -25,7 +25,7 @@
                 },
                 {
                     "name": "Fire",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "20ad4be6-05c1-4483-aed9-0d7da3944b87",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Rotate",
+                    "name": "Look",
                     "type": "Value",
                     "id": "cab65101-e844-4806-9abb-20fc55b52a67",
                     "expectedControlType": "Vector2",
@@ -47,7 +47,7 @@
                     "id": "5407c072-d88c-4c3b-874f-58b7e6d31484",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 },
                 {
@@ -200,7 +200,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotate",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

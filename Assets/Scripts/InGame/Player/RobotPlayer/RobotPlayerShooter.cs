@@ -9,25 +9,18 @@ public class RobotPlayerShooter : PlayerShooter
 
     protected override void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        base.Awake();
         animController = GetComponent<PlayerAnimationController>();
     }
 
     protected override void Update()
     {
         base.Update();
-        // if(!photonView.IsMine)
-        // {
-        //     return;
-        // }
 
-        // if(playerInput.fire) {
-        //     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
-        //     animController.PlayAttackAnimation(3);
-        //     gunController.Fire();
-        // } else {
-        //     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
-        //     animController.PlayIdleAnimation(1);
-        // }
+        if(playerInputManager.fire) {
+            animController.PlayAttackAnimation(3);
+        } else {
+            animController.PlayIdleAnimation(1);
+        }
     }
 }

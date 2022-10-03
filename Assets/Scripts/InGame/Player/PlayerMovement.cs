@@ -17,9 +17,10 @@ public class PlayerMovement : MonoBehaviourPun
     public float jumpForce = 6f;
     public float verticalRotateSpeed = 1f;
     public float horizontalRotateSpeed = 1f;
-    // protected PlayerInput playerInput;
-    // protected Rigidbody rigid;
+
     protected GunController gunController;
+    protected PlayerInputManager playerInputManager;
+    protected CharacterController characterController;
 
     protected float verticalMouseMove = 0f;
     protected float horizontalMouseMove = 0f;
@@ -28,11 +29,7 @@ public class PlayerMovement : MonoBehaviourPun
     private float minHorizontalMouseMove = -75f;
     private const float k_Gravity = 9.81f;
 
-    protected Vector3 moveInput;
     private Vector3 groundNormal;
-    private bool jumpInputDown = false;
-    public CharacterController characterController;
-    // public PlayerInputs playerInput;
 
     [SerializeField]
     protected int numMaxJump = 2;
@@ -44,8 +41,7 @@ public class PlayerMovement : MonoBehaviourPun
 
     protected virtual void Start()
     {
-        // playerInput = GetComponent<PlayerInput>();
-        // rigid = GetComponent<Rigidbody>();
+        playerInputManager = GetComponent<PlayerInputManager>();
         gunController = GetComponent<GunController>();
         characterController = GetComponent<CharacterController>();
         characterController.enableOverlapRecovery = true;
@@ -60,9 +56,6 @@ public class PlayerMovement : MonoBehaviourPun
         }
 
         Rotate();
-        // if(playerInput.jump && numRemainJump > 0) {
-        //     photonView.RPC("RpcJump", RpcTarget.All);
-        // }
     }
 
     private void FixedUpdate() {
@@ -72,8 +65,6 @@ public class PlayerMovement : MonoBehaviourPun
         }
 
         Move();
-        // Jump();
-        // Rotate();
     }
 
     private void GroundCheck() {
@@ -93,25 +84,23 @@ public class PlayerMovement : MonoBehaviourPun
     }
 
     protected virtual void Move() {
-        Vector3 worldspaceMoveInput = transform.forward * moveInput.y + transform.right * moveInput.x;
-        // if(isGrounded) {
+        Vector3 _worldspaceMoveInput = transform.forward * playerInputManager.move.y + transform.right * playerInputManager.move.x;
         if(characterController.isGrounded) {
-            Vector3 targetVelocity = worldspaceMoveInput * maxSpeedOnGround;
-            // targetVelocity = GetDirectionalReorientedOnSlope(targetVelocity.normalized, groundNormal) * targetVelocity.magnitude;
-            characterVelocity = Vector3.Lerp(characterVelocity, targetVelocity, movementSharpnessOnGround * Time.deltaTime);
-            if(jumpInputDown) {
+            Vector3 _targetVelocity = _worldspaceMoveInput * maxSpeedOnGround;
+            characterVelocity = Vector3.Lerp(characterVelocity, _targetVelocity, movementSharpnessOnGround * Time.deltaTime);
+            if(playerInputManager.jump) {
                 characterVelocity = new Vector3(characterVelocity.x, 0f, characterVelocity.z);
                 characterVelocity += Vector3.up * jumpForce;
                 groundNormal = Vector3.up;
                 numRemainJump--;
             }
         } else {
-            characterVelocity += worldspaceMoveInput * AccelerationSpeedInAir * Time.deltaTime;
+            characterVelocity += _worldspaceMoveInput * AccelerationSpeedInAir * Time.deltaTime;
 
-            float verticalVelocity = characterVelocity.y;
-            Vector3 horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
-            horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, maxSpeedInAir);
-            characterVelocity = horizontalVelocity + (Vector3.up * verticalVelocity);
+            float _verticalVelocity = characterVelocity.y;
+            Vector3 _horizontalVelocity = Vector3.ProjectOnPlane(characterVelocity, Vector3.up);
+            _horizontalVelocity = Vector3.ClampMagnitude(_horizontalVelocity, maxSpeedInAir);
+            characterVelocity = _horizontalVelocity + (Vector3.up * _verticalVelocity);
 
             characterVelocity += Vector3.down * k_Gravity * Time.deltaTime;
         }
@@ -120,47 +109,18 @@ public class PlayerMovement : MonoBehaviourPun
     }
     
     protected virtual void Rotate() {
-        // verticalMouseMove += verticalRotateSpeed * playerInput.verticalRotate;
-        // horizontalMouseMove += horizontalRotateSpeed * playerInput.horizontalRotate;
+        verticalMouseMove += verticalRotateSpeed * playerInputManager.look.x;
+        horizontalMouseMove += horizontalRotateSpeed * playerInputManager.look.y;
 
-        // horizontalMouseMove = Mathf.Max(horizontalMouseMove, minHorizontalMouseMove);
-        // horizontalMouseMove = Mathf.Min(horizontalMouseMove, maxHorizontalMouseMove);
+        horizontalMouseMove = Mathf.Max(horizontalMouseMove, minHorizontalMouseMove);
+        horizontalMouseMove = Mathf.Min(horizontalMouseMove, maxHorizontalMouseMove);
 
         transform.rotation = Quaternion.Euler(0, verticalMouseMove, 0);
         targetOfCam.rotation = Quaternion.Euler(-1 * horizontalMouseMove, verticalMouseMove, 0);
     }
 
-    public void OnMove(InputAction.CallbackContext context) {
-        moveInput = context.ReadValue<Vector2>().normalized;
-    }
-
-    public void OnJump(InputAction.CallbackContext context) {
-
-        switch(context.phase) {
-            case InputActionPhase.Performed:
-                jumpInputDown = true;
-                break;
-            default:
-                jumpInputDown = false;
-                break;
-        }
-        // if(context.performed && numRemainJump > 0) {
-        //     photonView.RPC("RpcJump", RpcTarget.All);
-        // }
-    }
-
-    public void OnRotate(InputAction.CallbackContext context) {
-        Vector2 input = context.ReadValue<Vector2>();
-        verticalMouseMove += verticalRotateSpeed * input.x;
-        horizontalMouseMove += horizontalRotateSpeed * input.y;
-
-        horizontalMouseMove = Mathf.Max(horizontalMouseMove, minHorizontalMouseMove);
-        horizontalMouseMove = Mathf.Min(horizontalMouseMove, maxHorizontalMouseMove);
-    }
-
     [PunRPC]
     protected void RpcJump() {
-        // rigid.AddForce(jumpForce * transform.up, ForceMode.Impulse);
         numRemainJump--;
     }
 

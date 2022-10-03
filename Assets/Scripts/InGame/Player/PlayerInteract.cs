@@ -11,18 +11,19 @@ public class PlayerInteract : MonoBehaviour
     public LayerMask itemLayerMask;
 
     private InventoryObject inventoryObject;
-    private PlayerInput playerInput;
+    private PlayerInputManager playerInputManager;
     private GameObject interactableObject;
+    private bool prevInteractPressed;
     private readonly Collider[] _colliders = new Collider[3];
 
     private void Awake() {
         inventoryObject = GetComponent<Player>().inventoryObject;
-        playerInput = GetComponent<PlayerInput>();
+        playerInputManager = GetComponent<PlayerInputManager>();
     }
 
     private void Update() {
         CheckInteractableObject();
-        // CheckInteract();
+        CheckInteract();
     }
 
     private void CheckInteractableObject() {
@@ -39,21 +40,9 @@ public class PlayerInteract : MonoBehaviour
     }
 
     private void CheckInteract() {
-        if(interactableObject != null) {
-            if(playerInput.interact) {
-                interactableObject.transform.GetComponent<InteractableObject>().Interact();
-                GroundItem groundItem = interactableObject.transform.GetComponent<GroundItem>();
-                if(groundItem) {
-                    inventoryObject.AddItem(new Item(groundItem.itemData), 1);
-                    Destroy(interactableObject.transform.gameObject);
-                }
-            }
-        }
-    }
-
-    public void OnInteract(InputAction.CallbackContext context) {
-        switch(context.phase) {
-            case InputActionPhase.Performed:
+        if(playerInputManager.interact) {
+            if(prevInteractPressed == false) {
+                prevInteractPressed = true;
                 if(interactableObject != null) {
                     interactableObject.transform.GetComponent<InteractableObject>().Interact();
                     GroundItem groundItem = interactableObject.transform.GetComponent<GroundItem>();
@@ -62,7 +51,9 @@ public class PlayerInteract : MonoBehaviour
                         Destroy(interactableObject.transform.gameObject);
                     }
                 }
-                break;
+            }
+        } else {
+            prevInteractPressed = false;
         }
     }
 }

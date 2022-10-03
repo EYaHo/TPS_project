@@ -18,12 +18,12 @@ public class RobotPlayerMovement : PlayerMovement
         base.Move();
 
         if(characterController.isGrounded) {
-            if(moveInput.x == 0 && moveInput.y == 0) {   
+            if(playerInputManager.move.x == 0 && playerInputManager.move.y == 0) {   
                 //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), -1, 0f);
                 animController.PlayIdleAnimation(-1);
             }
-            if(moveInput.x != 0) {
-                if(moveInput.x < 0) {
+            if(playerInputManager.move.x != 0) {
+                if(playerInputManager.move.x < 0) {
                     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkLeft_Shoot_AR.ToString(), -1, 0f);
                     animController.PlayWalkAnimation("left");
                 } else {
@@ -32,10 +32,10 @@ public class RobotPlayerMovement : PlayerMovement
                 }
             }
             else {
-                if(moveInput.y < 0) {
+                if(playerInputManager.move.y < 0) {
                     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkBack_Shoot_AR.ToString(), -1, 0f);
                     animController.PlayWalkAnimation("back");
-                } else if(moveInput.y > 0) {
+                } else if(playerInputManager.move.y > 0) {
                     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkFront_Shoot_AR.ToString(), -1, 0f);
                     animController.PlayWalkAnimation("front");
                 }
