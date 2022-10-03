@@ -12,7 +12,8 @@ public class PlayerInteract : MonoBehaviour
 
     private InventoryObject inventoryObject;
     private PlayerInputManager playerInputManager;
-    private GameObject interactableObject;
+    private InteractableObject interactableObject;
+    private GroundItem groundItem;
     private bool prevInteractPressed;
     private readonly Collider[] _colliders = new Collider[3];
 
@@ -32,23 +33,28 @@ public class PlayerInteract : MonoBehaviour
         int numFound = Physics.OverlapSphereNonAlloc(transform.position, interactRange, _colliders, itemLayerMask);
         
         if(numFound > 0) {
-            interactableObject = _colliders[0].gameObject;
+            interactableObject = _colliders[0].gameObject.GetComponent<InteractableObject>();
+            groundItem = _colliders[0].gameObject.GetComponent<GroundItem>();
             if(interactableObject != null) {
-                interactText.text = interactableObject.transform.GetComponent<InteractableObject>().GetInteractString();
+                interactText.text = interactableObject.GetInteractString();
             }
         }
     }
-
+    
     private void CheckInteract() {
+    // interact키가 눌렸을 경우 상호작용 가능한 오브젝트와 상호작용
         if(playerInputManager.interact) {
+            // interact키를 누를 때만 함수가 동작하도록 하는 조건문
             if(prevInteractPressed == false) {
                 prevInteractPressed = true;
+                
                 if(interactableObject != null) {
-                    interactableObject.transform.GetComponent<InteractableObject>().Interact();
-                    GroundItem groundItem = interactableObject.transform.GetComponent<GroundItem>();
+                    interactableObject.Interact();
+
+                    // 아이템이라면
                     if(groundItem) {
                         inventoryObject.AddItem(new Item(groundItem.itemData), 1);
-                        Destroy(interactableObject.transform.gameObject);
+                        interactableObject.DestoryInNetwork();
                     }
                 }
             }
@@ -56,4 +62,5 @@ public class PlayerInteract : MonoBehaviour
             prevInteractPressed = false;
         }
     }
+
 }
