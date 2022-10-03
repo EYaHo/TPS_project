@@ -9,7 +9,7 @@ public class RobotPlayerShooter : PlayerShooter
 
     protected override void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        base.Awake();
         animController = GetComponent<PlayerAnimationController>();
     }
 
@@ -20,12 +20,10 @@ public class RobotPlayerShooter : PlayerShooter
             return;
         }
 
-        if(playerInput.fire) {
-            //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Shoot_Autoshot_AR.ToString(), 1, 0f);
-            animController.PlayAttackAnimation(3);
+        if(playerInputManager.fire) {
             gunController.Fire();
+            animController.PlayAttackAnimation(3);
         } else {
-            //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), 1, 0f);
             animController.PlayIdleAnimation(1);
         }
     }
