@@ -36,12 +36,6 @@ public class Enemy : MonoBehaviourPun
     [PunRPC]
     public void Setup(string enemyName, int hp, int damage, float sightRange, float sightAngle, float moveSpeed) {
         Debug.Log("Enemy.cs: Setup 호출!");
-        this.enemyName = enemyName;
-        this.hp = hp;
-        this.damage = damage;
-        this.sightRange = sightRange;
-        this.sightAngle = sightAngle;
-        this.moveSpeed = moveSpeed;
         enemyMovement = GetComponent<EnemyMovement>();
         enemyMovement.Initialize(damage, sightRange, sightAngle, moveSpeed);
 
@@ -55,12 +49,6 @@ public class Enemy : MonoBehaviourPun
     [PunRPC]
     public void Setup(string enemyName, int hp, int damage, float sightRange, float sightAngle, float moveSpeed, int spawnPointIdx) {
         Debug.Log("Enemy.cs: Setup 호출!");
-        this.enemyName = enemyName;
-        this.hp = hp;
-        this.damage = damage;
-        this.sightRange = sightRange;
-        this.sightAngle = sightAngle;
-        this.moveSpeed = moveSpeed;
         enemyMovement = GetComponent<EnemyMovement>();
         enemyMovement.Initialize(damage, sightRange, sightAngle, moveSpeed);
         

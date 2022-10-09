@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Photon.Pun;
 
 public class RobotPlayerMovement : PlayerMovement
@@ -16,31 +17,27 @@ public class RobotPlayerMovement : PlayerMovement
     protected override void Move() {
         base.Move();
 
-        if(isGrounded) {
-            if(playerInput.horizontalMove == 0 && playerInput.verticalMove == 0) {   
+        if(characterController.isGrounded) {
+            if(playerInputManager.move.x == 0 && playerInputManager.move.y == 0) {   
                 //animController.ChangeAnimationState(PlayerAnimationController.AnimState.Idle_gunMiddle_AR.ToString(), -1, 0f);
                 animController.PlayIdleAnimation(-1);
             }
-            if(playerInput.horizontalMove != 0) {
-                if(playerInput.horizontalMove < 0) {
+            if(playerInputManager.move.x != 0) {
+                if(playerInputManager.move.x < 0) {
                     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkLeft_Shoot_AR.ToString(), -1, 0f);
                     animController.PlayWalkAnimation("left");
-                    Debug.Log("Left");
                 } else {
                     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkRight_Shoot_AR.ToString(), -1, 0f);
                     animController.PlayWalkAnimation("right");
-                    Debug.Log("Right");
                 }
             }
             else {
-                if(playerInput.verticalMove < 0) {
+                if(playerInputManager.move.y < 0) {
                     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkBack_Shoot_AR.ToString(), -1, 0f);
                     animController.PlayWalkAnimation("back");
-                    Debug.Log("Back");
-                } else if(playerInput.verticalMove > 0) {
+                } else if(playerInputManager.move.y > 0) {
                     //animController.ChangeAnimationState(PlayerAnimationController.AnimState.WalkFront_Shoot_AR.ToString(), -1, 0f);
                     animController.PlayWalkAnimation("front");
-                    Debug.Log("Front");
                 }
             }
         } else {

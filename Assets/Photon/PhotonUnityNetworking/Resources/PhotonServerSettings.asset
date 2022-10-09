@@ -57,6 +57,8 @@ MonoBehaviour:
   - TraceAim
   - OnAttack
   - RpcChangeAnimationState_Once
+  - DestroyInteractableObject
+  - RpcDestroy
   - SetPosition
   DisableAutoOpenWizard: 1
   ShowSettings: 1

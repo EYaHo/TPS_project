@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Photon.Pun;
 
 public class PlayerShooter : MonoBehaviourPun
@@ -8,14 +9,15 @@ public class PlayerShooter : MonoBehaviourPun
     [SerializeField]
     public GunController gunController;
     public float attackDamage = 10f;
+    public PlayerInputManager playerInputManager;
 
-    protected PlayerInput playerInput;
     [SerializeField]
     protected InventoryObject inventoryObject;
+    
 
     protected virtual void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        playerInputManager = GetComponent<PlayerInputManager>();
         inventoryObject = GetComponent<Player>().inventoryObject;
     }
 
@@ -26,10 +28,8 @@ public class PlayerShooter : MonoBehaviourPun
             return;
         }
 
-        if(playerInput.fire) {
+        if(playerInputManager.fire) {
             gunController.Fire();
-        } else {
-            
         }
     }
 
@@ -47,7 +47,6 @@ public class PlayerShooter : MonoBehaviourPun
         // float damage = playerInventory.OnAttack(attackDamage);
 
         // 데미지 적용
-        // target.OnDamage(damage, hitPoint);
         target.OnDamage(attackDamage, hitPoint);
     }
 }

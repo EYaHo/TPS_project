@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class PlayerInteract : MonoBehaviour
@@ -10,13 +11,15 @@ public class PlayerInteract : MonoBehaviour
     public LayerMask itemLayerMask;
 
     private InventoryObject inventoryObject;
-    private PlayerInput playerInput;
-    private GameObject interactableObject;
+    private PlayerInputManager playerInputManager;
+    private InteractableObject interactableObject;
+    private GroundItem groundItem;
+    private bool prevInteractPressed;
     private readonly Collider[] _colliders = new Collider[3];
 
     private void Awake() {
         inventoryObject = GetComponent<Player>().inventoryObject;
-        playerInput = GetComponent<PlayerInput>();
+        playerInputManager = GetComponent<PlayerInputManager>();
     }
 
     private void Update() {
@@ -30,23 +33,34 @@ public class PlayerInteract : MonoBehaviour
         int numFound = Physics.OverlapSphereNonAlloc(transform.position, interactRange, _colliders, itemLayerMask);
         
         if(numFound > 0) {
-            interactableObject = _colliders[0].gameObject;
+            interactableObject = _colliders[0].gameObject.GetComponent<InteractableObject>();
+            groundItem = _colliders[0].gameObject.GetComponent<GroundItem>();
             if(interactableObject != null) {
-                interactText.text = interactableObject.transform.GetComponent<InteractableObject>().GetInteractString();
+                interactText.text = interactableObject.GetInteractString();
             }
+        }
+    }
+    
+    private void CheckInteract() {
+    // interact키가 눌렸을 경우 상호작용 가능한 오브젝트와 상호작용
+        if(playerInputManager.interact) {
+            // interact키를 누를 때만 함수가 동작하도록 하는 조건문
+            if(prevInteractPressed == false) {
+                prevInteractPressed = true;
+                
+                if(interactableObject != null) {
+                    interactableObject.Interact();
+
+                    // 아이템이라면
+                    if(groundItem) {
+                        inventoryObject.AddItem(new Item(groundItem.itemData), 1);
+                        interactableObject.DestoryInNetwork();
+                    }
+                }
+            }
+        } else {
+            prevInteractPressed = false;
         }
     }
 
-    private void CheckInteract() {
-        if(interactableObject != null) {
-            if(playerInput.interact) {
-                interactableObject.transform.GetComponent<InteractableObject>().Interact();
-                GroundItem groundItem = interactableObject.transform.GetComponent<GroundItem>();
-                if(groundItem) {
-                    inventoryObject.AddItem(new Item(groundItem.itemData), 1);
-                    Destroy(interactableObject.transform.gameObject);
-                }
-            }
-        }
-    }
 }

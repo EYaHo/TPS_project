@@ -14,10 +14,10 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
     public Slider healthSlider;
     public float damagePopupXPositionNoise = 0.5f;
 
-    protected Collider collider;
+    protected Collider objectCollider;
 
     protected void Start() {
-        collider = GetComponent<Collider>();
+        objectCollider = GetComponent<Collider>();
     }
 
     // 호스트->모든 클라이언트 방향으로 체력과 사망 상태를 동기화
@@ -73,18 +73,17 @@ public class LivingEntity : MonoBehaviourPun, IDamageable
         }
 
         dead = true;
-        Debug.Log("Enemy Die function called");
 
         healthSlider.gameObject.SetActive(false);
-        collider.enabled = false;
+        objectCollider.enabled = false;
     }
 
     // 데미지를 받은 위치에 데미지 팝업을 표시하는 함수
     [PunRPC]
     public void CreateDamagePopup(Vector3 position, int damageAmount) {
-        Vector3 noiseVector = new Vector3(UnityEngine.Random.Range(-damagePopupXPositionNoise, damagePopupXPositionNoise), 0f, 0f);
-        DamagePopup damagePopup = DamagePopupPool.Instance.GetObject().GetComponent<DamagePopup>();
-        damagePopup.Setup(position + noiseVector);
-        damagePopup.SetDamageAmount(damageAmount);
+        Vector3 _noiseVector = new Vector3(UnityEngine.Random.Range(-damagePopupXPositionNoise, damagePopupXPositionNoise), 0f, 0f);
+        DamagePopup _damagePopup = DamagePopupPool.Instance.GetObject().GetComponent<DamagePopup>();
+        _damagePopup.Setup(position + _noiseVector);
+        _damagePopup.SetDamageAmount(damageAmount);
     }
 }
